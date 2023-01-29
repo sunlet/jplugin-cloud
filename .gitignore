@@ -1,1 +1,7 @@
 /.idea/
+/**/*.iml
+/jplugin-cloud-rpc/target/
+/jplugin-cloud-config/target/
+/jplugin-cloud-common/target/
+/jplugin-cloud-package/target/
+/**/dependency-reduced-pom.xml

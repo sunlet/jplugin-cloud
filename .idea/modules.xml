@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/base.iml" filepath="$PROJECT_DIR$/base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jplugin-cloud-package/jplugin-cloud.iml" filepath="$PROJECT_DIR$/jplugin-cloud-package/jplugin-cloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jplugin-cloud-common/jplugin-cloud-common.iml" filepath="$PROJECT_DIR$/jplugin-cloud-common/jplugin-cloud-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jplugin-cloud-config/jplugin-cloud-config.iml" filepath="$PROJECT_DIR$/jplugin-cloud-config/jplugin-cloud-config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jplugin-cloud-rpc/jplugin-cloud-rpc.iml" filepath="$PROJECT_DIR$/jplugin-cloud-rpc/jplugin-cloud-rpc.iml" />
     </modules>
   </component>
 </project>

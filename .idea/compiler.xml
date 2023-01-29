@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="jplugin-cloud-rpc" />
+        <module name="jplugin-cloud-config" />
+        <module name="jplugin-cloud" />
+      </profile>
+    </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="base" target="1.8" />
+      <module name="jplugin-cloud" target="1.8" />
+      <module name="jplugin-cloud-common" target="1.8" />
+      <module name="jplugin-cloud-config" target="1.8" />
+      <module name="jplugin-cloud-rpc" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

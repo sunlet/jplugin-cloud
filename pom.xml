@@ -33,5 +33,9 @@
 
 	<modules>
 
+		<module>jplugin-cloud-common</module>
+        <module>jplugin-cloud-config</module>
+		<module>jplugin-cloud-rpc</module>
+		<module>jplugin-cloud-package</module>
 	</modules>
 </project>
