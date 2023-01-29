@@ -8,6 +8,7 @@ import net.jplugin.core.kernel.api.PluginEnvirement;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * 云服务环境的配置信息。云服务环境的注册中心、配置中心依赖于nacos。
  */
