@@ -10,14 +10,19 @@
         <version>0.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jplugin-cloud-config</artifactId>
+    <artifactId>jplugin-cloud-rpc-server</artifactId>
     <properties>
-
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>net.jplugin.cloud</groupId>
             <artifactId>jplugin-cloud-common</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.jplugin.cloud</groupId>
+            <artifactId>jplugin-cloud-rpc</artifactId>
             <version>0.0.2-SNAPSHOT</version>
         </dependency>
     </dependencies>

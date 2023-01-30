@@ -15,7 +15,11 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>net.jplugin.cloud</groupId>
+            <artifactId>jplugin-cloud-common</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
