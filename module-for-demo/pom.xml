@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<project
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>net.jplugin.cloud</groupId>
+        <artifactId>base</artifactId>
+        <version>0.0.2-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <artifactId>module-for-demo</artifactId>
+    <properties>
+
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>net.jplugin.cloud</groupId>
+            <artifactId>jplugin-cloud-common</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.jplugin.cloud</groupId>
+            <artifactId>jplugin-cloud-config</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.jplugin.cloud</groupId>
+            <artifactId>jplugin-cloud-rpc</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.jplugin.cloud</groupId>
+            <artifactId>jplugin-cloud-rpc-client</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.jplugin.cloud</groupId>
+            <artifactId>jplugin-cloud-rpc-server</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+</project>

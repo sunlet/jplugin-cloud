@@ -51,5 +51,6 @@
         <module>jplugin-cloud-rpc-server</module>
         <module>jplugin-cloud-rpc-client</module>
         <module>jplugin-cloud-package</module>
+        <module>module-for-demo</module>
     </modules>
 </project>

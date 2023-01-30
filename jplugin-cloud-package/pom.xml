@@ -57,6 +57,16 @@
             <artifactId>jplugin-cloud-rpc</artifactId>
             <version>0.0.2-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>net.jplugin.cloud</groupId>
+            <artifactId>jplugin-cloud-rpc-client</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.jplugin.cloud</groupId>
+            <artifactId>jplugin-cloud-rpc-server</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
