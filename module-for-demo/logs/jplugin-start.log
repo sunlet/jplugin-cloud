@@ -53,3 +53,94 @@
  2023-01-30 17:57:25  @@Plugin Loaded successfully!
  2023-01-30 17:57:25  $$$ now to stop plugin envirment
  2023-01-30 17:57:25  $$$ plugin envirment stopped
+ 2023-01-30 19:10:26  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-01-30 19:10:26  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-01-30 19:10:26  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-01-30 19:10:27  $$$ jplugin-cloud.properties not found
+ 2023-01-30 19:10:27  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-01-30 19:10:27  After reorder :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-01-30 19:10:27  ==Now to create services==
+ 2023-01-30 19:10:27  Now to create common logging service.....
+ 2023-01-30 19:10:27  Using local logger config
+ 2023-01-30 19:10:27  Using classpath logger config
+ 2023-01-30 19:10:27  ==Now to init plugins==
+ 2023-01-30 19:10:27  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-01-30 19:10:27  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-01-30 19:10:27  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-01-30 19:10:27  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-01-30 19:10:27  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-01-30 19:10:27  StartPlugin :[5] net.jplugin.cloud.common.Plugin
+ 2023-01-30 19:10:27  StartPlugin :[6] net.jplugin.cloud.demo.p1.Plugin
+ 2023-01-30 19:10:27  Total 7 plugin started!
+ 2023-01-30 19:10:27  @@Plugin Loaded successfully!
+ 2023-01-30 19:10:27  $$$ now to stop plugin envirment
+ 2023-01-30 19:10:27  $$$ plugin envirment stopped
+ 2023-01-30 19:14:36  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-01-30 19:14:36  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-01-30 19:14:36  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-01-30 19:14:36  CloudEnvironment Init: url1, appcode1, servicecode1 nacosUsernull rpcPort=7081
+ 2023-01-30 19:14:36  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-01-30 19:14:36  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-01-30 19:14:36  After reorder :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-01-30 19:14:36  ==Now to create services==
+ 2023-01-30 19:14:37  Now to create common logging service.....
+ 2023-01-30 19:14:37  Using local logger config
+ 2023-01-30 19:14:37  Using classpath logger config
+ 2023-01-30 19:14:37  ==Now to init plugins==
+ 2023-01-30 19:14:37  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-01-30 19:14:37  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-01-30 19:14:37  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-01-30 19:14:37  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-01-30 19:14:37  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-01-30 19:14:37  StartPlugin :[5] net.jplugin.cloud.common.Plugin
+ 2023-01-30 19:14:37  StartPlugin :[6] net.jplugin.cloud.demo.p1.Plugin
+ 2023-01-30 19:14:37  Total 7 plugin started!
+ 2023-01-30 19:14:37  @@Plugin Loaded successfully!
+ 2023-01-30 19:14:37  $$$ now to stop plugin envirment
+ 2023-01-30 19:14:37  $$$ plugin envirment stopped
+ 2023-01-30 19:16:05  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-01-30 19:16:05  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-01-30 19:16:05  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-01-30 19:16:05  CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-01-30 19:16:05  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-01-30 19:16:05  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-01-30 19:16:05  After reorder :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-01-30 19:16:05  ==Now to create services==
+ 2023-01-30 19:16:06  Now to create common logging service.....
+ 2023-01-30 19:16:06  Using local logger config
+ 2023-01-30 19:16:06  Using classpath logger config
+ 2023-01-30 19:16:06  ==Now to init plugins==
+ 2023-01-30 19:16:06  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-01-30 19:16:06  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-01-30 19:16:06  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-01-30 19:16:06  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-01-30 19:16:06  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-01-30 19:16:06  StartPlugin :[5] net.jplugin.cloud.common.Plugin
+ 2023-01-30 19:16:06  StartPlugin :[6] net.jplugin.cloud.demo.p1.Plugin
+ 2023-01-30 19:16:06  Total 7 plugin started!
+ 2023-01-30 19:16:06  @@Plugin Loaded successfully!
+ 2023-01-30 19:16:06  $$$ now to stop plugin envirment
+ 2023-01-30 19:16:06  $$$ plugin envirment stopped
+ 2023-01-30 19:16:55  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-01-30 19:16:55  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-01-30 19:16:55  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-01-30 19:16:56  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-01-30 19:16:56  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-01-30 19:16:56  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-01-30 19:16:56  After reorder :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-01-30 19:16:56  ==Now to create services==
+ 2023-01-30 19:16:56  Now to create common logging service.....
+ 2023-01-30 19:16:56  Using local logger config
+ 2023-01-30 19:16:56  Using classpath logger config
+ 2023-01-30 19:16:56  ==Now to init plugins==
+ 2023-01-30 19:16:56  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-01-30 19:16:56  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-01-30 19:16:56  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-01-30 19:16:56  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-01-30 19:16:56  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-01-30 19:16:56  StartPlugin :[5] net.jplugin.cloud.common.Plugin
+ 2023-01-30 19:16:56  StartPlugin :[6] net.jplugin.cloud.demo.p1.Plugin
+ 2023-01-30 19:16:56  Total 7 plugin started!
+ 2023-01-30 19:16:56  @@Plugin Loaded successfully!
+ 2023-01-30 19:16:56  $$$ now to stop plugin envirment
+ 2023-01-30 19:16:56  $$$ plugin envirment stopped

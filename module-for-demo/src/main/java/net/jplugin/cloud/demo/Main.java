@@ -11,7 +11,7 @@ public class Main {
         p.put(CloudEnvironment.NACOS_URL,"172.21.15.10");
         p.put(CloudEnvironment.NACOS_URL,"");
 
-        CloudEnvironment.INSTANCE.init(p);
+//        CloudEnvironment.INSTANCE.init(p);
 
         PluginApp.main(null);
     }
