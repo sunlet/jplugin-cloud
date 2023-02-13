@@ -6,7 +6,7 @@ import net.jplugin.core.kernel.PluginApp;
 import java.util.HashMap;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         HashMap<String,String> p = new HashMap<>();
         p.put(CloudEnvironment.NACOS_URL,"172.21.15.10");
         p.put(CloudEnvironment.NACOS_URL,"");
@@ -14,5 +14,7 @@ public class Main {
 //        CloudEnvironment.INSTANCE.init(p);
 
         PluginApp.main(null);
+
+        Thread.currentThread().sleep(1000000);
     }
 }

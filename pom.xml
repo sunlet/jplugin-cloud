@@ -52,5 +52,6 @@
         <module>jplugin-cloud-rpc-client</module>
         <module>jplugin-cloud-package</module>
         <module>module-for-demo</module>
+        <module>the-esf-test</module>
     </modules>
 </project>

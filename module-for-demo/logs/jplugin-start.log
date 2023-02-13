@@ -144,3 +144,305 @@
  2023-01-30 19:16:56  @@Plugin Loaded successfully!
  2023-01-30 19:16:56  $$$ now to stop plugin envirment
  2023-01-30 19:16:56  $$$ plugin envirment stopped
+ 2023-02-13 11:31:06  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:31:06  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-13 11:31:06  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:31:06  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-02-13 11:31:06  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-13 11:31:06  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServer impl=net.jplugin.cloud.rpc.server.imp.RpcServer
+ 2023-02-13 11:31:06  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , net.jplugin.cloud.rpc.server.Plugin , ]
+ 2023-02-13 11:31:06  After reorder :net.jplugin.cloud.rpc.server.Plugin , net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-02-13 11:31:06  ==Now to create services==
+ 2023-02-13 11:31:07  Now to create common logging service.....
+ 2023-02-13 11:31:07  Using local logger config
+ 2023-02-13 11:31:07  Using classpath logger config
+ 2023-02-13 11:31:07  初始化过程发生错误
+java.lang.RuntimeException: Error when resolve annotation ref: class =net.jplugin.cloud.rpc.server.imp.RpcServer  field=boss   Caused by:None static JPlugin annotated attribute value must be init as null.net.jplugin.cloud.rpc.server.imp.RpcServer
+	at net.jplugin.core.kernel.impl.DefaultObjectResolver.resolve(DefaultObjectResolver.java:43)
+	at net.jplugin.core.kernel.impl.AnnotationResolveHelper.resolveOne(AnnotationResolveHelper.java:129)
+	at net.jplugin.core.kernel.impl.AnnotationResolveHelper.resolveHistory(AnnotationResolveHelper.java:75)
+	at net.jplugin.core.kernel.api.PluginEnvirement.ready(PluginEnvirement.java:419)
+	at net.jplugin.core.kernel.api.PluginEnvirement.startup(PluginEnvirement.java:261)
+	at net.jplugin.core.kernel.api.PluginEnvirement.startup(PluginEnvirement.java:243)
+	at net.jplugin.core.kernel.PluginApp.main(PluginApp.java:47)
+	at net.jplugin.cloud.demo.Main.main(Main.java:16)
+Caused by: java.lang.RuntimeException: None static JPlugin annotated attribute value must be init as null.net.jplugin.cloud.rpc.server.imp.RpcServer
+	at net.jplugin.core.kernel.impl.DefaultObjectResolver.handleAnnoted(DefaultObjectResolver.java:59)
+	at net.jplugin.core.kernel.impl.DefaultObjectResolver.resolve(DefaultObjectResolver.java:40)
+	... 7 more
+ 2023-02-13 11:32:09  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:32:09  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-13 11:32:09  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:32:10  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-02-13 11:32:10  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-13 11:32:10  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServer impl=net.jplugin.cloud.rpc.server.imp.RpcServer
+ 2023-02-13 11:32:10  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , net.jplugin.cloud.rpc.server.Plugin , ]
+ 2023-02-13 11:32:10  After reorder :net.jplugin.cloud.rpc.server.Plugin , net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-02-13 11:32:10  ==Now to create services==
+ 2023-02-13 11:32:10  Now to create common logging service.....
+ 2023-02-13 11:32:10  Using local logger config
+ 2023-02-13 11:32:10  Using classpath logger config
+ 2023-02-13 11:32:10  ==Now to init plugins==
+ 2023-02-13 11:32:10  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-13 11:32:10  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-13 11:32:10  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-13 11:32:10  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-13 11:32:10  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-13 11:32:10  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-13 11:32:10  StartPlugin :[6] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-13 11:32:10  RPC Server starting...
+ 2023-02-13 11:32:11  RPC Server starting success
+ 2023-02-13 11:32:11  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-13 11:32:11  StartPlugin :[8] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-13 11:32:11  Total 9 plugin started!
+ 2023-02-13 11:32:11  @@Plugin Loaded successfully!
+ 2023-02-13 11:32:11  $$$ now to stop plugin envirment
+ 2023-02-13 11:32:11  $$$ plugin envirment stopped
+ 2023-02-13 11:34:12  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:34:12  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-13 11:34:12  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:34:12  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-02-13 11:34:12  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-13 11:34:13  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServer impl=net.jplugin.cloud.rpc.server.imp.RpcServer
+ 2023-02-13 11:34:13  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , net.jplugin.cloud.rpc.server.Plugin , ]
+ 2023-02-13 11:34:13  After reorder :net.jplugin.cloud.rpc.server.Plugin , net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-02-13 11:34:13  ==Now to create services==
+ 2023-02-13 11:34:13  Now to create common logging service.....
+ 2023-02-13 11:34:13  Using local logger config
+ 2023-02-13 11:34:13  Using classpath logger config
+ 2023-02-13 11:34:13  RPC Server starting...
+ 2023-02-13 11:34:13  RPC Server starting success
+ 2023-02-13 11:34:13  ==Now to init plugins==
+ 2023-02-13 11:34:13  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-13 11:34:13  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-13 11:34:13  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-13 11:34:13  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-13 11:34:13  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-13 11:34:13  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-13 11:34:13  StartPlugin :[6] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-13 11:34:13  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-13 11:34:13  StartPlugin :[8] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-13 11:34:13  Total 9 plugin started!
+ 2023-02-13 11:34:13  @@Plugin Loaded successfully!
+ 2023-02-13 11:34:13  $$$ now to stop plugin envirment
+ 2023-02-13 11:34:13  $$$ plugin envirment stopped
+ 2023-02-13 11:35:04  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:35:04  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-13 11:35:04  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:35:04  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-02-13 11:35:04  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-13 11:35:04  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServer impl=net.jplugin.cloud.rpc.server.imp.RpcServer
+ 2023-02-13 11:35:04  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , net.jplugin.cloud.rpc.server.Plugin , ]
+ 2023-02-13 11:35:04  After reorder :net.jplugin.cloud.rpc.server.Plugin , net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-02-13 11:35:04  ==Now to create services==
+ 2023-02-13 11:35:05  Now to create common logging service.....
+ 2023-02-13 11:35:05  Using local logger config
+ 2023-02-13 11:35:05  Using classpath logger config
+ 2023-02-13 11:35:05  RPC Server starting...
+ 2023-02-13 11:35:05  RPC Server starting success
+ 2023-02-13 11:35:05  ==Now to init plugins==
+ 2023-02-13 11:35:05  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-13 11:35:05  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-13 11:35:05  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-13 11:35:05  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-13 11:35:05  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-13 11:35:05  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-13 11:35:05  StartPlugin :[6] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-13 11:35:05  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-13 11:35:05  StartPlugin :[8] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-13 11:35:05  Total 9 plugin started!
+ 2023-02-13 11:35:05  @@Plugin Loaded successfully!
+ 2023-02-13 11:35:05  $$$ now to stop plugin envirment
+ 2023-02-13 11:35:05  $$$ plugin envirment stopped
+ 2023-02-13 11:36:05  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:36:05  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-13 11:36:05  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:36:05  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-02-13 11:36:05  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-13 11:36:05  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServer impl=net.jplugin.cloud.rpc.server.imp.RpcServer
+ 2023-02-13 11:36:05  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , net.jplugin.cloud.rpc.server.Plugin , ]
+ 2023-02-13 11:36:05  After reorder :net.jplugin.cloud.rpc.server.Plugin , net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-02-13 11:36:05  ==Now to create services==
+ 2023-02-13 11:36:06  Now to create common logging service.....
+ 2023-02-13 11:36:06  Using local logger config
+ 2023-02-13 11:36:06  Using classpath logger config
+ 2023-02-13 11:36:17  RPC Server starting...
+ 2023-02-13 11:36:57  RPC Server starting success
+ 2023-02-13 11:36:57  ==Now to init plugins==
+ 2023-02-13 11:36:57  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-13 11:36:57  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-13 11:36:57  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-13 11:36:57  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-13 11:36:57  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-13 11:36:57  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-13 11:36:57  StartPlugin :[6] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-13 11:36:57  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-13 11:36:57  StartPlugin :[8] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-13 11:36:57  Total 9 plugin started!
+ 2023-02-13 11:36:57  @@Plugin Loaded successfully!
+ 2023-02-13 11:36:57  $$$ now to stop plugin envirment
+ 2023-02-13 11:36:57  $$$ plugin envirment stopped
+ 2023-02-13 11:38:38  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:38:38  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-13 11:38:38  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:38:38  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-02-13 11:38:38  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-13 11:38:38  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServer impl=net.jplugin.cloud.rpc.server.imp.RpcServer
+ 2023-02-13 11:38:38  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , net.jplugin.cloud.rpc.server.Plugin , ]
+ 2023-02-13 11:38:38  After reorder :net.jplugin.cloud.rpc.server.Plugin , net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-02-13 11:38:38  ==Now to create services==
+ 2023-02-13 11:38:39  Now to create common logging service.....
+ 2023-02-13 11:38:39  Using local logger config
+ 2023-02-13 11:38:39  Using classpath logger config
+ 2023-02-13 11:38:39  RPC Server starting...
+ 2023-02-13 11:38:39  RPC Server starting success
+ 2023-02-13 11:38:39  ==Now to init plugins==
+ 2023-02-13 11:38:39  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-13 11:38:39  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-13 11:38:39  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-13 11:38:39  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-13 11:38:39  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-13 11:38:39  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-13 11:38:39  StartPlugin :[6] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-13 11:38:39  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-13 11:38:39  StartPlugin :[8] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-13 11:38:39  Total 9 plugin started!
+ 2023-02-13 11:38:39  @@Plugin Loaded successfully!
+ 2023-02-13 11:38:39  $$$ now to stop plugin envirment
+ 2023-02-13 11:38:39  $$$ plugin envirment stopped
+ 2023-02-13 11:39:09  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:39:09  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-13 11:39:09  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:39:09  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-02-13 11:39:09  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-13 11:39:09  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServer impl=net.jplugin.cloud.rpc.server.imp.RpcServer
+ 2023-02-13 11:39:09  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , net.jplugin.cloud.rpc.server.Plugin , ]
+ 2023-02-13 11:39:09  After reorder :net.jplugin.cloud.rpc.server.Plugin , net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-02-13 11:39:09  ==Now to create services==
+ 2023-02-13 11:39:10  Now to create common logging service.....
+ 2023-02-13 11:39:10  Using local logger config
+ 2023-02-13 11:39:10  Using classpath logger config
+ 2023-02-13 11:39:10  RPC Server starting...
+ 2023-02-13 11:39:10  RPC Server starting success
+ 2023-02-13 11:39:10  ==Now to init plugins==
+ 2023-02-13 11:39:10  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-13 11:39:10  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-13 11:39:10  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-13 11:39:10  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-13 11:39:10  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-13 11:39:10  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-13 11:39:10  StartPlugin :[6] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-13 11:39:10  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-13 11:39:10  StartPlugin :[8] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-13 11:39:10  Total 9 plugin started!
+ 2023-02-13 11:39:10  @@Plugin Loaded successfully!
+ 2023-02-13 11:39:41  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:39:41  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-13 11:39:41  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:39:41  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-02-13 11:39:41  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-13 11:39:41  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServer impl=net.jplugin.cloud.rpc.server.imp.RpcServer
+ 2023-02-13 11:39:41  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , net.jplugin.cloud.rpc.server.Plugin , ]
+ 2023-02-13 11:39:41  After reorder :net.jplugin.cloud.rpc.server.Plugin , net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-02-13 11:39:41  ==Now to create services==
+ 2023-02-13 11:39:42  Now to create common logging service.....
+ 2023-02-13 11:39:42  Using local logger config
+ 2023-02-13 11:39:42  Using classpath logger config
+ 2023-02-13 11:39:42  RPC Server starting...
+ 2023-02-13 11:39:42  RPC Server starting success
+ 2023-02-13 11:39:42  ==Now to init plugins==
+ 2023-02-13 11:39:42  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-13 11:39:42  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-13 11:39:42  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-13 11:39:42  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-13 11:39:42  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-13 11:39:42  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-13 11:39:42  StartPlugin :[6] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-13 11:39:42  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-13 11:39:42  StartPlugin :[8] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-13 11:39:42  Total 9 plugin started!
+ 2023-02-13 11:39:42  @@Plugin Loaded successfully!
+ 2023-02-13 11:39:54  $$$ now to stop plugin envirment
+ 2023-02-13 11:39:54  $$$ plugin envirment stopped
+ 2023-02-13 11:39:56  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:39:57  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-13 11:39:57  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:39:57  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-02-13 11:39:57  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-13 11:39:57  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServer impl=net.jplugin.cloud.rpc.server.imp.RpcServer
+ 2023-02-13 11:39:57  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , net.jplugin.cloud.rpc.server.Plugin , ]
+ 2023-02-13 11:39:57  After reorder :net.jplugin.cloud.rpc.server.Plugin , net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-02-13 11:39:57  ==Now to create services==
+ 2023-02-13 11:39:57  Now to create common logging service.....
+ 2023-02-13 11:39:57  Using local logger config
+ 2023-02-13 11:39:57  Using classpath logger config
+ 2023-02-13 11:40:05  RPC Server starting...
+ 2023-02-13 11:40:28  RPC Server starting success
+ 2023-02-13 11:40:58  ==Now to init plugins==
+ 2023-02-13 11:40:58  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-13 11:40:58  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-13 11:40:58  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-13 11:40:58  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-13 11:40:58  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-13 11:40:58  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-13 11:40:58  StartPlugin :[6] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-13 11:40:58  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-13 11:40:58  StartPlugin :[8] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-13 11:40:58  Total 9 plugin started!
+ 2023-02-13 11:40:58  @@Plugin Loaded successfully!
+ 2023-02-13 11:41:23  $$$ now to stop plugin envirment
+ 2023-02-13 11:41:23  $$$ plugin envirment stopped
+ 2023-02-13 11:41:29  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:41:29  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-13 11:41:29  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:41:29  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-02-13 11:41:29  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-13 11:41:29  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServer impl=net.jplugin.cloud.rpc.server.imp.RpcServer
+ 2023-02-13 11:41:29  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , net.jplugin.cloud.rpc.server.Plugin , ]
+ 2023-02-13 11:41:29  After reorder :net.jplugin.cloud.rpc.server.Plugin , net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-02-13 11:41:29  ==Now to create services==
+ 2023-02-13 11:41:30  Now to create common logging service.....
+ 2023-02-13 11:41:30  Using local logger config
+ 2023-02-13 11:41:30  Using classpath logger config
+ 2023-02-13 11:41:30  $$$ RPC Server starting...
+ 2023-02-13 11:41:30  $$$ RPC Server starting success
+ 2023-02-13 11:41:30  ==Now to init plugins==
+ 2023-02-13 11:41:30  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-13 11:41:30  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-13 11:41:30  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-13 11:41:30  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-13 11:41:30  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-13 11:41:30  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-13 11:41:30  StartPlugin :[6] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-13 11:41:30  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-13 11:41:30  StartPlugin :[8] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-13 11:41:30  Total 9 plugin started!
+ 2023-02-13 11:41:30  @@Plugin Loaded successfully!
+ 2023-02-13 11:42:22  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:42:22  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-13 11:42:22  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-13 11:42:22  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=7081
+ 2023-02-13 11:42:22  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-13 11:42:22  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServer impl=net.jplugin.cloud.rpc.server.imp.RpcServer
+ 2023-02-13 11:42:22  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , net.jplugin.cloud.rpc.server.Plugin , ]
+ 2023-02-13 11:42:22  After reorder :net.jplugin.cloud.rpc.server.Plugin , net.jplugin.cloud.common.Plugin , net.jplugin.cloud.demo.p1.Plugin , ]
+ 2023-02-13 11:42:22  ==Now to create services==
+ 2023-02-13 11:42:22  Now to create common logging service.....
+ 2023-02-13 11:42:22  Using local logger config
+ 2023-02-13 11:42:22  Using classpath logger config
+ 2023-02-13 11:42:22  ==Now to init plugins==
+ 2023-02-13 11:42:22  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-13 11:42:22  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-13 11:42:22  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-13 11:42:22  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-13 11:42:22  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-13 11:42:22  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-13 11:42:22  StartPlugin :[6] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-13 11:42:22  $$$ RPC Server starting...
+ 2023-02-13 11:42:23  $$$ RPC Server starting success
+ 2023-02-13 11:42:23  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-13 11:42:23  StartPlugin :[8] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-13 11:42:23  Total 9 plugin started!
+ 2023-02-13 11:42:23  @@Plugin Loaded successfully!
+ 2023-02-13 11:59:03  $$$ now to stop plugin envirment
+ 2023-02-13 11:59:03  $$$ plugin envirment stopped
