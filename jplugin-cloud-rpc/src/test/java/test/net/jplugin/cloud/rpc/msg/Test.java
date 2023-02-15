@@ -2,8 +2,7 @@ package test.net.jplugin.cloud.rpc.msg;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.buffer.UnpooledDirectByteBuf;
-import net.jplugin.cloud.rpc.msg.RpcMessage;
+import net.jplugin.cloud.rpc.io.message.RpcMessage;
 
 import java.util.HashMap;
 
@@ -40,7 +39,7 @@ public class Test {
 
     private static void test4() {
 
-        RpcMessage<Pojo> msg = RpcMessage.create(RpcMessage.TYPE_HEART_BEAT, null, new Pojo());
+        RpcMessage<Pojo> msg = RpcMessage.create(RpcMessage.TYPE_CLIENT_HEART_BEAT, null, new Pojo());
 
         System.out.println(msg.toString());
 
@@ -73,7 +72,7 @@ public class Test {
         map.put("bb", "bbv");
         map.put("cc", "c");
 
-        RpcMessage<Pojo> msg = RpcMessage.create(RpcMessage.TYPE_HEART_BEAT, map, new Pojo());
+        RpcMessage<Pojo> msg = RpcMessage.create(RpcMessage.TYPE_CLIENT_HEART_BEAT, map, new Pojo());
 
         System.out.println(msg.toString());
 
@@ -103,7 +102,7 @@ public class Test {
         map.put("bb", "bbv");
         map.put("cc", "c");
 
-        RpcMessage<Pojo> msg = RpcMessage.create(RpcMessage.TYPE_HEART_BEAT, map, null);
+        RpcMessage<Pojo> msg = RpcMessage.create(RpcMessage.TYPE_CLIENT_HEART_BEAT, map, null);
 
         System.out.println(msg.toString());
 
@@ -121,7 +120,7 @@ public class Test {
     }
 
     private static void test1() {
-        RpcMessage<Pojo> msg = RpcMessage.create(RpcMessage.TYPE_HEART_BEAT, null, null);
+        RpcMessage<Pojo> msg = RpcMessage.create(RpcMessage.TYPE_CLIENT_HEART_BEAT, null, null);
         System.out.println(msg.toString());
 
         ByteBuf buf = Unpooled.buffer();

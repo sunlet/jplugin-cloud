@@ -1,10 +1,13 @@
-package net.jplugin.cloud.rpc.msg;
+package net.jplugin.cloud.rpc.io.message;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
+import net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer;
 import net.jplugin.common.kits.AssertKit;
 import net.jplugin.common.kits.JsonKit;
+import net.jplugin.common.kits.StringKit;
+import net.jplugin.core.kernel.api.PluginEnvirement;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,9 +26,23 @@ import java.util.Map;
  * </pre>
  */
 public final class RpcMessage<T> {
-    public final static short TYPE_HEART_BEAT= (short) 0xF0F0;
 
-    public final static String HEADER_SERIAL_TYPE = "st";
+    public final static short TYPE_CLIENT_INFO = (short) 0X0001;
+    public final static short TYPE_SERVER_INFO = (short) 0X0002;
+    public final static short TYPE_CLIENT_REQ = (short) 0x0003;
+    public final static short TYPE_SERVER_RES = (short) 0x0004;
+    public final static short TYPE_CLIENT_HEART_BEAT = (short) 0x000E;
+    public final static short TYPE_SERVER_HEART_BEAT = (short) 0x000F;
+
+    public final static String HEADER_CLIENT_APPCODE = "client-app-code";
+    public final static String HEADER_CLIENT_SERVICECODE = "client-service-code";
+    public final static String HEADER_SERIAL_TYPE = "serial-type";
+    public final static String HEADER_REQ_ID="req-id";
+    public static final String HEADER_TENANT_ID = "tenant-id";
+    public static final String HEADER_GLOBAL_REQ_ID ="g-req-id" ;
+
+    private static final String DEFAULT_SERIALIZER_HANDLER = "json";
+
 
 
     private short msgType;
@@ -36,7 +53,7 @@ public final class RpcMessage<T> {
         return msgType;
     }
 
-    public Map<String, String> getHeader() {
+    public Map<String,String> getHeader() {
         return header;
     }
 
@@ -90,6 +107,10 @@ public final class RpcMessage<T> {
         return o.type(type).headers(header).body(body);
     }
 
+    public static RpcMessage create(Short type){
+        return new RpcMessage().type(type);
+    }
+
 
 
 
@@ -117,7 +138,7 @@ public final class RpcMessage<T> {
 
             //如果有body
             if (input.available() > 0) {
-                msg.body(deSerialBody(input));
+                msg.body(deSerialBody(input,msg.getHeader()));
             }
 
             //确定结束了
@@ -160,7 +181,7 @@ public final class RpcMessage<T> {
             Object body = msg.getBody();
             if (msg.getBody()!=null){
                 //分别写类名和JSON序列化内容
-                serialBody(byteOutputStream, body);
+                serialBody(byteOutputStream, body,msg.getHeader());
             }
 
             //get endIdx
@@ -176,15 +197,24 @@ public final class RpcMessage<T> {
         }
     }
 
-    private static Object deSerialBody(ByteBufInputStream input) throws ClassNotFoundException, IOException {
-        Class clazz = Class.forName(input.readUTF());
-        String json = input.readUTF();
-        Object obj = JsonKit.json2Object4TypeEx(json, clazz);
-        return obj;
+    private static Object deSerialBody(ByteBufInputStream input ,Map<String,String> header) throws ClassNotFoundException, IOException {
+        IMessageBodySerializer serializer = getMessageBodySerializer(header);
+        return serializer.deSerialBody(input);
     }
 
-    private static void serialBody(ByteBufOutputStream byteOutputStream, Object body) throws IOException {
-        byteOutputStream.writeUTF(body.getClass().getName());
-        byteOutputStream.writeUTF(JsonKit.object2JsonEx(body));
+    private static void serialBody(ByteBufOutputStream byteOutputStream, Object body,Map<String,String> header) throws IOException {
+        IMessageBodySerializer serializer = getMessageBodySerializer(header);
+        serializer.serialBody(byteOutputStream, body);
+    }
+
+    private static IMessageBodySerializer getMessageBodySerializer(Map<String, String> header) {
+        String serialHandler = DEFAULT_SERIALIZER_HANDLER;
+        if (header!=null){
+            String temp = header.get(HEADER_SERIAL_TYPE);
+            if (StringKit.isNotNull(temp)){
+                serialHandler = temp;
+            }
+        }
+        return (IMessageBodySerializer) PluginEnvirement.INSTANCE.getExtensionMap(IMessageBodySerializer.class.getName()).get(serialHandler);
     }
 }

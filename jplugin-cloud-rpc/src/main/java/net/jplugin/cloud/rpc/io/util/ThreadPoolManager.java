@@ -21,7 +21,7 @@ public class ThreadPoolManager {
 	private  ThreadPoolManager(){
 	}
 	
-	public synchronized ThreadPoolExecutor  getRpcWorkers(){
+	public synchronized ThreadPoolExecutor getServerWorkers(){
 		if (rpcWorkers==null){
 			// 处理请求线程池
 			int min = AbstractConfig.getRpcWorkers();
@@ -32,7 +32,7 @@ public class ThreadPoolManager {
 		return rpcWorkers;
 	}
 		
-	public synchronized ThreadPoolExecutor  getRespWorkers(){
+	public synchronized ThreadPoolExecutor getClientWorks(){
 		if (respWorkers==null){
 				// 处理响应线程池
 			int respMin = AbstractConfig.getRpcRespWorkers();

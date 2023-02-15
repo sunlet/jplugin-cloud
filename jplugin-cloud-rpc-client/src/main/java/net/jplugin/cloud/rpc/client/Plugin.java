@@ -1,17 +1,21 @@
-package net.jplugin.cloud.rpc.server;
+package net.jplugin.cloud.rpc.client;
 
-import net.jplugin.cloud.rpc.server.imp.RpcServerManager;
+import net.jplugin.cloud.rpc.client.imp.RpcClientManager;
 import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.PluginAnnotation;
 import net.jplugin.core.service.api.BindService;
 import net.jplugin.core.service.api.RefService;
 
-
 @PluginAnnotation
+
 public class Plugin extends AbstractPlugin {
 
     @RefService
-    RpcServerManager server;
+    RpcClientManager clientManager;
+
+    public Plugin(){
+
+    }
 
     @Override
     public int getPrivority() {
@@ -20,6 +24,6 @@ public class Plugin extends AbstractPlugin {
 
     @Override
     public void init() {
-        server.start();
+        clientManager.start();
     }
 }
