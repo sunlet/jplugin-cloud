@@ -9,7 +9,6 @@ import net.jplugin.cloud.rpc.io.message.RpcRequest;
 import net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer;
 import net.jplugin.common.kits.AssertKit;
 import net.jplugin.common.kits.CalenderKit;
-import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.client.ICallback;
 import net.jplugin.common.kits.client.InvocationParam;
 import net.jplugin.core.kernel.api.RefAnnotationSupport;
@@ -21,8 +20,6 @@ import java.lang.reflect.Method;
 import java.net.SocketAddress;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
-
-import static net.jplugin.cloud.rpc.io.client.RpcClientContext.invokeExecute;
 
 public class ClientChannelHandler extends RefAnnotationSupport {
 
@@ -57,11 +54,12 @@ public class ClientChannelHandler extends RefAnnotationSupport {
     }
 
     public Object invoke4Kryo(String serviceName,Method method, Object[] args) throws Exception {
-        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_KRYO_REQ);
+//        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_KRYO_REQ, invocationParam);
+        throw new RuntimeException("not impl");
     }
 
     public Object invoke4Json(String serviceName, Method method, Object[] args, InvocationParam invocationParam) throws Exception {
-        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_JSON_REQ);
+        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_JSON_REQ,invocationParam);
     }
 
 

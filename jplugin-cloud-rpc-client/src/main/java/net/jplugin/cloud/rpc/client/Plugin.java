@@ -37,8 +37,8 @@ public class Plugin extends AbstractPlugin {
 
         RpcServiceClient svcClient = clientManager.getServiceClient("app1");
         try {
-            Object ret = svcClient.invoke4Json("/svc1", ReflactKit.findSingeMethodExactly(Service1.class, "greet"), new String[]{"meme"});
-            System.out.println(ret);
+            Object ret = svcClient.invokeRpc("/svc1", ReflactKit.findSingeMethodExactly(Service1.class, "greet"), new String[]{"meme"});
+            System.out.println(" $$$$$$$$$$$$$$$returning .... "+ret);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -11,6 +11,7 @@ import net.jplugin.core.kernel.api.RefAnnotationSupport;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RpcServiceClient  {
@@ -23,28 +24,7 @@ public class RpcServiceClient  {
     //保存所有active的channel
 
 
-    public Object invoke(String serviceName, Method method, Object[] args) throws Exception {
-
-
-//		String serverIp = null;
-//		String serverPort = null;
-//		boolean async = false;
-//		ICallback callback = null;
-//		InvocationParam invocationParam = MethodUtil.getAndClearParam();
-//		if (invocationParam != null) {
-//			String serviceAddress = invocationParam.getServiceAddress();// IP:PORT格式
-//			async = (invocationParam.getRpcAsync() == null ? false : invocationParam.getRpcAsync());
-//			callback = invocationParam.getRpcCallback();
-//			if (!StringKit.isEmpty(serviceAddress)) {
-//				String[] ipAndport = serviceAddress.split(":");
-//				if (ipAndport.length == 1) {
-//					serverIp = ipAndport[0];
-//				} else if (ipAndport.length >= 2) {
-//					serverIp = ipAndport[0];
-//					serverPort = ipAndport[1];
-//				}
-//			}
-//		}
+    public Object invokeRpc(String serviceName, Method method, Object[] args) throws Exception {
 
         //获取并清除 Param参数
         InvocationParam invocationParam = ClientInvocationManager.INSTANCE.getAndClearParam();
@@ -57,6 +37,24 @@ public class RpcServiceClient  {
 
     }
 
+    private synchronized  void addClient(NettyClient ...toAdd) {
+        NettyClient[] temp = new NettyClient[this.nettyClients.length+toAdd.length];
+
+        for (int i=0;i<nettyClients.length;i++){
+            temp[i] = nettyClients[i];
+        }
+        for (int i=0;i<toAdd.length;i++){
+            temp[nettyClients.length+i] = toAdd[i];
+        }
+
+        nettyClients = temp;
+    }
+
+    /**
+     * 这是一个同步方法，执行需要尽量快
+     * @param invocationParam
+     * @return
+     */
     private  synchronized  NettyClient getClient(InvocationParam invocationParam) {
         String designateAddress = null;
         if (invocationParam!=null){
@@ -74,14 +72,24 @@ public class RpcServiceClient  {
                 throw new RuntimeException("target client not found or not active:"+designateAddress);
             }
         }
+
+        return nettyClient;
     }
 
-    int index;
+    int globalIndex;
     private NettyClient computeTargetClient() {
-        int pos = ++index % nettyClients.length;
+        int len = nettyClients.length;
 
-        while （!nettyClients[pos].isActive()) pos++;
-
+        //最多循环所有的Client。避免死循环
+        for (int cnt=0; cnt<len ; cnt ++) {
+            //取余数
+            int pos = ++globalIndex % len;
+            if (nettyClients[pos].isActive() ){
+                return nettyClients[pos];
+            }
+        }
+        //循环一遍，还没找到
+        return null;
     }
 
     private NettyClient findTargetClient(String designateAddress) {
@@ -102,8 +110,12 @@ public class RpcServiceClient  {
 
     public void start() {
         NettyClient client = new NettyClient("127.0.0.1", 9090, 1);
-        nettyClients.add(client);
+//        nettyClients.add(client);
+        
+        addClient(client);
         client.bootstrap(true);
 
     }
+
+
 }

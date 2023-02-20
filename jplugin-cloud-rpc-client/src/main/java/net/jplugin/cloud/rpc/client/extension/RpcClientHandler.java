@@ -8,22 +8,6 @@ import net.jplugin.core.service.api.RefService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.haiziwang.platform.esf.client.resolver.ResolverHelper;
-import com.haiziwang.platform.esf.common.Plugin;
-import com.haiziwang.platform.esf.common.config.AbstractConfig;
-import com.haiziwang.platform.esf.common.constant.SerializerCategory;
-import com.haiziwang.platform.esf.common.filter.ESFRpcClientFilterContext;
-import com.haiziwang.platform.esf.common.util.MethodUtil;
-import com.haiziwang.platform.esf.io.bean.RpcRequestBean;
-import com.haiziwang.platform.esf.io.bootstrap.IClient;
-import com.haiziwang.platform.esf.io.channel.IChannel;
-import com.haiziwang.platform.esf.io.util.IoUtils;
-import com.haiziwang.platform.esf.register.container.AbstractContainer;
-import com.haiziwang.platform.esf.register.router.GeneralRouterFactory;
-
-import net.jplugin.common.kits.StringKit;
-import net.jplugin.common.kits.client.ICallback;
-import net.jplugin.common.kits.client.InvocationParam;
 import net.jplugin.core.rclient.api.Client;
 import net.jplugin.core.rclient.api.IClientHandler;
 
@@ -43,7 +27,7 @@ public class RpcClientHandler implements IClientHandler {
 		Tuple2<String, String> urlParseResult = ResolverHelper.parseEsfUrlInfo(serviceURL);
 		String appCode = urlParseResult.first;
 
-		return clientManager.getServiceClient(appCode).invoke(urlParseResult.second, method, args);
+		return clientManager.getServiceClient(appCode).invokeRpc(urlParseResult.second, method, args);
 
 //		String serverIp = null;
 //		String serverPort = null;

@@ -11,11 +11,12 @@ import net.jplugin.cloud.rpc.io.message.RpcRequest;
 import net.jplugin.cloud.rpc.io.message.RpcResponse;
 import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.tuple.Tuple2;
+import net.jplugin.core.log.api.LogFactory;
+import net.jplugin.core.log.api.Logger;
 import net.jplugin.core.rclient.api.RemoteExecuteException;
 import net.jplugin.core.service.impl.esf.ESFHelper2;
 import net.jplugin.core.service.impl.esf.ESFRPCContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -29,7 +30,7 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
     private ThreadPoolExecutor  heartWorkers;
 
 
-    private static final Logger logger = LoggerFactory.getLogger(RpcServerMessageHandler.class.getName());
+    private static final Logger logger = LogFactory.getLogger(RpcServerMessageHandler.class);
 
 
     public RpcServerMessageHandler() {
@@ -109,7 +110,7 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
 
         Channel channel = ctx.channel();
         if (channel == null || !channel.isActive()) {
-            if (logger.isWarnEnabled()) {
+            if (logger.isInfoEnabled()) {
                 logChannelInactive(ctx,message,acceptTime);
             }
         } else {
@@ -185,7 +186,9 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
     }
 
     private void logInvokeError(Throwable e, ChannelHandlerContext ctx, RpcMessage message, long acceptTime) {
-        logger.error("invoke error. ");
+        logger.error("invoke error. ",e);
+
+
     }
 
     @Override
