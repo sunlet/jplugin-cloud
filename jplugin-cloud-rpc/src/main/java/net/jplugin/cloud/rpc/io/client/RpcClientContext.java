@@ -41,7 +41,7 @@ class RpcClientContext {
 				async = invocationParam.getRpcAsync();
 			}
 
-			CallFuture<?> future = channel.asyncSend(request, async, callback);
+			cf = channel.asyncSend(request, async, callback);
 
 //			cf = IoUtils.write(serializeType, channel, srvName, method.getName(), argsType, args);
 		} catch (Exception e) {

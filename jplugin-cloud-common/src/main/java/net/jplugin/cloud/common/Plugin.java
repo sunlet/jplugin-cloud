@@ -18,6 +18,6 @@ public class Plugin extends AbstractPlugin {
 
     @Override
     public int getPrivority() {
-        return 0;
+        return CloudPluginPriority.BASE;
     }
 }

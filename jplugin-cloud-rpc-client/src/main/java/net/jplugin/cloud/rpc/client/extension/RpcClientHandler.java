@@ -3,6 +3,7 @@ package net.jplugin.cloud.rpc.client.extension;
 import java.lang.reflect.Method;
 
 import net.jplugin.cloud.rpc.client.imp.RpcClientManager;
+import net.jplugin.cloud.rpc.client.kits.RpcUrlKit;
 import net.jplugin.common.kits.tuple.Tuple2;
 import net.jplugin.core.service.api.RefService;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ public class RpcClientHandler implements IClientHandler {
 	public Object invoke(Client client, Object proxy, Method method, Object[] args) throws Throwable {
 
 		String serviceURL = client.getServiceBaseUrl();
-		Tuple2<String, String> urlParseResult = ResolverHelper.parseEsfUrlInfo(serviceURL);
+		Tuple2<String, String> urlParseResult = RpcUrlKit.parseEsfUrlInfo(serviceURL);
 		String appCode = urlParseResult.first;
 
 		return clientManager.getServiceClient(appCode).invokeRpc(urlParseResult.second, method, args);

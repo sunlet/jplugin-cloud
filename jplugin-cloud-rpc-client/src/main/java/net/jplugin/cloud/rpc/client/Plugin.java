@@ -1,11 +1,14 @@
 package net.jplugin.cloud.rpc.client;
 
+import net.jplugin.cloud.common.CloudPluginPriority;
+import net.jplugin.cloud.rpc.client.annotation.BindRemoteServiceProxy;
+import net.jplugin.cloud.rpc.client.extension.EsfRemoteServiceAnnoHandler;
+import net.jplugin.cloud.rpc.client.api.ExtensionESFHelper;
+import net.jplugin.cloud.rpc.client.extension.RpcClientHandler;
 import net.jplugin.cloud.rpc.client.imp.RpcClientManager;
-import net.jplugin.cloud.rpc.client.imp.RpcServiceClient;
-import net.jplugin.common.kits.ReflactKit;
-import net.jplugin.core.kernel.api.AbstractPlugin;
-import net.jplugin.core.kernel.api.PluginAnnotation;
-import net.jplugin.core.service.api.BindService;
+import net.jplugin.core.kernel.api.*;
+import net.jplugin.core.rclient.ExtendsionClientHelper;
+import net.jplugin.core.rclient.api.Client;
 import net.jplugin.core.service.api.RefService;
 
 @PluginAnnotation
@@ -16,33 +19,38 @@ public class Plugin extends AbstractPlugin {
     @RefService
     RpcClientManager clientManager;
 
-    public Plugin(){
 
+    static {
+        try {
+            AutoBindExtensionManager.INSTANCE.addBindExtensionTransformer(BindRemoteServiceProxy.class, (p,clazz,anno)->{
+                BindRemoteServiceProxy theAnno = (BindRemoteServiceProxy) anno;
+                if (theAnno.protocol()== BindRemoteServiceProxy.ProxyProtocol.rpc){
+                    ExtensionESFHelper.addRPCProxyExtension(p, clazz, theAnno.url());
+
+                    PluginEnvirement.INSTANCE.getStartLogger().log("$$$ Auto add extension for remote service proxy : protocol="
+                            + theAnno.protocol() + ",url=" + theAnno.url() + ",class=" + clazz.getName());
+                }else{
+                    throw new RuntimeException("only support rpc now");
+                }
+            });
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Plugin(){
+        ExtendsionClientHelper.addClientHandlerExtension(this, Client.PROTOCOL_RPC, RpcClientHandler.class);
+        ExtensionKernelHelper.addAnnoAttrHandlerExtension(this, EsfRemoteServiceAnnoHandler.class);
     }
 
     @Override
     public int getPrivority() {
-        return 1;
+        return CloudPluginPriority.CLIENT;
     }
 
     @Override
     public void init() {
         clientManager.start();
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        RpcServiceClient svcClient = clientManager.getServiceClient("app1");
-        try {
-            Object ret = svcClient.invokeRpc("/svc1", ReflactKit.findSingeMethodExactly(Service1.class, "greet"), new String[]{"meme"});
-            System.out.println(" $$$$$$$$$$$$$$$returning .... "+ret);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
     }
 }

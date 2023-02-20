@@ -103,7 +103,7 @@ public class RpcServiceClient  {
 
 
     public void send(RpcMessage msg){
-//        channelGroup.toArray()
+        throw new RuntimeException("not impl");
     }
 
 

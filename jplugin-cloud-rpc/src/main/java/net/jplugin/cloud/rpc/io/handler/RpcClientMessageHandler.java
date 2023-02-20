@@ -75,6 +75,9 @@ public class RpcClientMessageHandler extends ChannelInboundHandlerAdapter {
         }
 
         CallFuture future = clientChannelHandler.removeFuture(reqId);
+        if (future==null){
+            System.out.println("$$$$$$$$$$$$$$$$ Can't find the future ,perhaps time out");
+        }
         Type resType = resBody.getResultType();
 
         Object result=null;

@@ -1,5 +1,6 @@
 package net.jplugin.cloud.rpc.server;
 
+import net.jplugin.cloud.common.CloudPluginPriority;
 import net.jplugin.cloud.rpc.server.imp.RpcServerManager;
 import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.PluginAnnotation;
@@ -15,7 +16,7 @@ public class Plugin extends AbstractPlugin {
 
     @Override
     public int getPrivority() {
-        return 0;
+        return CloudPluginPriority.SERVER;
     }
 
     @Override

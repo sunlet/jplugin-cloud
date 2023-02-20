@@ -60,3 +60,27 @@ java.lang.RuntimeException: 执行超时. limit=6000
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	at java.base/java.lang.Thread.run(Thread.java:834)
+2023-02-20 17:26:49,240 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230220172643-2   serial-type=json-req   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:74)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:206)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:183)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
