@@ -18,7 +18,7 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 
 
-@BindExtension(name="json")
+@BindExtension(name=IMessageBodySerializer.TYPE_JSON_REQ)
 public class JsonBodySerializer4Request implements IMessageBodySerializer {
     public static final String FLAG="$BODY";
 

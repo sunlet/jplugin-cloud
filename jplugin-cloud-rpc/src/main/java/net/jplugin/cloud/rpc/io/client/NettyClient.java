@@ -48,6 +48,7 @@ public class NettyClient{
 
 	private String remoteHostIp;
 	private int remoteHostPort;
+	private String remoteAddr;
 
 //	protected abstract HostConfig getHost();
 
@@ -67,7 +68,12 @@ public class NettyClient{
 	public NettyClient(String remoteIp, int port, int workers) {
 		this.remoteHostIp = remoteIp;
 		this.remoteHostPort = port;
+		this.remoteAddr = remoteIp+port;
 		this.workers = workers;
+	}
+
+	public String getRemoteAddr() {
+		return remoteAddr;
 	}
 
 	/**
@@ -76,6 +82,11 @@ public class NettyClient{
 	 */
 	public boolean isClientClosed(){
 		return this.closeClosed;
+	}
+
+	public boolean isActive(){
+		Channel channel = this.nettyChannel;
+		return channel!=null && this.nettyChannel.isActive();
 	}
 
 	/**
@@ -138,6 +149,13 @@ public class NettyClient{
 		doConnect(syncAwait);
 	}
 
+	public String getRemoteHostIp(){
+		return this.remoteHostIp;
+	}
+
+	public int getRemoteHostPort() {
+		return remoteHostPort;
+	}
 
 	private String getRemoteHost(){
 		return this.remoteHostIp+":"+remoteHostPort;

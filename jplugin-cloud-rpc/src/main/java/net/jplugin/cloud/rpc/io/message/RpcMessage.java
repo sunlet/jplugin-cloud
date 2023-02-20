@@ -41,7 +41,6 @@ public final class RpcMessage<T> {
     public static final String HEADER_TENANT_ID = "tenant-id";
     public static final String HEADER_GLOBAL_REQ_ID ="g-req-id" ;
 
-    private static final String DEFAULT_SERIALIZER_HANDLER = "json";
 
 
 
@@ -208,13 +207,13 @@ public final class RpcMessage<T> {
     }
 
     private static IMessageBodySerializer getMessageBodySerializer(Map<String, String> header) {
-        String serialHandler = DEFAULT_SERIALIZER_HANDLER;
-        if (header!=null){
+//        String serialHandler = DEFAULT_SERIALIZER_HANDLER;
+//        if (header!=null){
             String temp = header.get(HEADER_SERIAL_TYPE);
-            if (StringKit.isNotNull(temp)){
-                serialHandler = temp;
+            if (StringKit.isNull(temp)){
+                throw new RuntimeException("Message Serializer must set");
             }
-        }
-        return (IMessageBodySerializer) PluginEnvirement.INSTANCE.getExtensionMap(IMessageBodySerializer.class.getName()).get(serialHandler);
+//        }
+        return (IMessageBodySerializer) PluginEnvirement.INSTANCE.getExtensionMap(IMessageBodySerializer.class.getName()).get(temp);
     }
 }

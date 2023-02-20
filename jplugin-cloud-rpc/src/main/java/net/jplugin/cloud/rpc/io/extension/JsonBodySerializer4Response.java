@@ -16,7 +16,7 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Type;
 
 
-@BindExtension(name="json")
+@BindExtension(name=IMessageBodySerializer.TYPE_JSON_RES)
 public class JsonBodySerializer4Response implements IMessageBodySerializer {
     public static final String FLAG="$BODY";
 
@@ -33,7 +33,7 @@ public class JsonBodySerializer4Response implements IMessageBodySerializer {
         response.setResultType(readResultType(input));
 
         //返回值
-        if (!response.getResultType().equals(void.class)){
+        if (!void.class.equals(response.getResultType())){
             String temp = input.readUTF();
             response.setResult(JsonKit.json2Object4TypeEx(temp, response.getResultType()));
         }

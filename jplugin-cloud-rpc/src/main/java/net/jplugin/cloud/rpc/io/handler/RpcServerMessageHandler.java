@@ -3,6 +3,7 @@ package net.jplugin.cloud.rpc.io.handler;
 import io.netty.channel.*;
 import net.jplugin.cloud.rpc.common.util.ExceptionUtils;
 //import net.jplugin.cloud.rpc.io.util.ClientContextUtil;
+import net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer;
 import net.jplugin.cloud.rpc.io.util.ThreadPoolManager;
 
 import net.jplugin.cloud.rpc.io.message.RpcMessage;
@@ -43,10 +44,13 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
         switch(message.getMsgType()){
             case RpcMessage.TYPE_CLIENT_INFO:
                 processClientInfo(ctx,msg);
+                break;
             case RpcMessage.TYPE_CLIENT_HEART_BEAT:
                 processClientHeartBeat(message,ctx);
+                break;
             case RpcMessage.TYPE_CLIENT_REQ:
                 processClientReq(message,ctx);
+                break;
             default:
                 throw new RuntimeException("Unsupport Message Type");
         }
@@ -68,16 +72,18 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
     }
 
     private void handleServerMethod(ChannelHandlerContext ctx, RpcMessage message, long acceptTime) {
+        RpcMessage<RpcResponse> resp = RpcMessage.create(RpcMessage.TYPE_SERVER_RES);
         RpcResponse response = new RpcResponse();
-        try{
-            RpcMessage<RpcResponse> resp = RpcMessage.create(RpcMessage.TYPE_SERVER_RES);
+        resp.body(response);
 
+        try{
             String reqid = (String) message.getHeader().get(RpcMessage.HEADER_REQ_ID);
             if (StringKit.isNotNull(reqid))
                 resp.header(RpcMessage.HEADER_REQ_ID, reqid);
-            String serialAlgm = (String) message.getHeader().get(RpcMessage.HEADER_SERIAL_TYPE);
-            if (StringKit.isNotNull(serialAlgm))
-                resp.header(RpcMessage.HEADER_SERIAL_TYPE,serialAlgm);
+            resp.header(RpcMessage.HEADER_SERIAL_TYPE, IMessageBodySerializer.TYPE_JSON_RES);
+//            String serialAlgm = (String) message.getHeader().get(RpcMessage.HEADER_SERIAL_TYPE);
+//            if (StringKit.isNotNull(serialAlgm))
+//                resp.header(RpcMessage.HEADER_SERIAL_TYPE,serialAlgm);
 
             Tuple2<Type,Object>  ret = callServerMethod(ctx,message,acceptTime);
             response.setResult(ret.second);
@@ -107,7 +113,7 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
                 logChannelInactive(ctx,message,acceptTime);
             }
         } else {
-            channel.writeAndFlush(response).addListener(new ChannelFutureListener() {
+            channel.writeAndFlush(resp).addListener(new ChannelFutureListener() {
 
                 @Override
                 public void operationComplete(ChannelFuture future) throws Exception {
@@ -182,5 +188,9 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
         logger.error("invoke error. ");
     }
 
-
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+        super.exceptionCaught(ctx, cause);
+    }
 }

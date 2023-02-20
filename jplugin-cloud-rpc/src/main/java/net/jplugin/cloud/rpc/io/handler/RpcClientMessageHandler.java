@@ -40,10 +40,13 @@ public class RpcClientMessageHandler extends ChannelInboundHandlerAdapter {
         switch(message.getMsgType()){
             case RpcMessage.TYPE_SERVER_INFO:
                 processServerInfo(message,ctx);
+                break;
             case RpcMessage.TYPE_SERVER_RES:
                 clientWorks.execute(()->processServerResponse(ctx,message));
+                break;
             case RpcMessage.TYPE_SERVER_HEART_BEAT:
                 processServerHeartBeat(message,ctx);
+                break;
             default:
                 throw new RuntimeException("Unsupport Message Type");
         }
@@ -83,10 +86,15 @@ public class RpcClientMessageHandler extends ChannelInboundHandlerAdapter {
             String errCode = resBody.getErrorCode();
             String errMsg = resBody.getMessage();
             RemoteExecuteException ex = new RemoteExecuteException(Integer.parseInt(errCode),errMsg);
-            future.setException(ex,channel.remoteAddress());
+            if (future!=null) {
+                future.setException(ex, channel.remoteAddress());
+            }
         }
 
-        future.setVal(result);
+        if (future!=null){
+            future.setVal(result);
+        }
+
 
         if (logger.isDebugEnabled()) {
             logger.debug("cid=" + reqId + ",Channel=[" + channel + "], cost(ms) : "

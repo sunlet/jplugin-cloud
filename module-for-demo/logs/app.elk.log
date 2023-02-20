@@ -1,0 +1,49 @@
+2023-02-15 21:58:15,138 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230215215751-2   serial-type=json-req   
+body={"uri":"svc1","methodName":"m1","arguments":["hello"],"genericTypes":["java.lang.String"]}]异常：net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer - 
+io.netty.handler.codec.EncoderException: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer
+	at net.jplugin.core.kernel.api.PluginEnvirement.getExtensionMap(PluginEnvirement.java:156)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.getMessageBodySerializer(RpcMessage.java:218)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:206)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:184)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-16 20:02:37,707 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230216200236-2   serial-type=json-req   
+body={"uri":"svc1","methodName":"m1","arguments":["hello"],"genericTypes":["java.lang.String"]}]异常：net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer - 
+io.netty.handler.codec.EncoderException: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer
+	at net.jplugin.core.kernel.api.PluginEnvirement.getExtensionMap(PluginEnvirement.java:156)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.getMessageBodySerializer(RpcMessage.java:218)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:206)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:184)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 11 more

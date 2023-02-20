@@ -53,5 +53,6 @@
         <module>jplugin-cloud-package</module>
         <module>module-for-demo</module>
         <module>the-esf-test</module>
+        <module>cloud-tool</module>
     </modules>
 </project>

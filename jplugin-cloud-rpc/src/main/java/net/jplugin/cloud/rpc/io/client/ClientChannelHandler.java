@@ -6,16 +6,23 @@ import io.netty.channel.ChannelFutureListener;
 import net.jplugin.cloud.rpc.io.future.CallFuture;
 import net.jplugin.cloud.rpc.io.message.RpcMessage;
 import net.jplugin.cloud.rpc.io.message.RpcRequest;
+import net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer;
 import net.jplugin.common.kits.AssertKit;
+import net.jplugin.common.kits.CalenderKit;
 import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.client.ICallback;
+import net.jplugin.common.kits.client.InvocationParam;
 import net.jplugin.core.kernel.api.RefAnnotationSupport;
 import net.jplugin.core.log.api.Logger;
 import net.jplugin.core.log.api.RefLogger;
 
 
+import java.lang.reflect.Method;
 import java.net.SocketAddress;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicLong;
+
+import static net.jplugin.cloud.rpc.io.client.RpcClientContext.invokeExecute;
 
 public class ClientChannelHandler extends RefAnnotationSupport {
 
@@ -33,11 +40,13 @@ public class ClientChannelHandler extends RefAnnotationSupport {
     FutureManager futureManager = new FutureManager();
 
 
-    public ClientChannelHandler(Channel channel) {
-        if (channel == null || !channel.isActive()) {
+    public ClientChannelHandler(Channel aChannel) {
+        if (aChannel == null || !aChannel.isActive()) {
             throw new IllegalArgumentException("netty channel is invalid");
         }
-		channelId = channel.id().asLongText();
+		channelId = aChannel.id().asLongText();
+
+        this.channel = aChannel;
 
 //		NettyChannel innerChannel = channels.get(channelId);
 //		if (!IoUtils.isValidChannel(innerChannel)) {
@@ -46,6 +55,16 @@ public class ClientChannelHandler extends RefAnnotationSupport {
 //			channels.put(channelId, this);
 //		}
     }
+
+    public Object invoke4Kryo(String serviceName,Method method, Object[] args) throws Exception {
+        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_KRYO_REQ);
+    }
+
+    public Object invoke4Json(String serviceName, Method method, Object[] args, InvocationParam invocationParam) throws Exception {
+        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_JSON_REQ);
+    }
+
+
 
     public CallFuture removeFuture(String reqid){
         return futureManager.removeFuture(reqid);
@@ -94,11 +113,11 @@ public class ClientChannelHandler extends RefAnnotationSupport {
 
         AssertKit.assertTrue(this.channel!=null && this.channel.isActive());
 
-//        String contentextId = request.getContextId();
-        String contentextId = request.getHeader().get(RpcMessage.HEADER_REQ_ID);
-        if (StringKit.isNull(contentextId)){
-            throw new RuntimeException("reqId can't be null");
-        }
+//        String contentextId = makeUniqueRequestId();
+        AssertKit.assertStringNull(request.getHeader().get(RpcMessage.HEADER_REQ_ID),"reqid");
+        request.header(RpcMessage.HEADER_REQ_ID, getNextReqId());
+        String contentextId  = request.getHeader().get(RpcMessage.HEADER_REQ_ID);
+
         CallFuture<?> callFuture = new CallFuture<>(remoteAddress());
         callFuture.setContextId(contentextId);
         callFuture.setAsync(async);
@@ -130,6 +149,12 @@ public class ClientChannelHandler extends RefAnnotationSupport {
             }
         });
         return callFuture;
+    }
+
+    static String startTime = CalenderKit.getCurrentTimeString();
+    static AtomicLong index = new AtomicLong(1);
+    private static String getNextReqId() {
+        return startTime+"-"+index.addAndGet(1);
     }
 
 //	public static void removeChannel(String channelId) {
