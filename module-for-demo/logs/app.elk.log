@@ -166,3 +166,7 @@ Caused by: java.lang.NullPointerException
 2023-02-21 11:14:33,814 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
 2023-02-21 11:14:34,454 [nioEventLoop-nettyServer-worker-0] call success.  - 
 2023-02-21 11:14:34,458 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-21 11:54:30,229 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-21 11:54:30,248 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-21 11:54:30,881 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-21 11:54:30,885 [nioEventLoop-nettyServer-worker-0] call success.  - 
