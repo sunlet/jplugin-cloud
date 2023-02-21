@@ -59,7 +59,8 @@ public class ClientChannelHandler extends RefAnnotationSupport {
     }
 
     public Object invoke4Json(String serviceName, Method method, Object[] args, InvocationParam invocationParam) throws Exception {
-        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_JSON_REQ,invocationParam);
+//        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_JSON_REQ,invocationParam);
+        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_KRYO_REQ,invocationParam);
     }
 
 

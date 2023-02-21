@@ -81,7 +81,8 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
             String reqid = (String) message.getHeader().get(RpcMessage.HEADER_REQ_ID);
             if (StringKit.isNotNull(reqid))
                 resp.header(RpcMessage.HEADER_REQ_ID, reqid);
-            resp.header(RpcMessage.HEADER_SERIAL_TYPE, IMessageBodySerializer.TYPE_JSON_RES);
+//            resp.header(RpcMessage.HEADER_SERIAL_TYPE, IMessageBodySerializer.TYPE_JSON_RES);
+            resp.header(RpcMessage.HEADER_SERIAL_TYPE, IMessageBodySerializer.TYPE_KRYO_RES);
 //            String serialAlgm = (String) message.getHeader().get(RpcMessage.HEADER_SERIAL_TYPE);
 //            if (StringKit.isNotNull(serialAlgm))
 //                resp.header(RpcMessage.HEADER_SERIAL_TYPE,serialAlgm);

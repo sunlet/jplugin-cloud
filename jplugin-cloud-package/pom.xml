@@ -107,6 +107,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <minimizeJar>true</minimizeJar>
                             <createSourcesJar>true</createSourcesJar>
                             <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
                             <!-- 包含要合并的模块 -->
@@ -117,19 +118,54 @@
                                     <include>net.jplugin.cloud:jplugin-cloud-rpc</include>
                                     <include>net.jplugin.cloud:jplugin-cloud-rpc-server</include>
                                     <include>net.jplugin.cloud:jplugin-cloud-rpc-client</include>
+                                    <include>io.netty:netty-all</include>
                                 </includes>
                             </artifactSet>
                             <filters>
                                 <filter>
-                                    <artifact>*</artifact>
+                                    <artifact>net.jplugin.cloud:jplugin-cloud-common</artifact>
                                     <includes>
                                         <include>net/**</include>
                                     </includes>
                                 </filter>
+                                <filter>
+                                    <artifact>net.jplugin.cloud:jplugin-cloud-config</artifact>
+                                    <includes>
+                                        <include>net/**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>net.jplugin.cloud:jplugin-cloud-rpc</artifact>
+                                    <includes>
+                                        <include>net/**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>net.jplugin.cloud:jplugin-cloud-rpc-server</artifact>
+                                    <includes>
+                                        <include>net/**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>net.jplugin.cloud:jplugin-cloud-rpc-client</artifact>
+                                    <includes>
+                                        <include>net/**</include>
+                                    </includes>
+                                </filter>
+
                             </filters>
                             <!-- 包含号合并的资源文件 -->
                             <!-- >transformers> <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                                 <resource>META-INF/xxxxx </resource> </transformer> </transformers -->
+
+                            <relocations>
+                                <relocation>
+                                    <!-- 源包名 -->
+                                    <pattern>io.netty</pattern>
+                                    <!-- 目的包名 -->
+                                    <shadedPattern>net.jplugin.netty.io.netty</shadedPattern>
+                                </relocation>
+                            </relocations>
 
                         </configuration>
                     </execution>
