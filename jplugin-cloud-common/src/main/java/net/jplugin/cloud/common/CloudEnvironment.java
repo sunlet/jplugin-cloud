@@ -32,6 +32,7 @@ public class CloudEnvironment {
     private String rpcPort;
     private String nacosUser;
     private String nacosPwd;
+    private String composedAppCode;
 
     private boolean inited = false;
 
@@ -65,6 +66,14 @@ public class CloudEnvironment {
         return serviceCode;
     }
 
+    public String _composeAppCode(){
+        checkInit();
+        if (StringKit.isNull(composedAppCode)){
+            composedAppCode = appCode+":"+serviceCode;
+        }
+        return composedAppCode;
+    }
+
     private void checkInit() {
         if (!inited) {
             throw new RuntimeException("init not called");
@@ -84,6 +93,16 @@ public class CloudEnvironment {
         appCode = map.get(APP_CODE).trim();
         serviceCode = map.get(SERVICE_CODE).trim();
         rpcPort = map.get(RPC_PORT).trim();
+
+        //handle composed appcode
+        if (StringKit.isNotNull(appCode) && appCode.indexOf(":")>=0){
+            //service code must be null
+            AssertKit.assertNull(serviceCode);
+            int pos = appCode.indexOf(":");
+            String temp = appCode;
+            appCode = temp.substring(0, pos);
+            serviceCode = temp.substring(pos+1);
+        }
 
         //user
         String temp = map.get(NACOS_USER);

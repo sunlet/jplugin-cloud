@@ -1,7 +1,7 @@
 package net.jplugin.cloud.rpc.io.util;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import net.jplugin.cloud.rpc.common.config.AbstractConfig;
+import net.jplugin.common.kits.ThreadFactoryBuilder;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;

@@ -1,6 +1,5 @@
 package net.jplugin.cloud.rpc.io.client;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.netty.channel.*;
 import net.jplugin.cloud.rpc.common.bean.ClientHeartBean;
 import net.jplugin.cloud.rpc.common.config.AbstractConfig;
@@ -14,9 +13,11 @@ import net.jplugin.cloud.rpc.io.handler.RpcMessageDecoder;
 import net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder;
 import net.jplugin.cloud.rpc.io.util.ChannelAttributeUtil;
 import net.jplugin.common.kits.AssertKit;
+import net.jplugin.common.kits.ThreadFactoryBuilder;
+import net.jplugin.core.log.api.LogFactory;
+import net.jplugin.core.log.api.Logger;
 import org.apache.commons.lang3.RandomUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutorService;
@@ -26,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class NettyClient{
 
-	protected static final Logger logger = LoggerFactory.getLogger(NettyClient.class);
+	protected static final Logger logger = LogFactory.getLogger(NettyClient.class);
 
 	protected volatile boolean closeClosed;
 
@@ -62,13 +63,13 @@ public class NettyClient{
 			new ThreadFactoryBuilder().setDaemon(true).setNameFormat("esf-reconnect-%d").build());
 
 	private long lastTryConnectTime;
-	private long connectRetryLimit = 5000;
+	private long connectRetryLimit = 10000;
 
 
 	public NettyClient(String remoteIp, int port, int workers) {
 		this.remoteHostIp = remoteIp;
 		this.remoteHostPort = port;
-		this.remoteAddr = remoteIp+port;
+		this.remoteAddr = remoteIp+":"+port;
 		this.workers = workers;
 	}
 
@@ -84,10 +85,10 @@ public class NettyClient{
 		return this.closeClosed;
 	}
 
-	public boolean isActive(){
-		Channel channel = this.nettyChannel;
-		return channel!=null && this.nettyChannel.isActive();
-	}
+//	public boolean isActive(){
+//		Channel channel = this.nettyChannel;
+//		return channel!=null && this.nettyChannel.isActive();
+//	}
 
 	/**
 	 * 关闭这个客户端
@@ -162,17 +163,28 @@ public class NettyClient{
 	}
 
 	public void mainTainConnection() {
+		if (logger.isDebugEnabled()){
+			logger.debug("maintain connection for:"+this.getRemoteAddr());
+		}
 		//判断已经连上，或者已关闭
 		if (isConnected() || closeClosed) {
 			return;
 		}
 
 		//判断时间间隔
-		if (System.currentTimeMillis() - this.lastTryConnectTime < this.connectRetryLimit)
+		long retryTime = System.currentTimeMillis() - this.lastTryConnectTime;
+		if (retryTime < this.connectRetryLimit) {
+			if (logger.isInfoEnabled()){
+				logger.info("connection retry latter:"+ (connectRetryLimit-retryTime)+"  "+this.getRemoteAddr());
+			}
 			return;
-
-		//connect
-		doConnect(false);
+		}else {
+			if (logger.isInfoEnabled()){
+				logger.info("connection retry now . "+this.getRemoteAddr());
+			}
+			//connect
+			doConnect(false);
+		}
 	}
 
 	private void doConnect(boolean syncAwait) {
@@ -188,23 +200,26 @@ public class NettyClient{
 		future.addListener(new ChannelFutureListener() {
 			public void operationComplete(ChannelFuture after) throws Exception {
 				if (after.isSuccess()) {
-					if (logger.isInfoEnabled()) {
-						logger.info("connect success! server=" + getRemoteHost());
-					}
 //					closed = false;
 //					trys = 0;
 
 					initChannel(after.channel());
+					if (logger.isInfoEnabled()) {
+						logger.info("connection success. " + getRemoteAddr());
+					}
 
 //					eventCall(NettyChannelEvent.connected);
 //					after.channel().pipeline().fireChannelActive();
 //					clientInfo.setTimestamp(System.currentTimeMillis());
 //					after.channel().writeAndFlush(clientInfo);
 				} else {
-					if (logger.isWarnEnabled()) {
-						logger.warn("connect failed, will try after 3~5s...! server=" + getRemoteHost() + ",异常信息："
-								+ after.cause());
+					if (logger.isInfoEnabled()) {
+						logger.info("connection failed. " + getRemoteAddr());
 					}
+//					if (logger.isEnabledFor(Logger.WARN) {
+//						logger.warn("connect failed, will try after 3~5s...! server=" + getRemoteHost() + ",异常信息："
+//								+ after.cause());
+//					}
 //					eventCall(NettyChannelEvent.disConnected);
 //					after.channel().close();
 //					after.channel().pipeline().fireChannelInactive();

@@ -91,7 +91,7 @@ public class Config4AppCenter {
 //		BasicConfiguration bcfg = AppEnvirement.INSTANCE.getBasicConfiguration();
 //		appCode = bcfg.getAppCode();
 //		rpcPort = Integer.parseInt(bcfg.getEsfPort());
-		appCode = CloudEnvironment.INSTANCE.getAppCode();
+		appCode = CloudEnvironment.INSTANCE._composeAppCode();
 		rpcPort = Integer.parseInt(CloudEnvironment.INSTANCE.getRpcPort());
 
 //		Boolean enableDeployPort = getBoolean(ConfigConstants.ENABLE_DEPLOY_PORT, false);

@@ -21,6 +21,10 @@ public class RpcServiceClient  {
     //保存所有
     NettyClient[] nettyClients =  EMPTY_ARR;
 
+    public RpcServiceClient(String code) {
+        targetAppCode = code;
+    }
+
     //保存所有active的channel
 
 
@@ -84,7 +88,7 @@ public class RpcServiceClient  {
         for (int cnt=0; cnt<len ; cnt ++) {
             //取余数
             int pos = ++globalIndex % len;
-            if (nettyClients[pos].isActive() ){
+            if (nettyClients[pos].isConnected() ){
                 return nettyClients[pos];
             }
         }
@@ -118,4 +122,33 @@ public class RpcServiceClient  {
     }
 
 
+    /**
+     * 测试连上了任意一个
+     * @return
+     */
+    public boolean connectedAny() {
+        for (int i=0;i<nettyClients.length;i++){
+            if (nettyClients[i].isConnected()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        sb.append(" AppCode="+this.targetAppCode);
+        for(int i=0;i<nettyClients.length;i++){
+            NettyClient c = nettyClients[i];
+            sb.append(" ").append(c.getRemoteAddr()).append("-").append(c.isConnected());
+        }
+        return sb.toString();
+    }
+
+    public void maintainConnect() {
+        for (int i=0;i<nettyClients.length;i++){
+            NettyClient temp = nettyClients[i];
+            temp.mainTainConnection();
+        }
+    }
 }

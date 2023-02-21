@@ -18,7 +18,7 @@ public class ExtensionESFHelper {
 	 * @param url
 	 */
 	public static void addRPCProxyExtension(AbstractPlugin plugin, Class<?> clazz, String url) {
-		String appCode = CloudEnvironment.INSTANCE.getAppCode();
+		String appCode = CloudEnvironment.INSTANCE._composeAppCode();
 		ExtendsionClientHelper.addClientProxyExtension(plugin, clazz, url, Client.PROTOCOL_RPC, appCode);
 	}
 

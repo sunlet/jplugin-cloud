@@ -1,9 +1,9 @@
 package net.jplugin.cloud.rpc.common.util;
 
 //import com.haiziwang.platform.appclient.api.AppEnvirement;
+import net.jplugin.cloud.common.CloudEnvironment;
 import net.jplugin.cloud.rpc.common.constant.AppConstants;
 import net.jplugin.common.kits.RequestIdKit;
-import net.jplugin.core.kernel.api.CloudEnvironment;
 import net.jplugin.core.kernel.api.ctx.RequesterInfo;
 import net.jplugin.core.kernel.api.ctx.ThreadLocalContextManager;
 
