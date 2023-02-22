@@ -3,7 +3,6 @@ package net.jplugin.cloud.rpc.io.handler;
 import io.netty.channel.*;
 import net.jplugin.cloud.rpc.common.util.ExceptionUtils;
 //import net.jplugin.cloud.rpc.io.util.ClientContextUtil;
-import net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer;
 import net.jplugin.cloud.rpc.io.util.ThreadPoolManager;
 
 import net.jplugin.cloud.rpc.io.message.RpcMessage;
@@ -82,10 +81,10 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
             if (StringKit.isNotNull(reqid))
                 resp.header(RpcMessage.HEADER_REQ_ID, reqid);
 //            resp.header(RpcMessage.HEADER_SERIAL_TYPE, IMessageBodySerializer.TYPE_JSON_RES);
-            resp.header(RpcMessage.HEADER_SERIAL_TYPE, IMessageBodySerializer.TYPE_KRYO_RES);
-//            String serialAlgm = (String) message.getHeader().get(RpcMessage.HEADER_SERIAL_TYPE);
-//            if (StringKit.isNotNull(serialAlgm))
-//                resp.header(RpcMessage.HEADER_SERIAL_TYPE,serialAlgm);
+
+            String serialAlgm = (String) message.getHeader().get(RpcMessage.HEADER_SERIAL_TYPE);
+            if (StringKit.isNotNull(serialAlgm))
+                resp.header(RpcMessage.HEADER_SERIAL_TYPE,serialAlgm);
 
             Tuple2<Type,Object>  ret = callServerMethod(ctx,message,acceptTime);
             response.setResult(ret.second);

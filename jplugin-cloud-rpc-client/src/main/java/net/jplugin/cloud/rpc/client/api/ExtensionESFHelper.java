@@ -34,17 +34,17 @@ public class ExtensionESFHelper {
 //		ExtendsionClientHelper.addClientProxyExtension(plugin, clazz, url, Client.PROTOCOL_REST, appCode);
 //	}
 
-//	/**
-//	 * 注册RPC调用，使用json协议序列化
-//	 *
-//	 * @param plugin
-//	 * @param clazz
-//	 * @param url
-//	 */
-//	public static void addRpcJsonProxyExtension(AbstractPlugin plugin, Class<?> clazz, String url) {
-//		String appCode = CloudEnvironment.INSTANCE.getAppCode();
-//		ExtendsionClientHelper.addClientProxyExtension(plugin, clazz, url, Client.PROTOCOL_RPC_JSON, appCode);
-//	}
+	/**
+	 * 注册RPC调用，使用json协议序列化
+	 *
+	 * @param plugin
+	 * @param clazz
+	 * @param url
+	 */
+	public static void addRpcJsonProxyExtension(AbstractPlugin plugin, Class<?> clazz, String url) {
+		String appCode = CloudEnvironment.INSTANCE.getAppCode();
+		ExtendsionClientHelper.addClientProxyExtension(plugin, clazz, url, Client.PROTOCOL_RPC_JSON, appCode);
+	}
 
 	/**
 	 * 此方法自动遍历指定包下面的类，如果该类包含BindRemoteServiceProxy 注解，则注册对应的ServiceProxy扩展

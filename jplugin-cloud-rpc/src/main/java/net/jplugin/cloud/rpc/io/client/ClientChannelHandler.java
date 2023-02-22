@@ -6,7 +6,7 @@ import io.netty.channel.ChannelFutureListener;
 import net.jplugin.cloud.rpc.io.future.CallFuture;
 import net.jplugin.cloud.rpc.io.message.RpcMessage;
 import net.jplugin.cloud.rpc.io.message.RpcRequest;
-import net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer;
+import net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer;
 import net.jplugin.common.kits.AssertKit;
 import net.jplugin.common.kits.CalenderKit;
 import net.jplugin.common.kits.client.ICallback;
@@ -52,15 +52,15 @@ public class ClientChannelHandler extends RefAnnotationSupport {
 //			channels.put(channelId, this);
 //		}
     }
+//
+//    public Object invoke4Kryo(String serviceName,Method method, Object[] args, InvocationParam invocationParam) throws Exception {
+////        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_KRYO_REQ, invocationParam);
+//        return RpcClientContext.invokeExecute(this,serviceName, method, args, AbstractMessageBodySerializer.SerializerType.KRYO.name(),invocationParam);
+//    }
 
-    public Object invoke4Kryo(String serviceName,Method method, Object[] args) throws Exception {
-//        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_KRYO_REQ, invocationParam);
-        throw new RuntimeException("not impl");
-    }
-
-    public Object invoke4Json(String serviceName, Method method, Object[] args, InvocationParam invocationParam) throws Exception {
+    public Object invoke(String serviceName, Method method, Object[] args, InvocationParam invocationParam, AbstractMessageBodySerializer.SerializerType st) throws Exception {
 //        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_JSON_REQ,invocationParam);
-        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_KRYO_REQ,invocationParam);
+        return RpcClientContext.invokeExecute(this,serviceName, method, args, st.name(),invocationParam);
     }
 
 

@@ -5,6 +5,7 @@ import net.jplugin.cloud.rpc.client.annotation.BindRemoteServiceProxy;
 import net.jplugin.cloud.rpc.client.extension.EsfRemoteServiceAnnoHandler;
 import net.jplugin.cloud.rpc.client.api.ExtensionESFHelper;
 import net.jplugin.cloud.rpc.client.extension.RpcClientHandler;
+import net.jplugin.cloud.rpc.client.extension.RpcJsonClientHandler;
 import net.jplugin.cloud.rpc.client.imp.RpcClientManager;
 import net.jplugin.core.kernel.api.*;
 import net.jplugin.core.rclient.ExtendsionClientHelper;
@@ -29,9 +30,19 @@ public class Plugin extends AbstractPlugin {
 
                     PluginEnvirement.INSTANCE.getStartLogger().log("$$$ Auto add extension for remote service proxy : protocol="
                             + theAnno.protocol() + ",url=" + theAnno.url() + ",class=" + clazz.getName());
+                }else
+                    if (theAnno.protocol() == BindRemoteServiceProxy.ProxyProtocol.rpc_json) {
+                        ExtensionESFHelper.addRpcJsonProxyExtension(p, clazz, theAnno.url());
+
+                        PluginEnvirement.INSTANCE.getStartLogger().log("$$$ Auto add extension for remote service proxy : protocol="
+                                + theAnno.protocol() + ",url=" + theAnno.url() + ",class=" + clazz.getName());
+
                 }else{
-                    throw new RuntimeException("only support rpc now");
-                }
+                        throw new RuntimeException("not support :"+theAnno.protocol());
+                    }
+
+
+
             });
 
         } catch (Exception e) {
@@ -41,6 +52,7 @@ public class Plugin extends AbstractPlugin {
 
     public Plugin(){
         ExtendsionClientHelper.addClientHandlerExtension(this, Client.PROTOCOL_RPC, RpcClientHandler.class);
+        ExtendsionClientHelper.addClientHandlerExtension(this, Client.PROTOCOL_RPC_JSON, RpcJsonClientHandler.class);
         ExtensionKernelHelper.addAnnoAttrHandlerExtension(this, EsfRemoteServiceAnnoHandler.class);
     }
 

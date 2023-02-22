@@ -3,11 +3,10 @@ package net.jplugin.cloud.rpc.io.message;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
-import net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer;
+import net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer;
 import net.jplugin.common.kits.AssertKit;
 import net.jplugin.common.kits.JsonKit;
 import net.jplugin.common.kits.StringKit;
-import net.jplugin.core.kernel.api.PluginEnvirement;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -197,23 +196,27 @@ public final class RpcMessage<T> {
     }
 
     private static Object deSerialBody(ByteBufInputStream input ,Map<String,String> header) throws ClassNotFoundException, IOException {
-        IMessageBodySerializer serializer = getMessageBodySerializer(header);
+        String bodyClazz = input.readUTF();
+
+        AbstractMessageBodySerializer serializer = getMessageBodySerializer(bodyClazz,header);
         return serializer.deSerialBody(input);
     }
 
     private static void serialBody(ByteBufOutputStream byteOutputStream, Object body,Map<String,String> header) throws IOException {
-        IMessageBodySerializer serializer = getMessageBodySerializer(header);
+        AssertKit.assertNotNull(body, "body");
+        byteOutputStream.writeUTF(body.getClass().getName());
+        AbstractMessageBodySerializer serializer = getMessageBodySerializer(body.getClass().getName(), header);
         serializer.serialBody(byteOutputStream, body);
     }
 
-    private static IMessageBodySerializer getMessageBodySerializer(Map<String, String> header) {
+    private static AbstractMessageBodySerializer getMessageBodySerializer(String bodyClazz, Map<String, String> header) {
 //        String serialHandler = DEFAULT_SERIALIZER_HANDLER;
 //        if (header!=null){
-            String temp = header.get(HEADER_SERIAL_TYPE);
-            if (StringKit.isNull(temp)){
-                throw new RuntimeException("Message Serializer must set");
-            }
+        String temp = header.get(HEADER_SERIAL_TYPE);
+        if (StringKit.isNull(temp)){
+            throw new RuntimeException("Message Serializer must set");
+        }
 //        }
-        return (IMessageBodySerializer) PluginEnvirement.INSTANCE.getExtensionMap(IMessageBodySerializer.class.getName()).get(temp);
+        return AbstractMessageBodySerializer.getSerializer(AbstractMessageBodySerializer.SerializerType.valueOf(temp), bodyClazz);
     }
 }

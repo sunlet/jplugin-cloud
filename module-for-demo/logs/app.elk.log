@@ -1,7 +1,7 @@
 2023-02-15 21:58:15,138 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
 headers:req-id=20230215215751-2   serial-type=json-req   
-body={"uri":"svc1","methodName":"m1","arguments":["hello"],"genericTypes":["java.lang.String"]}]异常：net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer - 
-io.netty.handler.codec.EncoderException: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer
+body={"uri":"svc1","methodName":"m1","arguments":["hello"],"genericTypes":["java.lang.String"]}]异常：net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer -
+io.netty.handler.codec.EncoderException: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer
 	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
 	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
 	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
@@ -15,7 +15,7 @@ io.netty.handler.codec.EncoderException: net.jplugin.core.kernel.api.PluginRunti
 	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
 	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
 	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer
+Caused by: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer
 	at net.jplugin.core.kernel.api.PluginEnvirement.getExtensionMap(PluginEnvirement.java:156)
 	at net.jplugin.cloud.rpc.io.message.RpcMessage.getMessageBodySerializer(RpcMessage.java:218)
 	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:206)
@@ -25,8 +25,8 @@ Caused by: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the ex
 	... 12 more
 2023-02-16 20:02:37,707 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
 headers:req-id=20230216200236-2   serial-type=json-req   
-body={"uri":"svc1","methodName":"m1","arguments":["hello"],"genericTypes":["java.lang.String"]}]异常：net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer - 
-io.netty.handler.codec.EncoderException: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer
+body={"uri":"svc1","methodName":"m1","arguments":["hello"],"genericTypes":["java.lang.String"]}]异常：net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer -
+io.netty.handler.codec.EncoderException: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer
 	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
 	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
 	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
@@ -39,7 +39,7 @@ io.netty.handler.codec.EncoderException: net.jplugin.core.kernel.api.PluginRunti
 	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
 	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
 	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer
+Caused by: net.jplugin.core.kernel.api.PluginRuntimeException: Can't find the extension point:net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer
 	at net.jplugin.core.kernel.api.PluginEnvirement.getExtensionMap(PluginEnvirement.java:156)
 	at net.jplugin.cloud.rpc.io.message.RpcMessage.getMessageBodySerializer(RpcMessage.java:218)
 	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:206)
@@ -192,3 +192,429 @@ Caused by: java.lang.NullPointerException
 2023-02-21 22:51:55,843 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
 2023-02-21 22:51:58,917 [nioEventLoop-nettyServer-worker-0] call success.  - 
 2023-02-21 22:52:01,483 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 20:12:42,577 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 20:12:42,595 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 20:12:43,290 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222201242-2   serial-type=kyro-req   
+body={"uri":"/svc1","methodName":"greet","arguments":["haha"],"genericTypes":["java.lang.String"]}]异常：java.lang.IllegalArgumentException: No enum constant net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer.SerializerType.kyro-req -
+io.netty.handler.codec.EncoderException: java.lang.IllegalArgumentException: No enum constant net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer.SerializerType.kyro-req
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.IllegalArgumentException: No enum constant net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer.SerializerType.kyro-req
+	at java.base/java.lang.Enum.valueOf(Enum.java:240)
+	at net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer$SerializerType.valueOf(IMessageBodySerializer.java:16)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.getMessageBodySerializer(RpcMessage.java:221)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:183)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 11 more
+2023-02-22 20:18:21,963 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 20:18:21,988 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 20:18:22,565 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 20:18:22,569 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:20:10,446 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:20:10,466 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:20:11,042 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:20:11,047 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:20:24,079 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:20:24,101 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:20:24,672 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:20:24,677 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:20:43,666 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:20:43,688 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:20:45,447 [esf-rpc-executor-0] invoke error.  - 
+java.lang.RuntimeException: Can't locate Object class methods :toString
+	at net.jplugin.common.kits.ReflactKit.findSingeMethodExactly(ReflactKit.java:217)
+	at net.jplugin.cloud.rpc.io.handler.Util.getMethod(Util.java:15)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.callServerMethod(RpcServerMessageHandler.java:145)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.handleServerMethod(RpcServerMessageHandler.java:89)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.lambda$processClientReq$0(RpcServerMessageHandler.java:71)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2023-02-22 21:20:45,449 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:20:49,494 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:20:51,059 [esf-rpc-executor-2] invoke error.  - 
+java.lang.RuntimeException: Can't locate Object class methods :toString
+	at net.jplugin.common.kits.ReflactKit.findSingeMethodExactly(ReflactKit.java:217)
+	at net.jplugin.cloud.rpc.io.handler.Util.getMethod(Util.java:15)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.callServerMethod(RpcServerMessageHandler.java:145)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.handleServerMethod(RpcServerMessageHandler.java:89)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.lambda$processClientReq$0(RpcServerMessageHandler.java:71)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2023-02-22 21:20:51,060 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:20:54,009 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:21:16,797 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:21:16,816 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:21:17,387 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:21:17,392 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:21:29,462 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:21:29,481 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:21:31,120 [esf-rpc-executor-0] invoke error.  - 
+java.lang.RuntimeException: Can't locate Object class methods :toString
+	at net.jplugin.common.kits.ReflactKit.findSingeMethodExactly(ReflactKit.java:217)
+	at net.jplugin.cloud.rpc.io.handler.Util.getMethod(Util.java:15)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.callServerMethod(RpcServerMessageHandler.java:145)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.handleServerMethod(RpcServerMessageHandler.java:89)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.lambda$processClientReq$0(RpcServerMessageHandler.java:71)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2023-02-22 21:21:31,121 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:22:18,375 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:22:21,888 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:22:21,908 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:22:23,550 [esf-rpc-executor-0] invoke error.  - 
+java.lang.RuntimeException: Can't locate Object class methods :toString
+	at net.jplugin.common.kits.ReflactKit.findSingeMethodExactly(ReflactKit.java:217)
+	at net.jplugin.cloud.rpc.io.handler.Util.getMethod(Util.java:15)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.callServerMethod(RpcServerMessageHandler.java:145)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.handleServerMethod(RpcServerMessageHandler.java:89)
+	at net.jplugin.cloud.rpc.io.handler.RpcServerMessageHandler.lambda$processClientReq$0(RpcServerMessageHandler.java:71)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2023-02-22 21:22:23,552 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:26:05,143 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:26:05,147 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:26:09,019 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:26:09,038 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:26:09,611 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:26:09,616 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:26:46,928 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:26:46,947 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:26:47,594 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:26:47,597 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:27:02,698 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:27:02,718 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:27:03,366 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:27:03,370 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:27:45,043 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:27:45,063 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:27:46,858 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-2   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:27:50,168 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-3   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:27:51,770 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-4   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:27:52,799 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-5   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:27:53,831 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-6   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:28:15,477 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:28:16,520 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-8   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:28:17,982 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-9   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:28:19,732 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-10   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:28:27,787 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-11   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:28:28,838 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-12   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:28:29,869 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-13   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:28:32,976 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-14   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:28:33,982 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230222212745-15   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-22 21:28:34,001 [nioEventLoop-nettyServer-worker-0] call success.  - 

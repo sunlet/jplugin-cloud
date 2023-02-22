@@ -2,6 +2,7 @@ package net.jplugin.cloud.rpc.client.imp;
 
 import net.jplugin.cloud.rpc.io.client.NettyClient;
 import net.jplugin.cloud.rpc.io.message.RpcMessage;
+import net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer;
 import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.client.ClientInvocationManager;
 import net.jplugin.common.kits.client.InvocationParam;
@@ -28,7 +29,7 @@ public class RpcServiceClient  {
     //保存所有active的channel
 
 
-    public Object invokeRpc(String serviceName, Method method, Object[] args) throws Exception {
+    public Object invokeRpc(String serviceName, Method method, Object[] args, AbstractMessageBodySerializer.SerializerType serializerType) throws Exception {
 
         //获取并清除 Param参数
         InvocationParam invocationParam = ClientInvocationManager.INSTANCE.getAndClearParam();
@@ -37,7 +38,7 @@ public class RpcServiceClient  {
         NettyClient client = getClient(invocationParam);
 
         //调用
-        return client.getClientChannelHandler().invoke4Json(serviceName, method, args,invocationParam);
+        return client.getClientChannelHandler().invoke(serviceName, method, args,invocationParam,serializerType);
 
     }
 

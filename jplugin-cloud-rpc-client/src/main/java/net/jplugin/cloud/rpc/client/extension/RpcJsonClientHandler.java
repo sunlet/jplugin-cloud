@@ -5,9 +5,9 @@ import net.jplugin.core.rclient.api.Client;
 
 import java.lang.reflect.Method;
 
-public class RpcClientHandler extends AbstractClientHandler{
+public class RpcJsonClientHandler extends AbstractClientHandler{
     @Override
     public Object invoke(Client client, Object proxy, Method method, Object[] args) throws Throwable {
-        return super.invoke(client, proxy, method, args, AbstractMessageBodySerializer.SerializerType.KRYO);
+        return super.invoke(client, proxy, method, args, AbstractMessageBodySerializer.SerializerType.JSON);
     }
 }

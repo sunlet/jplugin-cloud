@@ -16,8 +16,7 @@ public @interface BindRemoteServiceProxy {
 
     public enum ProxyProtocol {
 //        rest,
-        rpc
-//        , rpc_json;
+        rpc, rpc_json;
     }
 
 }

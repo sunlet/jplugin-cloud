@@ -2,7 +2,7 @@ package net.jplugin.cloud.rpc.io.extension;
 
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
-import net.jplugin.cloud.rpc.io.spi.IMessageBodySerializer;
+import net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer;
 import net.jplugin.cloud.rpc.io.util.TypeUtil;
 import net.jplugin.cloud.rpc.io.message.RpcRequest;
 import net.jplugin.common.kits.AssertKit;
@@ -18,9 +18,19 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 
 
-@BindExtension(name=IMessageBodySerializer.TYPE_JSON_REQ)
-public class JsonBodySerializer4Request implements IMessageBodySerializer {
+@BindExtension
+public class JsonBodySerializer4Request extends AbstractMessageBodySerializer {
     public static final String FLAG="$BODY";
+
+    @Override
+    public SerializerType serialType() {
+        return SerializerType.JSON;
+    }
+
+    @Override
+    public String bodyClass() {
+        return RpcRequest.class.getName();
+    }
 
     @Override
     public Object deSerialBody(ByteBufInputStream input) throws IOException {
