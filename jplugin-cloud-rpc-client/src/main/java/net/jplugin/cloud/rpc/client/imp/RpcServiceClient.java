@@ -118,7 +118,7 @@ public class RpcServiceClient  {
 //        nettyClients.add(client);
         
         addClient(client);
-        client.bootstrap(true);
+        client.bootstrap();
 
     }
 

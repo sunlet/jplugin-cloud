@@ -126,7 +126,7 @@ public class NettyClient{
 			return null;
 	}
 
-	public void bootstrap(boolean syncAwait) {
+	public void bootstrap() {
 		AssertKit.assertTrue(!closeClosed );
 
 //		trys = 0;
@@ -147,7 +147,7 @@ public class NettyClient{
 				pipeline.addLast(new RpcClientMessageHandler());
 			}
 		});
-		doConnect(syncAwait);
+		doConnect();
 	}
 
 	public String getRemoteHostIp(){
@@ -183,11 +183,11 @@ public class NettyClient{
 				logger.info("connection retry now . "+this.getRemoteAddr());
 			}
 			//connect
-			doConnect(false);
+			doConnect();
 		}
 	}
 
-	private void doConnect(boolean syncAwait) {
+	private void doConnect() {
 		//记录上次开始connect时间
 		this.lastTryConnectTime = System.currentTimeMillis();
 

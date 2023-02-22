@@ -618,3 +618,11 @@ Caused by: java.lang.NullPointerException
 	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
 	... 12 more
 2023-02-22 21:28:34,001 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:29:50,280 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:29:50,299 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:29:50,940 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:29:50,944 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:30:52,746 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-22 21:30:52,765 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-22 21:30:53,410 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-22 21:30:53,415 [nioEventLoop-nettyServer-worker-0] call success.  - 
