@@ -3,6 +3,7 @@ package net.jplugin.cloud.rpc.client.extension;
 import java.lang.reflect.Method;
 
 import net.jplugin.cloud.rpc.client.imp.RpcClientManager;
+import net.jplugin.cloud.rpc.client.imp.RpcServiceClient;
 import net.jplugin.cloud.rpc.client.kits.RpcUrlKit;
 import net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer;
 import net.jplugin.common.kits.tuple.Tuple2;
@@ -31,7 +32,9 @@ public abstract  class AbstractClientHandler implements IClientHandler {
 		Tuple2<String, String> urlParseResult = RpcUrlKit.parseEsfUrlInfo(serviceURL);
 		String appCode = urlParseResult.first;
 
-		return clientManager.getServiceClient(appCode).invokeRpc(urlParseResult.second, method, args,serializerType);
+		RpcServiceClient serviceClient = clientManager.getServiceClient(appCode);
+		return serviceClient.invokeRpc(urlParseResult.second, method, args,serializerType);
+
 
 //		String serverIp = null;
 //		String serverPort = null;

@@ -1,15 +1,17 @@
 package net.jplugin.cloud.rpc.client.imp;
 
+import net.jplugin.cloud.rpc.client.kits.RpcUrlKit;
+import net.jplugin.cloud.rpc.client.spi.IClientSubscribeService;
 import net.jplugin.common.kits.ThreadFactoryBuilder;
+import net.jplugin.common.kits.tuple.Tuple2;
 import net.jplugin.core.kernel.api.PluginEnvirement;
+import net.jplugin.core.kernel.api.RefExtension;
 import net.jplugin.core.log.api.Logger;
 import net.jplugin.core.log.api.RefLogger;
+import net.jplugin.core.rclient.proxyfac.ClientProxyDefinition;
 import net.jplugin.core.service.api.BindService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.*;
 
 @BindService
@@ -20,27 +22,40 @@ public class RpcClientManager {
 
     Map<String,RpcServiceClient> serviceClientMap = new ConcurrentHashMap<>();
 
+    @RefExtension
+    IClientSubscribeService clientSubscribeService;
+
     private ScheduledExecutorService connectMaintainer = Executors.newSingleThreadScheduledExecutor(new ThreadFactoryBuilder().setDaemon(true).setNameFormat("ESFClientConnectMaintainer-%d").build());
     private ConnectionMaintainer maintainer = new ConnectionMaintainer();
 
     public void start() {
         PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC ClientManager starting!");
 
-        List<String> appcodeList = getSubscribeAppCodeList();
+        //获取订阅的appcode列表
+        Set<String> appcodeList = getSubscribeAppCodeList();
 
-        appcodeList.forEach(code -> {
-            RpcServiceClient client = new RpcServiceClient(code);
-            serviceClientMap.put(code,client);
-            client.start();
-        });
+        if (!appcodeList.isEmpty()) {
+            //初始化订阅服务
+            clientSubscribeService.initSubscribCodeList(Collections.unmodifiableSet(appcodeList));
 
-        //连接维护
-        connectMaintainer.scheduleWithFixedDelay(maintainer,5000,5000, TimeUnit.MILLISECONDS);
+            //逐个启动
+            appcodeList.forEach(o->{
+                RpcServiceClient serviceClient = new RpcServiceClient(o);
+                Set<String> hostAddrs = clientSubscribeService.getServiceNodesList(o);
+                serviceClient.start(hostAddrs);
+                serviceClientMap.put(o,serviceClient);
+            });
 
-        //等待连接完成
-        waitTillConnectedOrTimeout();
+            //连接维护
+            connectMaintainer.scheduleWithFixedDelay(maintainer, 5000, 5000, TimeUnit.MILLISECONDS);
 
-        PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC ClientManager started!");
+            //等待连接完成
+            waitTillConnectedOrTimeout();
+
+            PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC ClientManager started!" + appcodeList.size()+" apps subscrib.");
+        }else{
+            PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC Client not start ,because no Subscribs !");
+        }
     }
 
     class ConnectionMaintainer implements  Runnable{
@@ -60,10 +75,22 @@ public class RpcClientManager {
         }
     }
 
-    private List<String> getSubscribeAppCodeList() {
-        List<String> list = new ArrayList<>();
-        list.add("app1");
-        return list;
+    private Set<String> getSubscribeAppCodeList() {
+
+        Set<String> appCodeList = new HashSet<>();
+
+        // ESF协议格式:esf://appcode/Servicename
+        Map<String, ClientProxyDefinition> javaExtension = PluginEnvirement.getInstance()
+                .getExtensionMap(net.jplugin.core.rclient.Plugin.EP_CLIENT_PROXY, ClientProxyDefinition.class);
+
+        if ((javaExtension != null && !javaExtension.isEmpty()) ) {
+            javaExtension.values().forEach(o->{
+                String url = o.getUrl();
+                Tuple2<String, String> urlInfo = RpcUrlKit.parseEsfUrlInfo(url);
+                appCodeList.add(urlInfo.first);
+            });
+        }
+        return appCodeList;
     }
 
     private void waitTillConnectedOrTimeout() {

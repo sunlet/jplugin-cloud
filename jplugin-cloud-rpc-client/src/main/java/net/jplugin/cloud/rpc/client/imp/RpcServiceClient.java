@@ -1,26 +1,33 @@
 package net.jplugin.cloud.rpc.client.imp;
 
+import net.jplugin.cloud.rpc.client.kits.Util;
 import net.jplugin.cloud.rpc.io.client.NettyClient;
 import net.jplugin.cloud.rpc.io.message.RpcMessage;
 import net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer;
+import net.jplugin.common.kits.ObjectRef;
 import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.client.ClientInvocationManager;
 import net.jplugin.common.kits.client.InvocationParam;
 import net.jplugin.common.kits.tuple.Tuple2;
-import net.jplugin.core.kernel.api.Initializable;
+import net.jplugin.core.config.api.RefConfig;
 import net.jplugin.core.kernel.api.RefAnnotationSupport;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
-public class RpcServiceClient  {
+public class RpcServiceClient extends RefAnnotationSupport {
     String targetAppCode;
     private static NettyClient[] EMPTY_ARR = new NettyClient[0];
 
     //保存所有
     NettyClient[] nettyClients =  EMPTY_ARR;
+
+    //last invoke time
+    AtomicLong lastExecuteTime = new AtomicLong();
+
+    //boolean
+    boolean started = false;
 
     public RpcServiceClient(String code) {
         targetAppCode = code;
@@ -30,6 +37,8 @@ public class RpcServiceClient  {
 
 
     public Object invokeRpc(String serviceName, Method method, Object[] args, AbstractMessageBodySerializer.SerializerType serializerType) throws Exception {
+        //设置上次时间
+        lastExecuteTime.set(System.currentTimeMillis());
 
         //获取并清除 Param参数
         InvocationParam invocationParam = ClientInvocationManager.INSTANCE.getAndClearParam();
@@ -39,21 +48,20 @@ public class RpcServiceClient  {
 
         //调用
         return client.getClientChannelHandler().invoke(serviceName, method, args,invocationParam,serializerType);
-
     }
 
-    private synchronized  void addClient(NettyClient ...toAdd) {
-        NettyClient[] temp = new NettyClient[this.nettyClients.length+toAdd.length];
-
-        for (int i=0;i<nettyClients.length;i++){
-            temp[i] = nettyClients[i];
-        }
-        for (int i=0;i<toAdd.length;i++){
-            temp[nettyClients.length+i] = toAdd[i];
-        }
-
-        nettyClients = temp;
-    }
+//    private synchronized  void addClient(NettyClient ...toAdd) {
+//        NettyClient[] temp = new NettyClient[this.nettyClients.length+toAdd.length];
+//
+//        for (int i=0;i<nettyClients.length;i++){
+//            temp[i] = nettyClients[i];
+//        }
+//        for (int i=0;i<toAdd.length;i++){
+//            temp[nettyClients.length+i] = toAdd[i];
+//        }
+//
+//        nettyClients = temp;
+//    }
 
     /**
      * 这是一个同步方法，执行需要尽量快
@@ -112,15 +120,43 @@ public class RpcServiceClient  {
     }
 
 
-
-    public void start() {
-        NettyClient client = new NettyClient("127.0.0.1", 9090, 1);
-//        nettyClients.add(client);
-        
-        addClient(client);
-        client.bootstrap();
-
+    /**
+     * 启动的时候直接传入host
+     * @param hostAddrs
+     */
+    public void start(Set<String> hostAddrs) {
+        this.started = true;
+        updateHosts(hostAddrs);
     }
+
+    @RefConfig(path = "rpc.per-client-work-count",defaultValue = "1")
+    Integer rpcClientWorks;
+
+    public synchronized void updateHosts(Set<String> newHosts){
+        if (!started)
+            throw new RuntimeException("not start");
+
+        NettyClient[] temp = new NettyClient[newHosts.size()];
+
+        String[] newHostsArr = newHosts.toArray(new String[newHosts.size()]);
+
+        for (int i=0;i<newHostsArr.length;i++){
+            String addr = newHostsArr[i];
+
+            NettyClient findResult = findTargetClient(addr);
+            if (findResult!=null){
+                temp[i] = findResult;
+            }else{
+
+                Tuple2<String, Integer> ipPort = Util.splitAddr(addr);
+                temp[i] = new NettyClient(ipPort.first,ipPort.second,rpcClientWorks);
+                temp[i].bootstrap();
+            }
+        }
+        this.nettyClients = temp;
+    }
+
+
 
 
     /**

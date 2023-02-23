@@ -72,6 +72,16 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
     }
 
     private void handleServerMethod(ChannelHandlerContext ctx, RpcMessage message, long acceptTime) {
+        ESFRPCContext esfRpcContext = getTheESFRpcContext(ctx, message);
+
+        //生产返回消息
+        RpcMessage<RpcResponse> resp = getRpcResponseRpcMessage(esfRpcContext, message, acceptTime);
+
+        //写回返回消息
+        writeResponseMessage(ctx, message, acceptTime, resp);
+    }
+
+    private RpcMessage<RpcResponse> getRpcResponseRpcMessage(ESFRPCContext esfCtx, RpcMessage message, long acceptTime) {
         RpcMessage<RpcResponse> resp = RpcMessage.create(RpcMessage.TYPE_SERVER_RES);
         RpcResponse response = new RpcResponse();
         resp.body(response);
@@ -86,7 +96,7 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
             if (StringKit.isNotNull(serialAlgm))
                 resp.header(RpcMessage.HEADER_SERIAL_TYPE,serialAlgm);
 
-            Tuple2<Type,Object>  ret = callServerMethod(ctx,message,acceptTime);
+            Tuple2<Type,Object> ret = callServerMethod(esfCtx,message,acceptTime);
             response.setResult(ret.second);
             response.setResultType(ret.first);
             response.setErrorCode("0");
@@ -105,9 +115,12 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
                 response.setErrorCode("-1");
                 response.setMessage(e.getMessage());
             }
-            logInvokeError(e,ctx,message,acceptTime);
+            logInvokeError(e,esfCtx,message,acceptTime);
         }
+        return resp;
+    }
 
+    private void writeResponseMessage(ChannelHandlerContext ctx, RpcMessage message, long acceptTime, RpcMessage<RpcResponse> resp) {
         Channel channel = ctx.channel();
         if (channel == null || !channel.isActive()) {
             if (logger.isInfoEnabled()) {
@@ -130,8 +143,7 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
-
-    private Tuple2<Type,Object> callServerMethod(ChannelHandlerContext ctx, RpcMessage msg, long acceptTime) throws Throwable {
+    private Tuple2<Type,Object> callServerMethod(ESFRPCContext esfRpcCtx, RpcMessage msg, long acceptTime) throws Throwable {
         RpcRequest req = (RpcRequest) msg.getBody();
 
         String uri = req.getUri();
@@ -146,7 +158,7 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
 
         Object[] args = req.getArguments();
         
-        ESFRPCContext esfRpcCtx = getTheESFRpcContext(ctx,msg);
+//        ESFRPCContext esfRpcCtx = getTheESFRpcContext(ctx,msg);
         esfRpcCtx.setMsgReceiveTime(acceptTime);
         esfRpcCtx.setRequestUrl(Util.convertURL(uri,methodName,args));
 
@@ -185,9 +197,8 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
         logger.error("channel error. ");
     }
 
-    private void logInvokeError(Throwable e, ChannelHandlerContext ctx, RpcMessage message, long acceptTime) {
+    private void logInvokeError(Throwable e, ESFRPCContext ctx, RpcMessage message, long acceptTime) {
         logger.error("invoke error. ",e);
-
 
     }
 
