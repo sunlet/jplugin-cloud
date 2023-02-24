@@ -35,6 +35,12 @@ public class Plugin extends AbstractPlugin {
         String ret = proxy1.greet("haha");
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$" +ret);
 
+        try {
+            Thread.sleep(25000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         ret = s1Field.greet("bilibili");
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$" +ret);
     }

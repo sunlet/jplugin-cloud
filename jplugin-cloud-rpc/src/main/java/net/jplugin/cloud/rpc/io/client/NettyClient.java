@@ -16,20 +16,18 @@ import net.jplugin.common.kits.AssertKit;
 import net.jplugin.common.kits.ThreadFactoryBuilder;
 import net.jplugin.core.log.api.LogFactory;
 import net.jplugin.core.log.api.Logger;
-import org.apache.commons.lang3.RandomUtils;
 
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class NettyClient{
 
 	protected static final Logger logger = LogFactory.getLogger(NettyClient.class);
 
-	protected volatile boolean closeClosed;
+	protected volatile boolean clientClosed = true;
 
 //	protected volatile IChannel channel;
 
@@ -82,7 +80,7 @@ public class NettyClient{
 	 * @return
 	 */
 	public boolean isClientClosed(){
-		return this.closeClosed;
+		return this.clientClosed;
 	}
 
 //	public boolean isActive(){
@@ -91,11 +89,10 @@ public class NettyClient{
 //	}
 
 	/**
-	 * 关闭这个客户端
+	 * 关闭这个客户端,释放资源，如果再调用bootstrap，会再次启动！
 	 */
 	public void closeClient(){
-		this.closeClosed = true;
-
+		this.clientClosed = true;
 		try {
 			if (this.nettyChannel != null && this.nettyChannel.isOpen()) {
 				try {
@@ -115,19 +112,22 @@ public class NettyClient{
 	}
 
 	public boolean isConnected() {
-		return !closeClosed && nettyChannel!=null && nettyChannel.isActive();
+		return !clientClosed && nettyChannel!=null && nettyChannel.isActive();
 	}
 
 
 	public ClientChannelHandler getClientChannelHandler(){
-		if (!closeClosed && this.nettyChannel!=null && nettyChannel.isActive())
+		if (!clientClosed && this.nettyChannel!=null && nettyChannel.isActive())
 			return ChannelAttributeUtil.getOrCreateClientChannelHandler(this.nettyChannel);
 		else
 			return null;
 	}
 
 	public void bootstrap() {
-		AssertKit.assertTrue(!closeClosed );
+//		AssertKit.assertTrue(!clientClosed);
+		if (clientClosed){
+			clientClosed = false;
+		}
 
 //		trys = 0;
 		workerGroup = new NioEventLoopGroup(workers, new ThreadFactoryBuilder().setDaemon(true)
@@ -167,7 +167,7 @@ public class NettyClient{
 			logger.debug("maintain connection for:"+this.getRemoteAddr());
 		}
 		//判断已经连上，或者已关闭
-		if (isConnected() || closeClosed) {
+		if (isConnected() || clientClosed) {
 			return;
 		}
 

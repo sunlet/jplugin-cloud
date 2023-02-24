@@ -11,6 +11,8 @@ import net.jplugin.common.kits.client.InvocationParam;
 import net.jplugin.common.kits.tuple.Tuple2;
 import net.jplugin.core.config.api.RefConfig;
 import net.jplugin.core.kernel.api.RefAnnotationSupport;
+import net.jplugin.core.log.api.Logger;
+import net.jplugin.core.log.api.RefLogger;
 
 import java.lang.reflect.Method;
 import java.util.Set;
@@ -27,7 +29,7 @@ public class RpcServiceClient extends RefAnnotationSupport {
     AtomicLong lastExecuteTime = new AtomicLong();
 
     //boolean
-    boolean started = false;
+    boolean closed = true;
 
     public RpcServiceClient(String code) {
         targetAppCode = code;
@@ -35,8 +37,15 @@ public class RpcServiceClient extends RefAnnotationSupport {
 
     //保存所有active的channel
 
+    @RefLogger
+    Logger logger;
+
+
 
     public Object invokeRpc(String serviceName, Method method, Object[] args, AbstractMessageBodySerializer.SerializerType serializerType) throws Exception {
+        //检查状态，如果必要open
+        checkStateAndOpen();
+
         //设置上次时间
         lastExecuteTime.set(System.currentTimeMillis());
 
@@ -48,6 +57,31 @@ public class RpcServiceClient extends RefAnnotationSupport {
 
         //调用
         return client.getClientChannelHandler().invoke(serviceName, method, args,invocationParam,serializerType);
+    }
+
+    /**
+     * 这里在需要时启动，注意并发的场景
+     */
+    private void checkStateAndOpen() {
+        if (closed){
+            synchronized (this){
+                if (closed){
+                    logger.warn("Now to reopen service client:"+this.targetAppCode);
+                    this.start();
+
+                    for (int i=0;i<10;i++){
+                        try {
+                            Thread.sleep(200);
+                            if (this.connectedAny()) {
+                                logger.warn("start ok after "+(i+1)+" test.");
+                                break;
+                            }
+                            logger.error("Service client not connect in limit time!");
+                        }catch(Exception e){}
+                    }
+                }
+            }
+        }
     }
 
 //    private synchronized  void addClient(NettyClient ...toAdd) {
@@ -122,19 +156,27 @@ public class RpcServiceClient extends RefAnnotationSupport {
 
     /**
      * 启动的时候直接传入host
-     * @param hostAddrs
      */
-    public void start(Set<String> hostAddrs) {
-        this.started = true;
-        updateHosts(hostAddrs);
+    public synchronized void start() {
+        this.closed = false;
+
+        for (int i=0;i<this.nettyClients.length;i++){
+            NettyClient nc = nettyClients[i];
+            if (nc.isClientClosed()){
+                logger.info("Not to bootstrap client ,"+nc.getRemoteAddr());
+                nc.bootstrap();
+            }else{
+                logger.warn("The client shoud be closed,but active!,"+nc.getRemoteAddr());
+            }
+        }
     }
 
-    @RefConfig(path = "rpc.per-client-work-count",defaultValue = "1")
+    @RefConfig(path = "cloud-rpc.client-workers-for-channel",defaultValue = "1")
     Integer rpcClientWorks;
 
     public synchronized void updateHosts(Set<String> newHosts){
-        if (!started)
-            throw new RuntimeException("not start");
+//        if (closed)
+//            throw new RuntimeException("not start");
 
         NettyClient[] temp = new NettyClient[newHosts.size()];
 
@@ -150,14 +192,16 @@ public class RpcServiceClient extends RefAnnotationSupport {
 
                 Tuple2<String, Integer> ipPort = Util.splitAddr(addr);
                 temp[i] = new NettyClient(ipPort.first,ipPort.second,rpcClientWorks);
-                temp[i].bootstrap();
+                if (!closed) {
+                    temp[i].bootstrap();
+                    logger.info("AddHost and bootstrap. "+ipPort);
+                }else{
+                    logger.info("AddHost ,not bootstrap."+ipPort);
+                }
             }
         }
         this.nettyClients = temp;
     }
-
-
-
 
     /**
      * 测试连上了任意一个
@@ -182,10 +226,26 @@ public class RpcServiceClient extends RefAnnotationSupport {
         return sb.toString();
     }
 
-    public void maintainConnect() {
+    public synchronized void maintainConnect(int keepMillSeconds) {
+        if (keepMillSeconds>0){
+            if (System.currentTimeMillis() - this.lastExecuteTime.get()>=keepMillSeconds){
+                if (!this.closed) {
+                    System.out.println("Connection idle time out, close it. " + this.targetAppCode);
+                    close();
+                }
+            }
+        }
         for (int i=0;i<nettyClients.length;i++){
             NettyClient temp = nettyClients[i];
             temp.mainTainConnection();
+        }
+    }
+
+    public synchronized  void close(){
+        this.closed = true;
+        for (int i=0;i<nettyClients.length;i++){
+            NettyClient temp = nettyClients[i];
+            temp.closeClient();
         }
     }
 }

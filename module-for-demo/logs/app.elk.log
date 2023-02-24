@@ -626,3 +626,266 @@ Caused by: java.lang.NullPointerException
 2023-02-22 21:30:52,765 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
 2023-02-22 21:30:53,410 [nioEventLoop-nettyServer-worker-0] call success.  - 
 2023-02-22 21:30:53,415 [nioEventLoop-nettyServer-worker-0] call success.  - 
+2023-02-24 14:25:59,523 [main] AddHost ,not bootstrap. - 
+2023-02-24 14:25:59,527 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:25:59,545 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:28:03,642 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6cc4cdb9 - 
+2023-02-24 14:28:03,646 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:28:03,649 [main] Bootstrap client !127.0.0.1:9090 - 
+2023-02-24 14:28:03,664 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:28:47,725 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@383dc82c - 
+2023-02-24 14:28:47,728 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:28:47,731 [main] Bootstrap client !127.0.0.1:9090 - 
+2023-02-24 14:28:47,747 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:42:11,990 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6cc4cdb9 - 
+2023-02-24 14:50:21,219 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@2bdd8394 - 
+2023-02-24 14:50:21,227 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:50:21,230 [main] Bootstrap client !127.0.0.1:9090 - 
+2023-02-24 14:50:21,245 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:50:21,440 [main] start ok after 1 test. - 
+2023-02-24 14:51:48,520 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@383dc82c - 
+2023-02-24 14:51:48,526 [main] Now to reopen service client:app1 - 
+2023-02-24 14:51:48,528 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:51:48,531 [main] Bootstrap client !127.0.0.1:9090 - 
+2023-02-24 14:51:48,546 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:51:48,739 [main] start ok after 1 test. - 
+2023-02-24 14:52:13,457 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@2bdd8394 - 
+2023-02-24 14:52:13,463 [main] Now to reopen service client:app1 - 
+2023-02-24 14:52:13,466 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:52:13,469 [main] Bootstrap client !127.0.0.1:9090 - 
+2023-02-24 14:52:13,483 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:52:13,673 [main] start ok after 1 test. - 
+2023-02-24 14:52:26,280 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@383dc82c - 
+2023-02-24 14:52:26,285 [main] Now to reopen service client:app1 - 
+2023-02-24 14:52:26,289 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:52:26,292 [main] Bootstrap client !127.0.0.1:9090 - 
+2023-02-24 14:52:26,307 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:52:26,494 [main] start ok after 1 test. - 
+2023-02-24 14:52:41,934 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@3e2055d6 - 
+2023-02-24 14:52:41,941 [main] Now to reopen service client:app1 - 
+2023-02-24 14:52:41,943 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:52:41,946 [main] Bootstrap client !127.0.0.1:9090 - 
+2023-02-24 14:52:41,962 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:52:42,159 [main] start ok after 1 test. - 
+2023-02-24 14:53:35,562 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@383dc82c - 
+2023-02-24 14:53:35,569 [main] Now to reopen service client:app1 - 
+2023-02-24 14:53:35,572 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:53:35,575 [main] Bootstrap client !127.0.0.1:9090 - 
+2023-02-24 14:53:35,589 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:53:35,783 [main] start ok after 1 test. - 
+2023-02-24 14:56:27,134 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6cc4cdb9 - 
+2023-02-24 14:56:27,140 [main] Now to reopen service client:app1 - 
+2023-02-24 14:56:27,140 [main] Bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 14:56:27,143 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:56:27,163 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:56:27,346 [main] start ok after 1 test. - 
+2023-02-24 14:57:29,959 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@383dc82c - 
+2023-02-24 14:57:29,965 [main] Now to reopen service client:app1 - 
+2023-02-24 14:57:29,966 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 14:57:29,968 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:57:29,987 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:57:30,186 [main] start ok after 1 test. - 
+2023-02-24 14:57:53,144 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@383dc82c - 
+2023-02-24 14:57:53,150 [main] Now to reopen service client:app1 - 
+2023-02-24 14:57:53,150 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 14:57:53,153 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:57:53,172 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:57:53,362 [main] start ok after 1 test. - 
+2023-02-24 14:59:04,820 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@79c7532f - 
+2023-02-24 14:59:04,922 [main] Now to reopen service client:app1 - 
+2023-02-24 14:59:04,922 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 14:59:04,928 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 14:59:05,135 [main] Service client not connect in limit time! - 
+2023-02-24 14:59:05,335 [main] Service client not connect in limit time! - 
+2023-02-24 14:59:05,537 [main] Service client not connect in limit time! - 
+2023-02-24 14:59:05,740 [main] Service client not connect in limit time! - 
+2023-02-24 14:59:05,944 [main] start ok after 5 test. - 
+2023-02-24 14:59:05,953 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 14:59:06,148 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230224145905-2   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-24 14:59:24,405 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@17aad511 - 
+2023-02-24 15:00:28,728 [main] Now to reopen service client:app1 - 
+2023-02-24 15:00:28,728 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:00:28,733 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:01:47,826 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@2e2ff723 - 
+2023-02-24 15:01:47,834 [main] Now to reopen service client:app1 - 
+2023-02-24 15:01:47,834 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:01:47,839 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:02:31,536 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@79c7532f - 
+2023-02-24 15:02:31,546 [main] Now to reopen service client:app1 - 
+2023-02-24 15:02:31,546 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:02:31,550 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:02:31,573 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:08:00,146 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@22bac7bc - 
+2023-02-24 15:08:00,156 [main] Now to reopen service client:app1 - 
+2023-02-24 15:08:00,156 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:08:00,159 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:08:00,181 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:09:10,353 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@2e2ff723 - 
+2023-02-24 15:09:10,361 [main] Now to reopen service client:app1 - 
+2023-02-24 15:09:10,361 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:09:10,365 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:09:10,386 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:09:25,201 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6aa3a905 - 
+2023-02-24 15:09:29,465 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:09:29,493 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:09:35,054 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:09:39,958 [nioEventLoop-1-nettyClient-worker-0] Request=[type=3 
+headers:req-id=20230224150935-2   serial-type=JSON   
+body={"uri":"/svc1","methodName":"toString","arguments":null,"genericTypes":[]}]异常：java.lang.NullPointerException - 
+io.netty.handler.codec.EncoderException: java.lang.NullPointerException
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:125)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite0(AbstractChannelHandlerContext.java:738)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWrite(AbstractChannelHandlerContext.java:730)
+	at io.netty.channel.AbstractChannelHandlerContext.access$1900(AbstractChannelHandlerContext.java:38)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.write(AbstractChannelHandlerContext.java:1089)
+	at io.netty.channel.AbstractChannelHandlerContext$WriteAndFlushTask.write(AbstractChannelHandlerContext.java:1136)
+	at io.netty.channel.AbstractChannelHandlerContext$AbstractWriteTask.run(AbstractChannelHandlerContext.java:1078)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.NullPointerException
+	at net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request.serialBody(JsonBodySerializer4Request.java:84)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serialBody(RpcMessage.java:209)
+	at net.jplugin.cloud.rpc.io.message.RpcMessage.serializeWithLength(RpcMessage.java:182)
+	at net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder.encode(RpcMessageEncoder.java:11)
+	at io.netty.handler.codec.MessageToByteEncoder.write(MessageToByteEncoder.java:107)
+	... 12 more
+2023-02-24 15:09:55,290 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@3e2055d6 - 
+2023-02-24 15:09:55,291 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:09:55,295 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:09:55,313 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:10:02,982 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@32115b28 - 
+2023-02-24 15:10:02,983 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:10:02,986 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:10:03,004 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:10:13,437 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@7d9f158f - 
+2023-02-24 15:10:13,438 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:10:13,441 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:10:13,460 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:10:47,251 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@32115b28 - 
+2023-02-24 15:10:47,253 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:10:47,255 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:10:47,274 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:11:03,256 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6cc4cdb9 - 
+2023-02-24 15:11:03,257 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:11:03,260 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:11:03,280 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:11:53,541 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@5038d0b5 - 
+2023-02-24 15:11:53,548 [main] Now to reopen service client:app1 - 
+2023-02-24 15:11:53,548 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:11:53,552 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:11:53,571 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:11:53,765 [main] start ok after 1 test. - 
+2023-02-24 15:12:03,058 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@2bdd8394 - 
+2023-02-24 15:12:03,065 [main] Now to reopen service client:app1 - 
+2023-02-24 15:12:03,065 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:12:03,068 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:12:03,086 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:12:03,278 [main] start ok after 1 test. - 
+2023-02-24 15:12:26,441 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@383dc82c - 
+2023-02-24 15:12:26,442 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:12:26,445 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:12:26,463 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:12:56,094 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@2bdd8394 - 
+2023-02-24 15:12:56,101 [main] Now to reopen service client:app1 - 
+2023-02-24 15:12:56,101 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:12:56,103 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:12:56,122 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:12:56,310 [main] start ok after 1 test. - 
+2023-02-24 15:21:40,050 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@383dc82c - 
+2023-02-24 15:21:40,057 [main] Now to reopen service client:app1 - 
+2023-02-24 15:21:40,057 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:21:40,061 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:21:40,079 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:21:40,264 [main] start ok after 1 test. - 
+2023-02-24 15:21:47,772 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@3e2055d6 - 
+2023-02-24 15:21:47,778 [main] Now to reopen service client:app1 - 
+2023-02-24 15:21:47,778 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:21:47,782 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:21:47,800 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:21:47,987 [main] start ok after 1 test. - 
+2023-02-24 15:21:54,598 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@383dc82c - 
+2023-02-24 15:21:54,603 [main] Now to reopen service client:app1 - 
+2023-02-24 15:21:54,603 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:21:54,606 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:21:54,624 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:21:54,811 [main] start ok after 1 test. - 
+2023-02-24 15:22:00,746 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@383dc82c - 
+2023-02-24 15:22:00,751 [main] Now to reopen service client:app1 - 
+2023-02-24 15:22:00,751 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:22:00,754 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:22:00,772 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:22:00,971 [main] start ok after 1 test. - 
+2023-02-24 15:22:15,210 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6cc4cdb9 - 
+2023-02-24 15:22:15,216 [main] Now to reopen service client:app1 - 
+2023-02-24 15:22:15,216 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:22:15,218 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:22:15,238 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:22:15,426 [main] start ok after 1 test. - 
+2023-02-24 15:22:34,106 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6cc4cdb9 - 
+2023-02-24 15:22:34,113 [main] Now to reopen service client:app1 - 
+2023-02-24 15:22:34,113 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:22:34,116 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:22:34,135 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:22:34,333 [main] start ok after 1 test. - 
+2023-02-24 15:25:18,589 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6cc4cdb9 - 
+2023-02-24 15:25:18,597 [main] Now to reopen service client:app1 - 
+2023-02-24 15:25:18,597 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:25:18,600 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:25:18,619 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:25:18,813 [main] start ok after 1 test. - 
+2023-02-24 15:26:14,984 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6cc4cdb9 - 
+2023-02-24 15:26:14,989 [main] Now to reopen service client:app1 - 
+2023-02-24 15:26:14,989 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:26:14,991 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:26:15,014 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:26:15,209 [main] start ok after 1 test. - 
+2023-02-24 15:27:01,242 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6cc4cdb9 - 
+2023-02-24 15:27:01,247 [main] Now to reopen service client:app1 - 
+2023-02-24 15:27:01,248 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:27:01,251 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:27:01,270 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:27:01,469 [main] start ok after 1 test. - 
+2023-02-24 15:27:33,435 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6cc4cdb9 - 
+2023-02-24 15:27:33,441 [main] Now to reopen service client:app1 - 
+2023-02-24 15:27:33,441 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:27:33,443 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:27:33,462 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:27:33,653 [main] start ok after 1 test. - 
+2023-02-24 15:30:07,254 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@383dc82c - 
+2023-02-24 15:30:07,261 [main] Now to reopen service client:app1 - 
+2023-02-24 15:30:07,261 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:30:07,264 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:30:07,282 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:30:07,476 [main] start ok after 1 test. - 
+2023-02-24 15:30:32,623 [main] Now to reopen service client:app1 - 
+2023-02-24 15:30:32,623 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:30:32,624 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:30:32,627 [nioEventLoop-2-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:30:32,824 [main] start ok after 1 test. - 

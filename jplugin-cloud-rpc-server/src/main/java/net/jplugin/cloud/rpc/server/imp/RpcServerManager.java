@@ -11,9 +11,9 @@ public class RpcServerManager {
     NettyServer nettyServer ;
 
     Integer port;
-    @RefConfig(path = "rpc.server-boss",defaultValue = "1")
+    @RefConfig(path = "cloud-rpc.server-boss",defaultValue = "1")
     Integer boss;
-    @RefConfig(path = "rpc.server-boss",defaultValue = "5")
+    @RefConfig(path = "cloud-rpc.server-workers",defaultValue = "5")
     Integer workers;
 
 

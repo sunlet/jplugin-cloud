@@ -4,6 +4,8 @@ import net.jplugin.cloud.rpc.client.kits.RpcUrlKit;
 import net.jplugin.cloud.rpc.client.spi.IClientSubscribeService;
 import net.jplugin.common.kits.ThreadFactoryBuilder;
 import net.jplugin.common.kits.tuple.Tuple2;
+import net.jplugin.core.config.api.ConfigFactory;
+import net.jplugin.core.config.api.RefConfig;
 import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.core.kernel.api.RefExtension;
 import net.jplugin.core.log.api.Logger;
@@ -28,7 +30,14 @@ public class RpcClientManager {
     private ScheduledExecutorService connectMaintainer = Executors.newSingleThreadScheduledExecutor(new ThreadFactoryBuilder().setDaemon(true).setNameFormat("ESFClientConnectMaintainer-%d").build());
     private ConnectionMaintainer maintainer = new ConnectionMaintainer();
 
+    @RefConfig(path="cloud-rpc.client-keep-seconds-for-idle",defaultValue="1800")
+    private Integer keepSecondsForIdle;
+
     public void start() {
+
+        System.out.println(PluginEnvirement.getInstance().getConfigDir());
+        System.out.println(ConfigFactory.getStringConfig("cloud-rpc.client-keep-seconds-for-idle"));
+
         PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC ClientManager starting!");
 
         //获取订阅的appcode列表
@@ -42,15 +51,26 @@ public class RpcClientManager {
             appcodeList.forEach(o->{
                 RpcServiceClient serviceClient = new RpcServiceClient(o);
                 Set<String> hostAddrs = clientSubscribeService.getServiceNodesList(o);
-                serviceClient.start(hostAddrs);
+                serviceClient.updateHosts(hostAddrs);
+//                serviceClient.start();
                 serviceClientMap.put(o,serviceClient);
             });
+
+
+
+            if (keepSecondsForIdle==0) {
+                //启动所有
+                serviceClientMap.values().forEach(o->{
+                    o.start();
+                });
+
+                //等待所有連接好
+                waitTillConnectedOrTimeout();
+            }
 
             //连接维护
             connectMaintainer.scheduleWithFixedDelay(maintainer, 5000, 5000, TimeUnit.MILLISECONDS);
 
-            //等待连接完成
-            waitTillConnectedOrTimeout();
 
             PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC ClientManager started!" + appcodeList.size()+" apps subscrib.");
         }else{
@@ -67,7 +87,7 @@ public class RpcClientManager {
                 }
 
                 serviceClientMap.forEach((code,client)->{
-                    client.maintainConnect();
+                    client.maintainConnect(keepSecondsForIdle*1000);
                 });
             }catch(Exception e){
                 e.printStackTrace();
