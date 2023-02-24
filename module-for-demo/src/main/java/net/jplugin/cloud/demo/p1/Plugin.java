@@ -36,10 +36,11 @@ public class Plugin extends AbstractPlugin {
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$" +ret);
 
         try {
-            Thread.sleep(25000);
+            Thread.sleep(30000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
 
         ret = s1Field.greet("bilibili");
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$" +ret);

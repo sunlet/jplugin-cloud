@@ -889,3 +889,14 @@ Caused by: java.lang.NullPointerException
 2023-02-24 15:30:32,624 [main] begin to connect remoteHost=127.0.0.1:9090 - 
 2023-02-24 15:30:32,627 [nioEventLoop-2-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
 2023-02-24 15:30:32,824 [main] start ok after 1 test. - 
+2023-02-24 15:35:03,375 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@6cc4cdb9 - 
+2023-02-24 15:35:03,380 [main] Now to reopen service client:app1 - 
+2023-02-24 15:35:03,380 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:35:03,383 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:35:03,402 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:35:03,596 [main] start ok after 1 test. - 
+2023-02-24 15:35:33,751 [main] Now to reopen service client:app1 - 
+2023-02-24 15:35:33,751 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-02-24 15:35:33,752 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-02-24 15:35:33,755 [nioEventLoop-2-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-02-24 15:35:33,958 [main] start ok after 1 test. - 
