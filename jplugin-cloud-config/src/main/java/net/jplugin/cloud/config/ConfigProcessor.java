@@ -47,7 +47,7 @@ public final class ConfigProcessor {
         properties.put(PropertyKeyConst.PASSWORD, CloudEnvironment.INSTANCE.getNacosPwd());
         
         ClientAuthService authService = new NacosClientAuthServiceImpl();
-        authService.setServerList(Lists.newArrayList("127.0.0.1:8848"));
+        authService.setServerList(Lists.newArrayList(CloudEnvironment.INSTANCE.getNacosUrl()));
         authService.setNacosRestTemplate(this.template);
         
         if (authService.login(properties)) {
@@ -63,7 +63,7 @@ public final class ConfigProcessor {
         Map<String, Properties> propertiesMap = new HashMap<>();
         Map<String, String> map = new HashMap<>();
         
-        String url = "http://" + CloudEnvironment.INSTANCE.getNacosUrl() + ":8848" + webContext + CONFIG_URL;
+        String url = "http://" + CloudEnvironment.INSTANCE.getNacosUrl() + webContext + CONFIG_URL;
         url += "?pageNo=1";
         url += "&pageSize=100";
         url += "&search=accurate";
@@ -80,7 +80,6 @@ public final class ConfigProcessor {
             throw new RuntimeException("获取配置接口调用异常：" + restResult.getMessage());
         }
         JsonNode obj = JacksonUtils.toObj(restResult.getData());
-        System.out.println("json:" + obj);
         ArrayNode data = (ArrayNode) obj.get("pageItems");
         Iterator<JsonNode> elements = data.elements();
         while (elements.hasNext()) {

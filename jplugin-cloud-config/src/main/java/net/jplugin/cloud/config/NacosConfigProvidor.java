@@ -52,7 +52,6 @@ public final class NacosConfigProvidor implements IConfigProvidor {
             properties.put(PropertyKeyConst.PASSWORD, CloudEnvironment.INSTANCE.getNacosPwd());
             properties.put(PropertyKeyConst.SERVER_ADDR, CloudEnvironment.INSTANCE.getNacosUrl());
             this.configService = NacosFactory.createConfigService(properties);
-            this.processor.login();
             initConfig();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -61,7 +60,11 @@ public final class NacosConfigProvidor implements IConfigProvidor {
 
     private void initConfig() {
         try {
+            //模拟登录
+            this.processor.login();
+            //获取公共配置
             Tuple2<Map<String, Properties>, Map<String, String>> publicConfigData = this.processor.initConifgData("");
+            //获取本项目的配置
             Tuple2<Map<String, Properties>, Map<String, String>> myConfigData = this.processor.initConifgData(CloudEnvironment.INSTANCE.getAppCode());
             this.propertiesCache.putAll(publicConfigData.first);
             this.propertiesCache.putAll(myConfigData.first);
