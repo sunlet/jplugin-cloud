@@ -1,7 +1,7 @@
 package net.jplugin.cloud.rpc.io.future;
 
 
-import net.jplugin.cloud.rpc.common.bean.AbstractContextAttachBean;
+
 import net.jplugin.cloud.rpc.common.config.AbstractConfig;
 import net.jplugin.common.kits.ThreadFactoryBuilder;
 import net.jplugin.common.kits.client.ICallback;
@@ -14,7 +14,7 @@ import java.net.SocketAddress;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class CallFuture<T> extends AbstractContextAttachBean {
+public class CallFuture<T>{
 
 	private static final long serialVersionUID = -8250017494915963821L;
 
@@ -48,6 +48,16 @@ public class CallFuture<T> extends AbstractContextAttachBean {
 	 * 方法返回结果类型
 	 */
 	private Type rtnclz;
+
+	private String contextId;
+
+	public void setContextId(String ctx){
+		this.contextId = ctx;
+	}
+
+	public String getContextId() {
+		return contextId;
+	}
 
 	public CallFuture(SocketAddress remoteAddress) {
 		this.serverInfo = (remoteAddress == null ? null : remoteAddress.toString());

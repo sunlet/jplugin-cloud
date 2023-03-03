@@ -1,6 +1,5 @@
 package net.jplugin.cloud.rpc.common.config;
 
-import net.jplugin.cloud.rpc.common.bean.AbstractSerializeBean;
 import net.jplugin.cloud.rpc.common.constant.ConfigConstants;
 import net.jplugin.cloud.rpc.common.util.ExceptionUtils;
 import net.jplugin.common.kits.StringKit;
@@ -8,7 +7,7 @@ import net.jplugin.core.config.api.ConfigFactory;
 import net.jplugin.core.kernel.api.ctx.ThreadLocalContextManager;
 import net.jplugin.core.rclient.api.RemoteExecuteException;
 
-public abstract class AbstractConfig extends AbstractSerializeBean {
+public abstract class AbstractConfig{
 	private static final long serialVersionUID = -2218369194338181239L;
 
 	private static final int demo_cpu_beishu = 5;// 请求处理线程 默认cpu核数倍数

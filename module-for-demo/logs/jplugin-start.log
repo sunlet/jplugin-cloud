@@ -10546,3 +10546,252 @@ ESF Client start success. subscrib status:
  2023-02-24 15:35:03  $$$ platform.service-time-limit is 6000
  2023-02-24 15:35:33  Total 11 plugin started!
  2023-02-24 15:35:33  @@Plugin Loaded successfully!
+ 2023-02-24 16:01:40  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:01:40  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-24 16:01:40  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:01:41  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=9090
+ 2023-02-24 16:01:41  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-24 16:01:41  $$$ Auto add extension for BindExtensionPoint class=AbstractMessageBodySerializer name= type=LIST supportPriority=false
+ 2023-02-24 16:01:41  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Request name=
+ 2023-02-24 16:01:41  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Response name=
+ 2023-02-24 16:01:41  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Response name=
+ 2023-02-24 16:01:41  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request name=
+ 2023-02-24 16:01:41  $$$ Auto add extension for BindExtensionInterceptor class=ClientHandlerInterceptor forExtensions= forExtensionPoints=EP_CLIENT_HANDLER forImplClasses= methodNameFilter= methodAnnotationFilter=class java.lang.Object
+ 2023-02-24 16:01:41  $$$ Auto add extension for BindServiceExport class=Service1 path=/svc1
+ 2023-02-24 16:01:41  $$$ Auto add extension for remote service proxy : protocol=rpc_json,url=esf://app1/svc1,class=net.jplugin.cloud.demo.p1.IService1
+ 2023-02-24 16:01:41  $$$ Auto add extension for BindRemoteServiceProxy class=IService1 url=esf://app1/svc1 protocol=rpc_json
+ 2023-02-24 16:01:41  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServerManager impl=net.jplugin.cloud.rpc.server.imp.RpcServerManager
+ 2023-02-24 16:01:41  $$$ Auto add extension for BindExtensionPoint class=IClientSubscribeService name= type=UNIQUE supportPriority=false
+ 2023-02-24 16:01:41  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.client.spi.DemoSubscribService name=
+ 2023-02-24 16:01:41  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.client.imp.RpcClientManager impl=net.jplugin.cloud.rpc.client.imp.RpcClientManager
+ 2023-02-24 16:01:41  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.rpc.io.Plugin , ]
+ 2023-02-24 16:01:41  After reorder :net.jplugin.cloud.rpc.io.Plugin , net.jplugin.cloud.common.Plugin , ]
+ 2023-02-24 16:01:41  ==Now to create services==
+ 2023-02-24 16:01:41  Now to create common logging service.....
+ 2023-02-24 16:01:41  Using local logger config
+ 2023-02-24 16:01:41  ==Now to init plugins==
+ 2023-02-24 16:01:41  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-24 16:01:41  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-24 16:01:41  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-24 16:01:41  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-24 16:01:41  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-24 16:01:41  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-24 16:01:41  StartPlugin :[6] net.jplugin.cloud.rpc.io.Plugin
+ 2023-02-24 16:01:41  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-24 16:01:41  StartPlugin :[8] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-24 16:01:41  $$$ RPC Server starting...
+ 2023-02-24 16:01:42  $$$ RPC Server starting success
+ 2023-02-24 16:01:42  StartPlugin :[9] net.jplugin.cloud.rpc.client.Plugin
+ 2023-02-24 16:01:42  $$$ RPC ClientManager starting!
+ 2023-02-24 16:01:42  $$$ RPC ClientManager started!1 apps subscrib.
+ 2023-02-24 16:01:42  StartPlugin :[10] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-24 16:01:42  $$$ platform.service-time-limit is 6000
+ 2023-02-24 16:02:12  Total 11 plugin started!
+ 2023-02-24 16:02:12  @@Plugin Loaded successfully!
+ 2023-02-24 16:02:47  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:02:47  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-24 16:02:47  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:02:47  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=9090
+ 2023-02-24 16:02:47  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-24 16:02:47  $$$ Auto add extension for BindExtensionPoint class=AbstractMessageBodySerializer name= type=LIST supportPriority=false
+ 2023-02-24 16:02:47  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Request name=
+ 2023-02-24 16:02:47  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Response name=
+ 2023-02-24 16:02:47  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Response name=
+ 2023-02-24 16:02:47  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request name=
+ 2023-02-24 16:02:47  $$$ Auto add extension for BindExtensionInterceptor class=ClientHandlerInterceptor methodAnnotationFilter=class java.lang.Object forExtensions= methodNameFilter= forImplClasses= forExtensionPoints=EP_CLIENT_HANDLER
+ 2023-02-24 16:02:47  $$$ Auto add extension for BindServiceExport class=Service1 path=/svc1
+ 2023-02-24 16:02:47  $$$ Auto add extension for remote service proxy : protocol=rpc_json,url=esf://app1/svc1,class=net.jplugin.cloud.demo.p1.IService1
+ 2023-02-24 16:02:47  $$$ Auto add extension for BindRemoteServiceProxy class=IService1 url=esf://app1/svc1 protocol=rpc_json
+ 2023-02-24 16:02:47  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServerManager impl=net.jplugin.cloud.rpc.server.imp.RpcServerManager
+ 2023-02-24 16:02:47  $$$ Auto add extension for BindExtensionPoint class=IClientSubscribeService name= type=UNIQUE supportPriority=false
+ 2023-02-24 16:02:47  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.client.spi.DemoSubscribService name=
+ 2023-02-24 16:02:47  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.client.imp.RpcClientManager impl=net.jplugin.cloud.rpc.client.imp.RpcClientManager
+ 2023-02-24 16:02:47  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.rpc.io.Plugin , ]
+ 2023-02-24 16:02:47  After reorder :net.jplugin.cloud.rpc.io.Plugin , net.jplugin.cloud.common.Plugin , ]
+ 2023-02-24 16:02:47  ==Now to create services==
+ 2023-02-24 16:02:48  Now to create common logging service.....
+ 2023-02-24 16:02:48  Using local logger config
+ 2023-02-24 16:02:48  ==Now to init plugins==
+ 2023-02-24 16:02:48  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-24 16:02:48  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-24 16:02:48  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-24 16:02:48  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-24 16:02:48  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-24 16:02:48  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-24 16:02:48  StartPlugin :[6] net.jplugin.cloud.rpc.io.Plugin
+ 2023-02-24 16:02:48  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-24 16:02:48  StartPlugin :[8] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-24 16:02:48  $$$ RPC Server starting...
+ 2023-02-24 16:02:48  $$$ RPC Server starting success
+ 2023-02-24 16:02:48  StartPlugin :[9] net.jplugin.cloud.rpc.client.Plugin
+ 2023-02-24 16:02:48  $$$ RPC ClientManager starting!
+ 2023-02-24 16:02:48  $$$ RPC ClientManager started!1 apps subscrib.
+ 2023-02-24 16:02:48  StartPlugin :[10] net.jplugin.cloud.demo.p1.Plugin
+ 2023-02-24 16:02:49  $$$ platform.service-time-limit is 6000
+ 2023-02-24 16:03:03  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:03:03  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-24 16:03:03  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:03:03  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=9090
+ 2023-02-24 16:03:03  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-24 16:03:03  $$$ Auto add extension for BindExtensionPoint class=AbstractMessageBodySerializer name= type=LIST supportPriority=false
+ 2023-02-24 16:03:03  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Response name=
+ 2023-02-24 16:03:03  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Response name=
+ 2023-02-24 16:03:03  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Request name=
+ 2023-02-24 16:03:03  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request name=
+ 2023-02-24 16:03:03  $$$ Auto add extension for BindExtensionInterceptor class=ClientHandlerInterceptor methodAnnotationFilter=class java.lang.Object forExtensions= forExtensionPoints=EP_CLIENT_HANDLER forImplClasses= methodNameFilter=
+ 2023-02-24 16:03:03  $$$ Auto add extension for BindServiceExport class=Service1 path=/svc1
+ 2023-02-24 16:03:03  $$$ Auto add extension for remote service proxy : protocol=rpc_json,url=esf://app1/svc1,class=net.jplugin.cloud.demo.p1.IService1
+ 2023-02-24 16:03:03  $$$ Auto add extension for BindRemoteServiceProxy class=IService1 url=esf://app1/svc1 protocol=rpc_json
+ 2023-02-24 16:03:03  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServerManager impl=net.jplugin.cloud.rpc.server.imp.RpcServerManager
+ 2023-02-24 16:03:03  $$$ Auto add extension for BindExtensionPoint class=IClientSubscribeService name= type=UNIQUE supportPriority=false
+ 2023-02-24 16:03:03  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.client.spi.DemoSubscribService name=
+ 2023-02-24 16:03:03  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.client.imp.RpcClientManager impl=net.jplugin.cloud.rpc.client.imp.RpcClientManager
+ 2023-02-24 16:03:04  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.rpc.io.Plugin , ]
+ 2023-02-24 16:03:04  After reorder :net.jplugin.cloud.rpc.io.Plugin , net.jplugin.cloud.common.Plugin , ]
+ 2023-02-24 16:03:04  ==Now to create services==
+ 2023-02-24 16:03:04  Now to create common logging service.....
+ 2023-02-24 16:03:04  Using local logger config
+ 2023-02-24 16:03:49  ==Now to init plugins==
+ 2023-02-24 16:03:49  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-24 16:03:49  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-24 16:03:49  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-24 16:03:49  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-24 16:03:49  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-24 16:03:49  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-24 16:03:49  StartPlugin :[6] net.jplugin.cloud.rpc.io.Plugin
+ 2023-02-24 16:03:49  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-24 16:03:49  StartPlugin :[8] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-24 16:03:49  $$$ RPC Server starting...
+ 2023-02-24 16:03:51  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:03:51  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-24 16:03:51  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:03:51  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=9090
+ 2023-02-24 16:03:51  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-24 16:03:51  $$$ Auto add extension for BindExtensionPoint class=AbstractMessageBodySerializer name= type=LIST supportPriority=false
+ 2023-02-24 16:03:51  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Response name=
+ 2023-02-24 16:03:51  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Response name=
+ 2023-02-24 16:03:51  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Request name=
+ 2023-02-24 16:03:51  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request name=
+ 2023-02-24 16:03:51  $$$ Auto add extension for BindExtensionInterceptor class=ClientHandlerInterceptor forExtensionPoints=EP_CLIENT_HANDLER methodNameFilter= forExtensions= forImplClasses= methodAnnotationFilter=class java.lang.Object
+ 2023-02-24 16:03:51  $$$ Auto add extension for BindServiceExport class=Service1 path=/svc1
+ 2023-02-24 16:03:51  $$$ Auto add extension for remote service proxy : protocol=rpc_json,url=esf://app1/svc1,class=net.jplugin.cloud.demo.p1.IService1
+ 2023-02-24 16:03:51  $$$ Auto add extension for BindRemoteServiceProxy class=IService1 url=esf://app1/svc1 protocol=rpc_json
+ 2023-02-24 16:03:51  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServerManager impl=net.jplugin.cloud.rpc.server.imp.RpcServerManager
+ 2023-02-24 16:03:51  $$$ Auto add extension for BindExtensionPoint class=IClientSubscribeService name= type=UNIQUE supportPriority=false
+ 2023-02-24 16:03:51  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.client.spi.DemoSubscribService name=
+ 2023-02-24 16:03:51  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.client.imp.RpcClientManager impl=net.jplugin.cloud.rpc.client.imp.RpcClientManager
+ 2023-02-24 16:03:51  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.rpc.io.Plugin , ]
+ 2023-02-24 16:03:51  After reorder :net.jplugin.cloud.rpc.io.Plugin , net.jplugin.cloud.common.Plugin , ]
+ 2023-02-24 16:03:51  ==Now to create services==
+ 2023-02-24 16:03:52  Now to create common logging service.....
+ 2023-02-24 16:03:52  Using local logger config
+ 2023-02-24 16:04:20  ==Now to init plugins==
+ 2023-02-24 16:04:20  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-24 16:04:20  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-24 16:04:20  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-24 16:04:20  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-24 16:04:20  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-24 16:04:20  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-24 16:04:20  StartPlugin :[6] net.jplugin.cloud.rpc.io.Plugin
+ 2023-02-24 16:04:20  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-24 16:04:20  StartPlugin :[8] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-24 16:04:20  $$$ RPC Server starting...
+ 2023-02-24 16:04:22  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:04:22  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-24 16:04:22  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:04:23  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=9090
+ 2023-02-24 16:04:23  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-24 16:04:23  $$$ Auto add extension for BindExtensionPoint class=AbstractMessageBodySerializer name= type=LIST supportPriority=false
+ 2023-02-24 16:04:23  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Response name=
+ 2023-02-24 16:04:23  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Response name=
+ 2023-02-24 16:04:23  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Request name=
+ 2023-02-24 16:04:23  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request name=
+ 2023-02-24 16:04:23  $$$ Auto add extension for BindExtensionInterceptor class=ClientHandlerInterceptor methodAnnotationFilter=class java.lang.Object forImplClasses= methodNameFilter= forExtensions= forExtensionPoints=EP_CLIENT_HANDLER
+ 2023-02-24 16:04:23  $$$ Auto add extension for BindServiceExport class=Service1 path=/svc1
+ 2023-02-24 16:04:23  $$$ Auto add extension for remote service proxy : protocol=rpc_json,url=esf://app1/svc1,class=net.jplugin.cloud.demo.p1.IService1
+ 2023-02-24 16:04:23  $$$ Auto add extension for BindRemoteServiceProxy class=IService1 url=esf://app1/svc1 protocol=rpc_json
+ 2023-02-24 16:04:23  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServerManager impl=net.jplugin.cloud.rpc.server.imp.RpcServerManager
+ 2023-02-24 16:04:23  $$$ Auto add extension for BindExtensionPoint class=IClientSubscribeService name= type=UNIQUE supportPriority=false
+ 2023-02-24 16:04:23  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.client.spi.DemoSubscribService name=
+ 2023-02-24 16:04:23  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.client.imp.RpcClientManager impl=net.jplugin.cloud.rpc.client.imp.RpcClientManager
+ 2023-02-24 16:04:23  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.rpc.io.Plugin , ]
+ 2023-02-24 16:04:23  After reorder :net.jplugin.cloud.rpc.io.Plugin , net.jplugin.cloud.common.Plugin , ]
+ 2023-02-24 16:04:23  ==Now to create services==
+ 2023-02-24 16:04:23  Now to create common logging service.....
+ 2023-02-24 16:04:23  Using local logger config
+ 2023-02-24 16:05:15  ==Now to init plugins==
+ 2023-02-24 16:05:15  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-02-24 16:05:15  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-02-24 16:05:15  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-02-24 16:05:15  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-02-24 16:05:15  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-02-24 16:05:15  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-02-24 16:05:15  StartPlugin :[6] net.jplugin.cloud.rpc.io.Plugin
+ 2023-02-24 16:05:15  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-02-24 16:05:15  StartPlugin :[8] net.jplugin.cloud.rpc.server.Plugin
+ 2023-02-24 16:05:15  $$$ RPC Server starting...
+ 2023-02-24 16:05:20  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:05:20  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-02-24 16:05:20  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-02-24 16:05:20  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=9090
+ 2023-02-24 16:05:20  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-02-24 16:05:20  $$$ Auto add extension for BindExtensionPoint class=AbstractMessageBodySerializer name= type=LIST supportPriority=false
+ 2023-02-24 16:05:20  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Response name=
+ 2023-02-24 16:05:20  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Response name=
+ 2023-02-24 16:05:20  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Request name=
+ 2023-02-24 16:05:20  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request name=
+ 2023-02-24 16:05:20  $$$ Auto add extension for BindExtensionInterceptor class=ClientHandlerInterceptor methodAnnotationFilter=class java.lang.Object forExtensions= forExtensionPoints=EP_CLIENT_HANDLER forImplClasses= methodNameFilter=
+ 2023-02-24 16:05:20  $$$ Auto add extension for BindServiceExport class=Service1 path=/svc1
+ 2023-02-24 16:05:20  $$$ Auto add extension for remote service proxy : protocol=rpc_json,url=esf://app1/svc1,class=net.jplugin.cloud.demo.p1.IService1
+ 2023-02-24 16:05:20  $$$ Auto add extension for BindRemoteServiceProxy class=IService1 url=esf://app1/svc1 protocol=rpc_json
+ 2023-02-24 16:05:20  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServerManager impl=net.jplugin.cloud.rpc.server.imp.RpcServerManager
+ 2023-02-24 16:05:20  $$$ Auto add extension for BindExtensionPoint class=IClientSubscribeService name= type=UNIQUE supportPriority=false
+ 2023-02-24 16:05:20  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.client.spi.DemoSubscribService name=
+ 2023-02-24 16:05:20  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.client.imp.RpcClientManager impl=net.jplugin.cloud.rpc.client.imp.RpcClientManager
+ 2023-02-24 16:05:20  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.rpc.io.Plugin , ]
+ 2023-02-24 16:05:20  After reorder :net.jplugin.cloud.rpc.io.Plugin , net.jplugin.cloud.common.Plugin , ]
+ 2023-02-24 16:05:20  ==Now to create services==
+ 2023-02-24 16:05:21  Now to create common logging service.....
+ 2023-02-24 16:05:21  Using local logger config
+ 2023-03-03 22:02:36  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-03-03 22:02:36  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-03-03 22:02:36  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-03-03 22:02:37  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=9090
+ 2023-03-03 22:02:37  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-03-03 22:02:37  $$$ Auto add extension for BindExtensionPoint class=AbstractMessageBodySerializer name= type=LIST supportPriority=false
+ 2023-03-03 22:02:37  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Response name=
+ 2023-03-03 22:02:37  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.KryoBodySerializer4Request name=
+ 2023-03-03 22:02:37  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Request name=
+ 2023-03-03 22:02:37  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.io.extension.JsonBodySerializer4Response name=
+ 2023-03-03 22:02:37  $$$ Auto add extension for BindExtensionInterceptor class=ClientHandlerInterceptor methodNameFilter= forImplClasses= forExtensions= forExtensionPoints=EP_CLIENT_HANDLER methodAnnotationFilter=class java.lang.Object
+ 2023-03-03 22:02:37  $$$ Auto add extension for remote service proxy : protocol=rpc_json,url=esf://app1/svc1,class=net.jplugin.cloud.demo.p1.IService1
+ 2023-03-03 22:02:37  $$$ Auto add extension for BindRemoteServiceProxy class=IService1 url=esf://app1/svc1 protocol=rpc_json
+ 2023-03-03 22:02:37  $$$ Auto add extension for BindServiceExport class=Service1 path=/svc1
+ 2023-03-03 22:02:37  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.server.imp.RpcServerManager impl=net.jplugin.cloud.rpc.server.imp.RpcServerManager
+ 2023-03-03 22:02:37  $$$ Auto add extension for BindExtensionPoint class=IClientSubscribeService name= type=UNIQUE supportPriority=false
+ 2023-03-03 22:02:37  $$$ Auto add extension for point: class=net.jplugin.cloud.rpc.client.spi.DemoSubscribService name=
+ 2023-03-03 22:02:37  $$$ Auto add extension for service: interface=net.jplugin.cloud.rpc.client.imp.RpcClientManager impl=net.jplugin.cloud.rpc.client.imp.RpcClientManager
+ 2023-03-03 22:02:37  Found simple priority plugins :net.jplugin.cloud.common.Plugin , net.jplugin.cloud.rpc.io.Plugin , ]
+ 2023-03-03 22:02:37  After reorder :net.jplugin.cloud.rpc.io.Plugin , net.jplugin.cloud.common.Plugin , ]
+ 2023-03-03 22:02:37  ==Now to create services==
+ 2023-03-03 22:02:37  Now to create common logging service.....
+ 2023-03-03 22:02:37  Using local logger config
+ 2023-03-03 22:02:37  ==Now to init plugins==
+ 2023-03-03 22:02:37  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2023-03-03 22:02:37  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2023-03-03 22:02:37  StartPlugin :[2] net.jplugin.core.service.Plugin
+ 2023-03-03 22:02:37  StartPlugin :[3] net.jplugin.core.log.Plugin
+ 2023-03-03 22:02:37  StartPlugin :[4] net.jplugin.core.rclient.Plugin
+ 2023-03-03 22:02:37  StartPlugin :[5] net.jplugin.cloud.rpc.common.Plugin
+ 2023-03-03 22:02:37  StartPlugin :[6] net.jplugin.cloud.rpc.io.Plugin
+ 2023-03-03 22:02:37  StartPlugin :[7] net.jplugin.cloud.common.Plugin
+ 2023-03-03 22:02:37  StartPlugin :[8] net.jplugin.cloud.rpc.server.Plugin
+ 2023-03-03 22:02:37  $$$ RPC Server starting...
+ 2023-03-03 22:02:38  $$$ RPC Server starting success
+ 2023-03-03 22:02:38  StartPlugin :[9] net.jplugin.cloud.rpc.client.Plugin
+ 2023-03-03 22:02:38  $$$ RPC ClientManager starting!
+ 2023-03-03 22:02:38  $$$ RPC ClientManager started!1 apps subscrib.
+ 2023-03-03 22:02:38  StartPlugin :[10] net.jplugin.cloud.demo.p1.Plugin
+ 2023-03-03 22:02:38  $$$ platform.service-time-limit is 6000
+ 2023-03-03 22:03:08  Total 11 plugin started!
+ 2023-03-03 22:03:08  @@Plugin Loaded successfully!

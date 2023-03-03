@@ -1,10 +1,8 @@
 package net.jplugin.cloud.rpc.io.client;
 
 import io.netty.channel.*;
-import net.jplugin.cloud.rpc.common.bean.ClientHeartBean;
+//import net.jplugin.cloud.rpc.common.bean.ClientHeartBean;
 import net.jplugin.cloud.rpc.common.config.AbstractConfig;
-import net.jplugin.cloud.rpc.common.constant.NettyChannelEvent;
-import net.jplugin.cloud.rpc.common.listener.INotifyListener;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -51,9 +49,9 @@ public class NettyClient{
 
 //	protected abstract HostConfig getHost();
 
-	private INotifyListener<NettyChannelEvent> eventListener;
+//	private INotifyListener<NettyChannelEvent> eventListener;
 
-	private static final ClientHeartBean clientInfo = new ClientHeartBean();
+//	private static final ClientHeartBean clientInfo = new ClientHeartBean();
 
 	private static final AtomicInteger idIndexer = new AtomicInteger(1);
 
