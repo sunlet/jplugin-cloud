@@ -10795,3 +10795,38 @@ ESF Client start success. subscrib status:
  2023-03-03 22:02:38  $$$ platform.service-time-limit is 6000
  2023-03-03 22:03:08  Total 11 plugin started!
  2023-03-03 22:03:08  @@Plugin Loaded successfully!
+ 2023-03-03 22:07:11  $$$ plugin.home=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-03-03 22:07:11  $$$ ConfigDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\./application/config
+ 2023-03-03 22:07:11  $$$ WorkDir=D:\Work\git-repository\jplugin-cloud\module-for-demo\.
+ 2023-03-03 22:07:11  $$$ CloudEnvironment Init: nacosUrl=url1, appCode=appcode1, serviceCode=servicecode1 nacosUser=null rpcPort=9090
+ 2023-03-03 22:07:11  $$$ CloudEnvironment init ok from jplugin-cloud.properties
+ 2023-03-03 22:07:11  初始化过程发生错误
+java.lang.RuntimeException
+	at net.jplugin.core.kernel.impl.PluginPrepareHelper.classPrepare(PluginPrepareHelper.java:72)
+	at net.jplugin.core.kernel.impl.PluginPrepareHelper.preparePlugins(PluginPrepareHelper.java:100)
+	at net.jplugin.core.kernel.api.PluginRegistry.prepare(PluginRegistry.java:392)
+	at net.jplugin.core.kernel.api.PluginEnvirement.ready(PluginEnvirement.java:379)
+	at net.jplugin.core.kernel.api.PluginEnvirement.startup(PluginEnvirement.java:261)
+	at net.jplugin.core.kernel.api.PluginEnvirement.startup(PluginEnvirement.java:243)
+	at net.jplugin.core.kernel.PluginApp.main(PluginApp.java:47)
+	at net.jplugin.cloud.demo.Main.main(Main.java:16)
+Caused by: java.lang.ExceptionInInitializerError
+	at net.jplugin.cloud.config.NacosConfigProvidor.me(NacosConfigProvidor.java:39)
+	at net.jplugin.cloud.config.Plugin.prepare(Plugin.java:11)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at net.jplugin.core.kernel.impl.PluginPrepareHelper.classPrepare(PluginPrepareHelper.java:66)
+	... 7 more
+Caused by: java.lang.RuntimeException: java.lang.NullPointerException
+	at net.jplugin.cloud.config.NacosConfigProvidor.<init>(NacosConfigProvidor.java:57)
+	at net.jplugin.cloud.config.NacosConfigProvidor.<init>(NacosConfigProvidor.java:27)
+	at net.jplugin.cloud.config.NacosConfigProvidor$NacosConfigProvidorHandler.<clinit>(NacosConfigProvidor.java:154)
+	... 14 more
+Caused by: java.lang.NullPointerException
+	at java.base/java.util.concurrent.ConcurrentHashMap.putVal(ConcurrentHashMap.java:1011)
+	at java.base/java.util.concurrent.ConcurrentHashMap.put(ConcurrentHashMap.java:1006)
+	at java.base/java.util.Properties.put(Properties.java:1316)
+	at net.jplugin.cloud.config.NacosConfigProvidor.<init>(NacosConfigProvidor.java:51)
+	... 16 more
