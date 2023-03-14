@@ -47,15 +47,23 @@ public class RpcClientManager {
             //初始化订阅服务
             clientSubscribeService.initSubscribCodeList(Collections.unmodifiableSet(appcodeList));
 
-            //逐个启动
+            //逐个初始化好
             appcodeList.forEach(o->{
                 RpcServiceClient serviceClient = new RpcServiceClient(o);
                 Set<String> hostAddrs = clientSubscribeService.getServiceNodesList(o);
                 serviceClient.updateHosts(hostAddrs);
-//                serviceClient.start();
                 serviceClientMap.put(o,serviceClient);
             });
 
+            //初始化订阅监听器
+            clientSubscribeService.addServiceNodesChangeListener( (appcode,nodeSet)->{
+                RpcServiceClient client = serviceClientMap.get(appcode);
+                if (client==null) {
+                    RuntimeException ex = new RuntimeException("can't find client:" + client);
+                    logger.error(ex);
+                }
+                client.updateHosts(nodeSet);
+            });
 
 
             if (keepSecondsForIdle==0) {
