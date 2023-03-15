@@ -22,7 +22,7 @@ public class CloudEnvironment {
     public static final String NACOS_URL = "nacosUrl";
     public static final String SERVICE_CODE = "serviceCode";
     public static final String APP_CODE = "appCode";
-    private static final String RPC_PORT = "rpcPort";
+    public static final String RPC_PORT = "rpcPort";
     public static final String NACOS_USER = "nacosUser";
     public static final String NACOS_PWD = "nacosPwd";
 
