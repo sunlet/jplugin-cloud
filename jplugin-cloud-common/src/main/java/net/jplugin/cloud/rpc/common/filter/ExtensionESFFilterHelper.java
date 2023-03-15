@@ -7,6 +7,7 @@ import net.jplugin.core.kernel.api.Extension;
 public class ExtensionESFFilterHelper {
 
 	public static void addESFRpcClientFilterExtension(AbstractPlugin p, Class<?> clazz) {
-		p.addExtension(Extension.create(Plugin.EP_RPC_CLIENT_FILTER, clazz));
+//		p.addExtension(Extension.create(Plugin.EP_RPC_CLIENT_FILTER, clazz));
+		throw new RuntimeException("not support");
 	}
 }

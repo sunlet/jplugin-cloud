@@ -5,6 +5,7 @@ import net.jplugin.common.kits.AssertKit;
 import net.jplugin.common.kits.FileKit;
 import net.jplugin.common.kits.PropertiesKit;
 import net.jplugin.common.kits.StringKit;
+import net.jplugin.core.config.api.ConfigFactory;
 import net.jplugin.core.kernel.api.PluginEnvirement;
 
 import java.util.HashMap;
@@ -72,6 +73,20 @@ public class CloudEnvironment {
             composedAppCode = appCode+":"+serviceCode;
         }
         return composedAppCode;
+    }
+
+    /**
+     * embbed tomcat 情况下获取默认的rpc端口。
+     */
+    public static final String RPC_PORT_HINT_EMBED_TOMCAT = "-1";
+    public String _getRpcPortWithEmbbedTomcat(){
+        if (!RPC_PORT_HINT_EMBED_TOMCAT.equals(this.rpcPort)){
+            return this.rpcPort;
+        }else{
+            Integer intTomcatPort = ConfigFactory.getIntConfig("embed-tomcat.context-port", 8080);
+            String esfport = (intTomcatPort + 100) + "";
+            return esfport;
+        }
     }
 
     private void checkInit() {

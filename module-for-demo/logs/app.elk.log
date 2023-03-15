@@ -950,3 +950,25 @@ Caused by: java.lang.NullPointerException
 2023-03-14 20:07:35,335 [main] begin to connect remoteHost=127.0.0.1:9090 - 
 2023-03-14 20:07:35,337 [nioEventLoop-2-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
 2023-03-14 20:07:35,537 [main] start ok after 1 test. - 
+2023-03-14 20:11:44,679 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@730d2164 - 
+2023-03-14 20:11:44,685 [main] Now to reopen service client:app1 - 
+2023-03-14 20:11:44,685 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-03-14 20:11:44,688 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-03-14 20:11:44,707 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-03-14 20:11:44,891 [main] start ok after 1 test. - 
+2023-03-14 20:12:15,048 [main] Now to reopen service client:app1 - 
+2023-03-14 20:12:15,049 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-03-14 20:12:15,051 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-03-14 20:12:15,055 [nioEventLoop-2-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-03-14 20:12:15,251 [main] start ok after 1 test. - 
+2023-03-14 20:26:04,800 [main] AddHost ,not bootstrap.net.jplugin.common.kits.tuple.Tuple2@461ad730 - 
+2023-03-14 20:26:04,807 [main] Now to reopen service client:app1 - 
+2023-03-14 20:26:04,807 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-03-14 20:26:04,810 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-03-14 20:26:04,830 [nioEventLoop-1-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-03-14 20:26:05,016 [main] start ok after 1 test. - 
+2023-03-14 20:26:35,170 [main] Now to reopen service client:app1 - 
+2023-03-14 20:26:35,171 [main] Not to bootstrap client ,127.0.0.1:9090 - 
+2023-03-14 20:26:35,173 [main] begin to connect remoteHost=127.0.0.1:9090 - 
+2023-03-14 20:26:35,176 [nioEventLoop-2-nettyClient-worker-0] connection success. 127.0.0.1:9090 - 
+2023-03-14 20:26:35,388 [main] start ok after 1 test. - 
