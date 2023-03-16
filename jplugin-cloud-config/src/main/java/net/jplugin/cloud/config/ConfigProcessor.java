@@ -40,8 +40,16 @@ public final class ConfigProcessor {
     
     private volatile String token;
     
+    private ConfigProcessor() {
+        login();
+    }
     
-    public String login() {
+    public static ConfigProcessor me() {
+        return ConfigProcessorHolder.ME;
+    }
+    
+    
+    private String login() {
         Properties properties = new Properties();
         properties.put(PropertyKeyConst.USERNAME, CloudEnvironment.INSTANCE.getNacosUser());
         properties.put(PropertyKeyConst.PASSWORD, CloudEnvironment.INSTANCE.getNacosPwd());
@@ -96,6 +104,11 @@ public final class ConfigProcessor {
             }
         }
         return Tuple2.with(propertiesMap, map);
+    }
+    
+    
+    private static final class ConfigProcessorHolder {
+        private static final ConfigProcessor ME = new ConfigProcessor();
     }
     
 }

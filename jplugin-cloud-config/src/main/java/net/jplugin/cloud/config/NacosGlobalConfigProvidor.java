@@ -3,7 +3,6 @@ package net.jplugin.cloud.config;
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.PropertyKeyConst;
 import com.alibaba.nacos.api.config.ConfigService;
-import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.shaded.com.google.common.collect.Maps;
 import net.jplugin.cloud.common.CloudEnvironment;
 import net.jplugin.common.kits.tuple.Tuple2;
@@ -12,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.StringReader;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
@@ -21,36 +19,27 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * 基于nacos的应用级配置器
+ * 基于nacos的全局配置器
  *
  * @author peiyu
  */
-public final class NacosConfigProvidor implements IConfigProvidor {
+public final class NacosGlobalConfigProvidor implements IConfigProvidor {
     
     private final Logger log = LoggerFactory.getLogger(getClass());
     
-    private final ConfigProcessor processor = ConfigProcessor.me();
+    private ConfigProcessor processor = ConfigProcessor.me();
     
     private final ConfigService configService;
     
-    private final String appcode;
-    
-    private final String serviceCode;
-    
     private final ConcurrentMap<String, Properties> propertiesCache;
     
-    private final ConcurrentMap<String, String> cache;
     
-    
-    public static NacosConfigProvidor me() {
-        return NacosConfigProvidorHandler.ME;
+    public static NacosGlobalConfigProvidor me() {
+        return NacosGlobalConfigProvidorHolder.ME;
     }
     
-    private NacosConfigProvidor() {
-        this.appcode = CloudEnvironment.INSTANCE.getAppCode();
-        this.serviceCode = CloudEnvironment.INSTANCE.getServiceCode();
+    private NacosGlobalConfigProvidor() {
         this.propertiesCache = new ConcurrentHashMap<>();
-        this.cache = new ConcurrentHashMap<>();
         try {
             //init nacos config
             Properties properties = new Properties();
@@ -66,37 +55,13 @@ public final class NacosConfigProvidor implements IConfigProvidor {
     
     private void initConfig() {
         try {
-//            //模拟登录
-//            this.processor.login();
-            
-            //获取本项目的配置
-            Tuple2<Map<String, Properties>, Map<String, String>> myConfigData = this.processor.initConifgData(
-                    CloudEnvironment.INSTANCE.getAppCode());
-            this.propertiesCache.putAll(myConfigData.first);
-            this.cache.putAll(myConfigData.second);
-            
-            this.propertiesCache.keySet().forEach(k -> {
-                try {
-                    this.configService.addListener(CloudEnvironment.INSTANCE.getServiceCode(), k,
-                            new ConfigChangeListener(k));
-                } catch (NacosException e) {
-                    log.error("增加监听器异常", e);
-                    throw new RuntimeException(e);
-                }
-            });
-            this.cache.keySet().forEach(k -> {
-                try {
-                    this.configService.addListener(CloudEnvironment.INSTANCE.getServiceCode(), k,
-                            new ConfigChangeListener(k));
-                } catch (NacosException e) {
-                    log.error("增加监听器异常", e);
-                    throw new RuntimeException(e);
-                }
-            });
-            
+            //获取公共配置
+            Tuple2<Map<String, Properties>, Map<String, String>> publicConfigData = this.processor.initConifgData("");
+            this.propertiesCache.putAll(publicConfigData.first);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        
     }
     
     @Override
@@ -107,7 +72,7 @@ public final class NacosConfigProvidor implements IConfigProvidor {
             String subKey = StringUtils.substringAfter(key, ".");
             return (String) properties.get(subKey);
         } else {
-            return this.cache.get(key);
+            return null;
         }
     }
     
@@ -119,7 +84,7 @@ public final class NacosConfigProvidor implements IConfigProvidor {
             String subKey = StringUtils.substringAfter(key, ".");
             return properties.containsKey(subKey);
         } else {
-            return this.cache.containsKey(key);
+            return false;
         }
     }
     
@@ -135,29 +100,11 @@ public final class NacosConfigProvidor implements IConfigProvidor {
     
     @Override
     public Set<String> getGroups() {
-        Set<String> result = new HashSet<>();
-        result.addAll(this.propertiesCache.keySet());
-        result.addAll(this.cache.keySet());
-        return result;
+        return new HashSet<>(this.propertiesCache.keySet());
     }
     
-    public void updateConfig(String groupId, String data) {
-        try {
-            if (this.propertiesCache.containsKey(groupId)) {
-                Properties properties = new Properties();
-                properties.load(new StringReader(data));
-                this.propertiesCache.put(groupId, properties);
-            } else {
-                this.cache.put(groupId, data);
-            }
-        } catch (Exception e) {
-            log.error("更新配置异常，配置组:" + groupId, e);
-        }
-    }
-    
-    
-    private static final class NacosConfigProvidorHandler {
+    private static final class NacosGlobalConfigProvidorHolder {
         
-        private static final NacosConfigProvidor ME = new NacosConfigProvidor();
+        private static final NacosGlobalConfigProvidor ME = new NacosGlobalConfigProvidor();
     }
 }

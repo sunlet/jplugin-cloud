@@ -1,6 +1,7 @@
 package net.jplugin.cloud.config;
 
 import net.jplugin.core.config.api.ConfigFactory;
+import net.jplugin.core.config.api.GlobalConfigFactory;
 import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.PluginAnnotation;
 
@@ -8,7 +9,9 @@ import net.jplugin.core.kernel.api.PluginAnnotation;
 public class Plugin extends AbstractPlugin {
 
     public static void prepare() {
+        System.out.println("prepare......");
         ConfigFactory._setRemoteConfigProvidor(NacosConfigProvidor.me());
+        GlobalConfigFactory._setRemoteConfigProvidor(NacosGlobalConfigProvidor.me());
     }
 
     @Override
