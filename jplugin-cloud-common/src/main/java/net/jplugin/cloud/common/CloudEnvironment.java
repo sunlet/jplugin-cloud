@@ -14,7 +14,24 @@ import java.util.Properties;
 
 
 /**
+ * <pre>
  * 云服务环境的配置信息。云服务环境的注册中心、配置中心依赖于nacos。
+ *
+ * 全局变量
+ *      存放位置：跨应用的全局变量在public命名空间下面，GLOBAL-CONFIG(dataId)，
+ *      访问方式：访问时候使用GlobalConfigFactory 来访问。
+ *
+ * 应用级共享配置
+ *      存放位置：一个应用中各个Service的共享配置，放在应用的命名空间下面，APP-CONFIG(group)下面。
+ *      访问方式：这些变量会被融合到Service的访问当中，如果APP-CONFIG 下的group名称和 Service自己的group重合，Service自己配置的Group优先。
+ *
+ * 关于旧版本兼容性的设计：
+ *      兼容旧版本的AppEnvirement.getGlobalVar(varname）：旧版本的GlobalVar访问，统一在public命名空间-->GLOBAL-CONFIG数据Id-->DEFAULT_GROUP组下面。
+ * 关于订阅应用时不指定服务：
+ *      A应用访问B应用，如果没有指定SERVICE-CODE,则会订阅默认的服务。服务编码是：DEFAULT.
+ *      所以，如果一个应用希望别人访问路径中不包含ServiceCode也能访问，需要自己部署一个服务编码为DEFAULT的服务。
+ *      也就是说：esf://appcode/svc1 等价于 esf://appcode:DEFAULT/svc1
+ * </pre>
  */
 public class CloudEnvironment {
 

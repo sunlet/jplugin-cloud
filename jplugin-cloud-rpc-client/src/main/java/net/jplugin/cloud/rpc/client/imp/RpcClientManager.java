@@ -2,6 +2,7 @@ package net.jplugin.cloud.rpc.client.imp;
 
 import net.jplugin.cloud.rpc.client.kits.RpcUrlKit;
 import net.jplugin.cloud.rpc.client.spi.IClientSubscribeService;
+import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.ThreadFactoryBuilder;
 import net.jplugin.common.kits.tuple.Tuple2;
 import net.jplugin.core.config.api.ConfigFactory;
@@ -115,10 +116,27 @@ public class RpcClientManager {
             javaExtension.values().forEach(o->{
                 String url = o.getUrl();
                 Tuple2<String, String> urlInfo = RpcUrlKit.parseEsfUrlInfo(url);
-                appCodeList.add(urlInfo.first);
+                appCodeList.add(handleDefaultServiceCode(urlInfo.first));
             });
         }
         return appCodeList;
+    }
+
+    private  static String handleDefaultServiceCode(String appCodeServiceCode) {
+        if (StringKit.isNull(appCodeServiceCode)){
+            throw new RuntimeException("appcode and servicecode not found");
+        }
+        int pos = appCodeServiceCode.indexOf(":");
+        if (pos<0){
+            return appCodeServiceCode+":DEFAULT";
+        }else{
+            return appCodeServiceCode;
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(handleDefaultServiceCode("abc:aaa"));
+        System.out.println(handleDefaultServiceCode("abc"));
     }
 
     private void waitTillConnectedOrTimeout() {
