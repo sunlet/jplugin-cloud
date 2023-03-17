@@ -1,10 +1,10 @@
 package net.jplugin.cloud.rpc.client.imp;
 
+import net.jplugin.cloud.rpc.client.api.RpcContext;
 import net.jplugin.cloud.rpc.client.kits.Util;
 import net.jplugin.cloud.rpc.io.client.NettyClient;
 import net.jplugin.cloud.rpc.io.message.RpcMessage;
 import net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer;
-import net.jplugin.common.kits.ObjectRef;
 import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.client.ClientInvocationManager;
 import net.jplugin.common.kits.client.InvocationParam;
@@ -15,8 +15,12 @@ import net.jplugin.core.log.api.Logger;
 import net.jplugin.core.log.api.RefLogger;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 public class RpcServiceClient extends RefAnnotationSupport {
     String targetAppCode;
@@ -29,7 +33,7 @@ public class RpcServiceClient extends RefAnnotationSupport {
     AtomicLong lastExecuteTime = new AtomicLong();
 
     //boolean
-    boolean closed = true;
+    private boolean closed = true;
 
     public RpcServiceClient(String code) {
         targetAppCode = code;
@@ -41,43 +45,89 @@ public class RpcServiceClient extends RefAnnotationSupport {
     Logger logger;
 
 
+    public List<RpcContext> _getRpcContextList(){
+        return Arrays.stream(nettyClients).map(nc->{return new RpcContext(this,nc.getRemoteAddr());}).collect(Collectors.toList());
+    }
+
+    public RpcContext _getRpcContext(String ip){
+        for (int i=0;i<nettyClients.length;i++){
+            NettyClient nc = nettyClients[i];
+            if (ip.equals(nc.getRemoteHostIp())){
+                return new RpcContext(this, nc.getRemoteAddr());
+            }
+        }
+        return null;
+    }
+
+    public RpcContext _getRpcContext(String ip, int port){
+        for (int i=0;i<nettyClients.length;i++){
+            NettyClient nc = nettyClients[i];
+            if (ip.equals(nc.getRemoteHostIp()) && port==nc.getRemoteHostPort()){
+                return new RpcContext(this, nc.getRemoteAddr());
+            }
+        }
+        return null;
+    }
+
 
     public Object invokeRpc(String serviceName, Method method, Object[] args, AbstractMessageBodySerializer.SerializerType serializerType) throws Exception {
+        return invokeRpc(serviceName, method.getName(), method.getGenericParameterTypes(), args, serializerType);
+    }
+
+    public Object invokeRpc(String serviceName, String methodName, Type[] argsType, Object[] args, AbstractMessageBodySerializer.SerializerType serializerType){
+        //获取并清除 Param参数
+        InvocationParam invocationParam = ClientInvocationManager.INSTANCE.getAndClearParam();
+
         //检查状态，如果必要open
-        checkStateAndOpen();
+        checkStateAndOpen(invocationParam==null? null:invocationParam.getServiceAddress());
 
         //设置上次时间
         lastExecuteTime.set(System.currentTimeMillis());
-
-        //获取并清除 Param参数
-        InvocationParam invocationParam = ClientInvocationManager.INSTANCE.getAndClearParam();
 
         //找到一个合适的client
         NettyClient client = getClient(invocationParam);
 
         //调用
-        return client.getClientChannelHandler().invoke(serviceName, method, args,invocationParam,serializerType);
+        return client.getClientChannelHandler().invoke(serviceName, methodName, argsType,args,invocationParam,serializerType);
     }
+
+
 
     /**
      * 这里在需要时启动，注意并发的场景
+     * @param serviceAddress
      */
-    private void checkStateAndOpen() {
+    private void checkStateAndOpen(String serviceAddress) {
         if (closed){
             synchronized (this){
                 if (closed){
                     logger.warn("Now to reopen service client:"+this.targetAppCode);
                     this.start();
 
-                    for (int i=0;i<10;i++){
+                    int i=0;
+                    for (;i<10;i++){
                         try {
                             Thread.sleep(200);
-                            if (this.connectedAny()) {
-                                logger.warn("start ok after "+(i+1)+" test.");
-                                break;
+                            if (serviceAddress==null) {
+                                if (this.connectedAny()) {
+                                    logger.warn("start ok after " + (i + 1) + " test.");
+                                    break;
+                                }
+                            }else{
+                                if (this.connectedSpecifal(serviceAddress)){
+                                    logger.warn("start specifal ok after " + (i + 1) + " test.");
+                                    break;
+                                }
                             }
-                            logger.error("Service client not connect in limit time!");
-                        }catch(Exception e){}
+                        }catch(Exception e){
+                            //发生意外
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                    //判断是否超时没连好
+                    if (i==10){
+                        throw new RuntimeException("Service client not connect in limit time!");
                     }
                 }
             }
@@ -158,6 +208,8 @@ public class RpcServiceClient extends RefAnnotationSupport {
      * 启动的时候直接传入host
      */
     public synchronized void start() {
+        System.out.println("$$$$$$$$$$$$$ ServiceClient started1:"+this.toString());
+
         this.closed = false;
 
         for (int i=0;i<this.nettyClients.length;i++){
@@ -169,6 +221,8 @@ public class RpcServiceClient extends RefAnnotationSupport {
                 logger.warn("The client shoud be closed,but active!,"+nc.getRemoteAddr());
             }
         }
+
+        System.out.println("$$$$$$$$$$$$$ ServiceClient started2:"+this.toString());
     }
 
     @RefConfig(path = "cloud-rpc.client-workers-for-channel",defaultValue = "1")
@@ -200,7 +254,28 @@ public class RpcServiceClient extends RefAnnotationSupport {
                 }
             }
         }
+        NettyClient[] oldClients = this.nettyClients;
         this.nettyClients = temp;
+
+        //关闭oldclients中不在新的clients的
+        for (int i=0;i<oldClients.length;i++){
+            if (!contain(temp,oldClients[i])){
+                try {
+                    oldClients[i].closeClient();
+                }catch(Exception e){
+                    logger.error("error to close "+oldClients[i].getRemoteAddr() +" "+this.targetAppCode,e);
+                }
+            }
+        }
+    }
+
+    private boolean contain(NettyClient[] arr, NettyClient client) {
+        for (int i=0;i<arr.length;i++){
+            if (arr[i]==client) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -216,13 +291,30 @@ public class RpcServiceClient extends RefAnnotationSupport {
         return false;
     }
 
+    /**
+     * 指定的target是否连上
+     * @param address
+     * @return
+     */
+    public boolean connectedSpecifal(String address) {
+        for (int i=0;i<nettyClients.length;i++){
+            if (address.equals(nettyClients[i].getRemoteAddr()) && nettyClients[i].isConnected()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     public String toString(){
         StringBuffer sb = new StringBuffer();
-        sb.append(" AppCode="+this.targetAppCode);
+        sb.append(" appCode="+this.targetAppCode).append(" closed=").append(this.closed).append(" [");
         for(int i=0;i<nettyClients.length;i++){
             NettyClient c = nettyClients[i];
-            sb.append(" ").append(c.getRemoteAddr()).append("-").append(c.isConnected());
+            sb.append(" ").append(c.getRemoteAddr()).append("- connected:").append(c.isConnected());
         }
+        sb.append("]");
         return sb.toString();
     }
 

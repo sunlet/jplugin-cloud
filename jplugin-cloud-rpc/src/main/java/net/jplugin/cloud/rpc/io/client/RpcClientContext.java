@@ -19,16 +19,21 @@ class RpcClientContext {
 
 
 	public static Object invokeExecute(ClientChannelHandler channel, String srvName, Method method, Object[] args, String serializeType, InvocationParam invocationParam)
-			throws Exception {
+			 {
+		return invokeExecute(channel, srvName, method.getName(), method.getGenericParameterTypes(),args, serializeType, invocationParam);
+	}
+
+	public static Object invokeExecute(ClientChannelHandler channel, String srvName, String methodName,Type[] argsType, Object[] args, String serializeType, InvocationParam invocationParam)
+			 {
 		CallFuture<?> cf = null;
 		try {
-			Type[] argsType = method.getGenericParameterTypes();
+//			Type[] argsType = method.getGenericParameterTypes();
 
 			RpcMessage<RpcRequest> request = RpcMessage.create(RpcMessage.TYPE_CLIENT_REQ);
 			request.header(RpcMessage.HEADER_SERIAL_TYPE, serializeType);
 			RpcRequest body = new RpcRequest();
 			body.setUri(srvName);
-			body.setMethodName(method.getName());
+			body.setMethodName(methodName);
 			body.setArguments(args);
 			body.setGenericTypes(argsType);
 			request.body(body);
@@ -38,20 +43,22 @@ class RpcClientContext {
 			boolean async = false;
 			if (invocationParam!=null) {
 				callback = invocationParam.getRpcCallback();
-				async = invocationParam.getRpcAsync();
+				async = invocationParam.getRpcAsync()!=null &&  invocationParam.getRpcAsync();
 			}
 
 			cf = channel.asyncSend(request, async, callback);
 
 //			cf = IoUtils.write(serializeType, channel, srvName, method.getName(), argsType, args);
 		} catch (Exception e) {
-			logger.error("调用[serviceName=" + srvName + ",methodName=" + method.getName() + "]异常：" + e);
+			logger.error("调用[serviceName=" + srvName + ",methodName=" + methodName + "]异常：" + e);
 			throw e;
 		}
 		if (cf != null) {
 			try {
 				cf.setTimeout(getRpcTimeout(invocationParam));
 				return cf.getVal();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
 			} finally {
 				channel.futureManager.removeFuture(cf.getContextId());
 			}

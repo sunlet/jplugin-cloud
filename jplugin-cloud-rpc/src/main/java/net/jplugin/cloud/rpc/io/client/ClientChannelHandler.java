@@ -17,6 +17,7 @@ import net.jplugin.core.log.api.RefLogger;
 
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.net.SocketAddress;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
@@ -58,9 +59,14 @@ public class ClientChannelHandler extends RefAnnotationSupport {
 //        return RpcClientContext.invokeExecute(this,serviceName, method, args, AbstractMessageBodySerializer.SerializerType.KRYO.name(),invocationParam);
 //    }
 
-    public Object invoke(String serviceName, Method method, Object[] args, InvocationParam invocationParam, AbstractMessageBodySerializer.SerializerType st) throws Exception {
+    public Object invoke(String serviceName, Method method, Object[] args, InvocationParam invocationParam, AbstractMessageBodySerializer.SerializerType st){
 //        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_JSON_REQ,invocationParam);
         return RpcClientContext.invokeExecute(this,serviceName, method, args, st.name(),invocationParam);
+    }
+
+    public Object invoke(String serviceName, String methodName, Type[] argsType, Object[] args, InvocationParam invocationParam, AbstractMessageBodySerializer.SerializerType st){
+//        return RpcClientContext.invokeExecute(this,serviceName, method, args, IMessageBodySerializer.TYPE_JSON_REQ,invocationParam);
+        return RpcClientContext.invokeExecute(this,serviceName, methodName,argsType, args, st.name(),invocationParam);
     }
 
 

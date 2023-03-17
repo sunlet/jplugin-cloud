@@ -27,6 +27,12 @@ public abstract  class AbstractClientHandler implements IClientHandler {
 	 */
 	@SuppressWarnings("rawtypes")
 	public Object invoke(Client client, Object proxy, Method method, Object[] args, AbstractMessageBodySerializer.SerializerType serializerType) throws Throwable {
+		//要把tostring和hashcode过滤掉，否则调试时会有问题
+		if ("toString".equals(method.getName()) && method.getParameterCount()==0)
+			return this.toString();
+		if ("hashCode".equals(method.getName()) && method.getParameterCount()==0)
+			return this.hashCode();
+
 
 		String serviceURL = client.getServiceBaseUrl();
 		Tuple2<String, String> urlParseResult = RpcUrlKit.parseEsfUrlInfo(serviceURL);
@@ -136,5 +142,6 @@ public abstract  class AbstractClientHandler implements IClientHandler {
 //			return null;
 //		}
 	}
+
 
 }

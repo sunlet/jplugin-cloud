@@ -126,7 +126,7 @@ public class RpcClientManager {
         //最长等15秒
         for (int i=0;i<30;i++) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(200);
 //                System.out.print(". ");
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -150,7 +150,8 @@ public class RpcClientManager {
             }
         }
 
-        throw new RuntimeException("ESF client start failed! "+getClientStatus());
+        PluginEnvirement.INSTANCE.getStartLogger().log("\nESF Client start failed. subscrib status:"+getClientStatus());
+
     }
 
     private String getClientStatus() {

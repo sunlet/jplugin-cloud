@@ -10,6 +10,7 @@ import net.jplugin.cloud.common.CloudPluginPriority;
 import net.jplugin.cloud.rpc.server.imp.RpcServerManager;
 import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.PluginAnnotation;
+import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.core.service.api.BindService;
 import net.jplugin.core.service.api.RefService;
 
@@ -57,6 +58,8 @@ public class Plugin extends AbstractPlugin {
 //            instance.setMetadata(instanceMeta);
     
             namingService.registerInstance(CloudEnvironment.INSTANCE._composeAppCode(), instance);
+
+            PluginEnvirement.INSTANCE.getStartLogger().log("服务向Nacos注册完毕:"+CloudEnvironment.INSTANCE._composeAppCode());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
