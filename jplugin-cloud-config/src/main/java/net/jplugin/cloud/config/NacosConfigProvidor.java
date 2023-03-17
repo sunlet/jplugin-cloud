@@ -29,6 +29,8 @@ public final class NacosConfigProvidor implements IConfigProvidor {
     
     private final Logger log = LoggerFactory.getLogger(getClass());
     
+    private static final String APP_CONFIG = "APP-CONFIG";
+    
     private final ConfigProcessor processor = ConfigProcessor.me();
     
     private final ConfigService configService;
@@ -36,6 +38,10 @@ public final class NacosConfigProvidor implements IConfigProvidor {
     private final String appcode;
     
     private final String serviceCode;
+    
+    private final ConcurrentMap<String, Properties> appPropertiesCache;
+    
+    private final ConcurrentMap<String, String> appCache;
     
     private final ConcurrentMap<String, Properties> propertiesCache;
     
@@ -51,6 +57,8 @@ public final class NacosConfigProvidor implements IConfigProvidor {
         this.serviceCode = CloudEnvironment.INSTANCE.getServiceCode();
         this.propertiesCache = new ConcurrentHashMap<>();
         this.cache = new ConcurrentHashMap<>();
+        this.appPropertiesCache = new ConcurrentHashMap<>();
+        this.appCache = new ConcurrentHashMap<>();
         try {
             //init nacos config
             Properties properties = new Properties();
@@ -66,19 +74,27 @@ public final class NacosConfigProvidor implements IConfigProvidor {
     
     private void initConfig() {
         try {
-//            //模拟登录
-//            this.processor.login();
+            //            //模拟登录
+            //            this.processor.login();
             
-            //获取本项目的配置
+            //获取本服务的配置
             Tuple2<Map<String, Properties>, Map<String, String>> myConfigData = this.processor.initConifgData(
-                    CloudEnvironment.INSTANCE.getAppCode());
+                    CloudEnvironment.INSTANCE.getAppCode(), CloudEnvironment.INSTANCE.getServiceCode());
+            //获取appcode级配置
+            Tuple2<Map<String, Properties>, Map<String, String>> appConfigData = this.processor.initConifgData(
+                    CloudEnvironment.INSTANCE.getAppCode(), APP_CONFIG);
+            
+            //存入配置
+            this.appPropertiesCache.putAll(appConfigData.first);
+            this.appCache.putAll(appConfigData.second);
             this.propertiesCache.putAll(myConfigData.first);
             this.cache.putAll(myConfigData.second);
             
+            //增加服务级配置监听
             this.propertiesCache.keySet().forEach(k -> {
                 try {
                     this.configService.addListener(CloudEnvironment.INSTANCE.getServiceCode(), k,
-                            new ConfigChangeListener(k));
+                            new ConfigChangeListener(CloudEnvironment.INSTANCE.getServiceCode(), k));
                 } catch (NacosException e) {
                     log.error("增加监听器异常", e);
                     throw new RuntimeException(e);
@@ -87,7 +103,27 @@ public final class NacosConfigProvidor implements IConfigProvidor {
             this.cache.keySet().forEach(k -> {
                 try {
                     this.configService.addListener(CloudEnvironment.INSTANCE.getServiceCode(), k,
-                            new ConfigChangeListener(k));
+                            new ConfigChangeListener(CloudEnvironment.INSTANCE.getServiceCode(), k));
+                } catch (NacosException e) {
+                    log.error("增加监听器异常", e);
+                    throw new RuntimeException(e);
+                }
+            });
+    
+            //增加应用级配置监听
+            this.appPropertiesCache.keySet().forEach(k -> {
+                try {
+                    this.configService.addListener(APP_CONFIG, k,
+                            new ConfigChangeListener(APP_CONFIG, k));
+                } catch (NacosException e) {
+                    log.error("增加监听器异常", e);
+                    throw new RuntimeException(e);
+                }
+            });
+            this.appCache.keySet().forEach(k -> {
+                try {
+                    this.configService.addListener(APP_CONFIG, k,
+                            new ConfigChangeListener(APP_CONFIG, k));
                 } catch (NacosException e) {
                     log.error("增加监听器异常", e);
                     throw new RuntimeException(e);
@@ -102,33 +138,65 @@ public final class NacosConfigProvidor implements IConfigProvidor {
     @Override
     public String getConfigValue(String key) {
         String group = StringUtils.substringBefore(key, ".");
+        //服务级配置优先 start
         Properties properties = this.propertiesCache.get(group);
         if (null != properties) {
             String subKey = StringUtils.substringAfter(key, ".");
             return (String) properties.get(subKey);
-        } else {
-            return this.cache.get(key);
         }
+        String value = this.cache.get(group);
+        if (null != value) {
+            return value;
+        }
+        //服务级配置优先 end
+        
+        //应用级
+        Properties appProperties = this.appPropertiesCache.get(group);
+        if (null != appProperties) {
+            String subKey = StringUtils.substringAfter(key, ".");
+            return (String) appProperties.get(subKey);
+        }
+        return this.appCache.get(group);
     }
     
     @Override
     public boolean containsConfig(String key) {
         String group = StringUtils.substringBefore(key, ".");
+        //服务级配置优先 start
         Properties properties = this.propertiesCache.get(group);
         if (null != properties) {
             String subKey = StringUtils.substringAfter(key, ".");
             return properties.containsKey(subKey);
-        } else {
-            return this.cache.containsKey(key);
         }
+        boolean containsKey = this.cache.containsKey(group);
+        if (containsKey) {
+            return true;
+        }
+        //服务级配置优先 end
+    
+        //应用级
+        Properties appProperties = this.appPropertiesCache.get(group);
+        if (null != appProperties) {
+            String subKey = StringUtils.substringAfter(key, ".");
+            return appProperties.containsKey(subKey);
+        }
+        return this.appCache.containsKey(group);
     }
     
     @Override
     public Map<String, String> getStringConfigInGroup(String key) {
         String group = StringUtils.substringBefore(key, ".");
+        //服务级配置优先 start
         Properties properties = this.propertiesCache.get(group);
         if (null != properties) {
             return Maps.fromProperties(properties);
+        }
+        //服务级配置优先 end
+    
+        //应用级
+        Properties appProperties = this.appPropertiesCache.get(group);
+        if (null != appProperties) {
+            return Maps.fromProperties(appProperties);
         }
         return null;
     }
@@ -136,28 +204,39 @@ public final class NacosConfigProvidor implements IConfigProvidor {
     @Override
     public Set<String> getGroups() {
         Set<String> result = new HashSet<>();
+        result.addAll(this.appPropertiesCache.keySet());
+        result.addAll(this.appCache.keySet());
         result.addAll(this.propertiesCache.keySet());
         result.addAll(this.cache.keySet());
         return result;
     }
     
-    public void updateConfig(String groupId, String data) {
+    public void updateConfig(String dataId, String groupId, String data) {
         try {
-            if (this.propertiesCache.containsKey(groupId)) {
-                Properties properties = new Properties();
-                properties.load(new StringReader(data));
-                this.propertiesCache.put(groupId, properties);
+            if (dataId.equals(APP_CONFIG)) {
+                if (this.appPropertiesCache.containsKey(groupId)) {
+                    Properties properties = new Properties();
+                    properties.load(new StringReader(data));
+                    this.appPropertiesCache.put(groupId, properties);
+                } else {
+                    this.appCache.put(groupId, data);
+                }
             } else {
-                this.cache.put(groupId, data);
+                if (this.propertiesCache.containsKey(groupId)) {
+                    Properties properties = new Properties();
+                    properties.load(new StringReader(data));
+                    this.propertiesCache.put(groupId, properties);
+                } else {
+                    this.cache.put(groupId, data);
+                }
             }
         } catch (Exception e) {
-            log.error("更新配置异常，配置组:" + groupId, e);
+            log.error("更新配置异常，dataId：" + dataId + "，配置组:" + groupId, e);
         }
     }
     
     
     private static final class NacosConfigProvidorHandler {
-        
         private static final NacosConfigProvidor ME = new NacosConfigProvidor();
     }
 }

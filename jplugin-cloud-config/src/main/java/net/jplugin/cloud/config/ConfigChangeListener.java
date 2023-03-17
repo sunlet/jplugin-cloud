@@ -11,9 +11,11 @@ import java.util.concurrent.Executor;
 public final class ConfigChangeListener implements Listener {
     
     private static final Logger log = LoggerFactory.getLogger(ConfigChangeListener.class);
+    private final String dataId;
     private final String groupid;
     
-    public ConfigChangeListener(String groupid) {
+    public ConfigChangeListener(String dataId, String groupid) {
+        this.dataId = dataId;
         this.groupid = groupid;
     }
     
@@ -28,7 +30,7 @@ public final class ConfigChangeListener implements Listener {
             log.debug("配置发生变更，groupid = {}", this.groupid);
             log.debug("变更后值为:{}", configInfo);
         }
-        NacosConfigProvidor.me().updateConfig(this.groupid, configInfo);
+        NacosConfigProvidor.me().updateConfig(this.dataId, this.groupid, configInfo);
         ConfigureChangeManager.instance.fireConfigChange(Lists.newArrayList(this.groupid));
     }
 }

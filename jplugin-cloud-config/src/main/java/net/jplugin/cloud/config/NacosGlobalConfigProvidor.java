@@ -26,6 +26,7 @@ import java.util.concurrent.ConcurrentMap;
 public final class NacosGlobalConfigProvidor implements IConfigProvidor {
     
     private final Logger log = LoggerFactory.getLogger(getClass());
+    private static final String GLOBAL_CONFIG = "GLOBAL-CONFIG";
     
     private ConfigProcessor processor = ConfigProcessor.me();
     
@@ -56,7 +57,7 @@ public final class NacosGlobalConfigProvidor implements IConfigProvidor {
     private void initConfig() {
         try {
             //获取公共配置
-            Tuple2<Map<String, Properties>, Map<String, String>> publicConfigData = this.processor.initConifgData("");
+            Tuple2<Map<String, Properties>, Map<String, String>> publicConfigData = this.processor.initConifgData("", GLOBAL_CONFIG);
             this.propertiesCache.putAll(publicConfigData.first);
         } catch (Exception e) {
             throw new RuntimeException(e);

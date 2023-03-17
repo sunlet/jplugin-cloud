@@ -67,7 +67,7 @@ public final class ConfigProcessor {
         return this.token;
     }
     
-    public Tuple2<Map<String, Properties>, Map<String, String>> initConifgData(String tenant) throws Exception {
+    public Tuple2<Map<String, Properties>, Map<String, String>> initConifgData(String tenant, String dataId, String group) throws Exception {
         Map<String, Properties> propertiesMap = new HashMap<>();
         Map<String, String> map = new HashMap<>();
         
@@ -75,12 +75,20 @@ public final class ConfigProcessor {
         url += "?pageNo=1";
         url += "&pageSize=100";
         url += "&search=accurate";
-        url += "&dataId=";
-        url += "&group=";
+        if (null != dataId) {
+            url += "&dataId=" + dataId;
+        } else {
+            url += "&dataId=";
+        }
+        if (null != group) {
+            url += "&group=" + group;
+        } else {
+            url += "&group=";
+        }
         url += "&tenant=" + tenant;
         url += "&accessToken=" + this.token;//登录token
         url += "&username=" + CloudEnvironment.INSTANCE.getNacosUser();
-    
+        
         HttpRestResult<String> restResult = template.get(url, Header.EMPTY,
                 Query.EMPTY, String.class);
         if (!restResult.ok()) {
@@ -93,17 +101,25 @@ public final class ConfigProcessor {
         while (elements.hasNext()) {
             JsonNode node = elements.next();
             String content = node.get("content").asText();
-            String group = node.get("group").asText();
+            String g = node.get("group").asText();
             String type = node.get("type").asText();
             if (ConfigType.PROPERTIES.getType().equals(type)) {
                 Properties properties = new Properties();
                 properties.load(new StringReader(content));
-                propertiesMap.put(group, properties);
+                propertiesMap.put(g, properties);
             } else {
-                map.put(group, content);
+                map.put(g, content);
             }
         }
         return Tuple2.with(propertiesMap, map);
+    }
+    
+    public Tuple2<Map<String, Properties>, Map<String, String>> initConifgData(String tenant, String dataId) throws Exception {
+        return initConifgData(tenant, dataId, null);
+    }
+    
+    public Tuple2<Map<String, Properties>, Map<String, String>> initConifgData(String tenant) throws Exception {
+        return initConifgData(tenant, null);
     }
     
     
