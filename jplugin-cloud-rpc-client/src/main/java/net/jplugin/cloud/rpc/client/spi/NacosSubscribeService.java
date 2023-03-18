@@ -7,7 +7,7 @@ import com.alibaba.nacos.api.naming.listener.Event;
 import com.alibaba.nacos.api.naming.listener.EventListener;
 import com.alibaba.nacos.api.naming.listener.NamingEvent;
 import com.alibaba.nacos.api.naming.pojo.Instance;
-import net.jplugin.cloud.common.CloudEnvironment;
+import net.jplugin.core.config.api.CloudEnvironment;
 import net.jplugin.core.kernel.api.BindExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

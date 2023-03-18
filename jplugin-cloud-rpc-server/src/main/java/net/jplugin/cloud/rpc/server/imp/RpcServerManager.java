@@ -1,7 +1,7 @@
 package net.jplugin.cloud.rpc.server.imp;
 
-import net.jplugin.cloud.common.CloudEnvironment;
 import net.jplugin.cloud.rpc.io.server.NettyServer;
+import net.jplugin.core.config.api.CloudEnvironment;
 import net.jplugin.core.config.api.RefConfig;
 import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.core.service.api.BindService;
@@ -20,7 +20,7 @@ public class RpcServerManager {
 
     public void start() {
         PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC Server starting...");
-        this.port = Integer.parseInt(CloudEnvironment.INSTANCE.getRpcPort());
+        this.port = Integer.parseInt(CloudEnvironment.INSTANCE._getRpcPortWithEmbbedTomcat());
         nettyServer = new NettyServer(port,boss,workers);
         nettyServer.boostrap();
         PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC Server starting success");

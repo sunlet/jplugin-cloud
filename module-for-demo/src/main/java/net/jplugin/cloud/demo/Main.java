@@ -1,9 +1,6 @@
 package net.jplugin.cloud.demo;
 
-import net.jplugin.cloud.common.CloudEnvironment;
 import net.jplugin.core.kernel.PluginApp;
-
-import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {

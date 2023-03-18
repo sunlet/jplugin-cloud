@@ -1,10 +1,8 @@
 package net.jplugin.cloud.rpc.client.api;
 
-import net.jplugin.cloud.common.CloudEnvironment;
-import net.jplugin.cloud.rpc.client.annotation.BindRemoteServiceProxy;
+import net.jplugin.core.config.api.CloudEnvironment;
 import net.jplugin.core.kernel.api.AbstractPlugin;
 
-import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.core.rclient.ExtendsionClientHelper;
 import net.jplugin.core.rclient.api.Client;
 

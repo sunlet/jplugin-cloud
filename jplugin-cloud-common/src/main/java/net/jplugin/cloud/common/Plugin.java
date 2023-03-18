@@ -1,5 +1,6 @@
 package net.jplugin.cloud.common;
 
+import net.jplugin.core.config.api.CloudEnvironment;
 import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.PluginAnnotation;
 

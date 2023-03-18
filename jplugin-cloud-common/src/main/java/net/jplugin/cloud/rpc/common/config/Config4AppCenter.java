@@ -1,8 +1,8 @@
 package net.jplugin.cloud.rpc.common.config;
 
-import net.jplugin.cloud.common.CloudEnvironment;
 //import net.jplugin.cloud.rpc.common.BasicConfiguration;
 import net.jplugin.cloud.rpc.common.constant.ConfigConstants;
+import net.jplugin.core.config.api.CloudEnvironment;
 import net.jplugin.core.config.api.ConfigFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

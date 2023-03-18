@@ -16,8 +16,8 @@ import com.alibaba.nacos.plugin.auth.spi.client.ClientAuthService;
 import com.alibaba.nacos.shaded.com.google.common.collect.Lists;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import net.jplugin.cloud.common.CloudEnvironment;
 import net.jplugin.common.kits.tuple.Tuple2;
+import net.jplugin.core.config.api.CloudEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

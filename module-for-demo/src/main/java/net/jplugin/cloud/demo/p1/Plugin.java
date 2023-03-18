@@ -6,6 +6,8 @@ import net.jplugin.cloud.rpc.client.api.RpcContextManager;
 import net.jplugin.cloud.rpc.client.imp.RpcClientManager;
 import net.jplugin.cloud.rpc.client.imp.RpcServiceClient;
 import net.jplugin.common.kits.ReflactKit;
+import net.jplugin.core.config.api.ConfigFactory;
+import net.jplugin.core.config.api.GlobalConfigFactory;
 import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.PluginAnnotation;
 import net.jplugin.core.rclient.api.Client;
@@ -36,12 +38,20 @@ public class Plugin extends AbstractPlugin {
 //            e.printStackTrace();
 //        }
 
+        //测试配置获取
+        System.out.println(ConfigFactory.getStringConfig("database.url"));
+
+        //测试全局配置
+        String config = GlobalConfigFactory.getValueInDefaultGroup("DEFAULT_GROUP.aaa");
+        System.out.println(config);
+
+        //测试服务调用
         System.out.println(" now to call ............");
         System.out.println(" now to call ............");
         System.out.println(" now to call ............");
         System.out.println(" haha  ............");
 
-        RpcContext ctx = ctxManager.getServiceContext("app1:servicenode1");
+        RpcContext ctx = ctxManager.getServiceContext("app1:servicecode1");
         Object result = ctx.invoke("/svc1", "greet", new String[]{"dududu"});
         System.out.println("通过context调用结果："+result);
 
