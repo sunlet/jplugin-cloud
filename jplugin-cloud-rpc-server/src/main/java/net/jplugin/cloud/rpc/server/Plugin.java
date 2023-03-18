@@ -6,6 +6,7 @@ import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import net.jplugin.cloud.common.CloudPluginPriority;
 import net.jplugin.cloud.rpc.server.imp.RpcServerManager;
+import net.jplugin.common.kits.IpKit;
 import net.jplugin.core.config.api.CloudEnvironment;
 import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.PluginAnnotation;
@@ -61,6 +62,7 @@ public class Plugin extends AbstractPlugin {
     }
     
     private String getIp() throws UnknownHostException {
-        return InetAddress.getLocalHost().getHostAddress();
+        return IpKit.getLocalIp();
+//        return InetAddress.getLocalHost().getHostAddress();
     }
 }
