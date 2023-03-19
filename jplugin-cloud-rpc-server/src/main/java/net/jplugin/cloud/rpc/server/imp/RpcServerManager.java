@@ -20,7 +20,7 @@ public class RpcServerManager {
 
     public void start() {
         PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC Server starting...");
-        this.port = Integer.parseInt(CloudEnvironment.INSTANCE._getRpcPortWithEmbbedTomcat());
+        this.port = Integer.parseInt(CloudEnvironment.INSTANCE.getRpcPort());
         nettyServer = new NettyServer(port,boss,workers);
         nettyServer.boostrap();
         PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC Server starting success");

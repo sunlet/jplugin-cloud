@@ -9,11 +9,11 @@ import net.jplugin.common.kits.client.InvocationParam;
 
 import java.lang.reflect.Type;
 
-public class RpcContext {
+public class RpcNodeContext {
     private final RpcServiceClient client;
     private final String remoteAddr;
 
-    public RpcContext(RpcServiceClient aClient, String aRemoteAddr){
+    public RpcNodeContext(RpcServiceClient aClient, String aRemoteAddr){
         this.client = aClient;
         this.remoteAddr = aRemoteAddr;
     }
@@ -45,23 +45,14 @@ public class RpcContext {
         return client.invokeRpc(serviceName, methodName, argsType,args, st);
     }
 
-    public Object invoke(String serviceName, String methodName, Object[] args){
-        Type[] types = new Type[args.length];
 
-        for (int i=0;i<types.length;i++){
-            AssertKit.assertNotNull(args[i],"arg");
-            types[i] = args[i].getClass();
-        }
+    public Object invoke(String serviceName, String methodName, Object[] args){
+        Type[] types = Util.getTypes(args);
         return invokeInner(serviceName,methodName,types,args, AbstractMessageBodySerializer.SerializerType.KRYO);
     }
 
     public Object invoke4Json(String serviceName, String methodName, Object[] args) {
-        Type[] types = new Type[args.length];
-
-        for (int i=0;i<types.length;i++){
-            AssertKit.assertNotNull(args[i],"arg");
-            types[i] = args[i].getClass();
-        }
+        Type[] types = Util.getTypes(args);
         return invokeInner(serviceName,methodName,types,args, AbstractMessageBodySerializer.SerializerType.JSON);
     }
 }

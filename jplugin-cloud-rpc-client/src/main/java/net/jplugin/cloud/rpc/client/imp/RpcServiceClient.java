@@ -1,6 +1,6 @@
 package net.jplugin.cloud.rpc.client.imp;
 
-import net.jplugin.cloud.rpc.client.api.RpcContext;
+import net.jplugin.cloud.rpc.client.api.RpcNodeContext;
 import net.jplugin.cloud.rpc.client.kits.Util;
 import net.jplugin.cloud.rpc.io.client.NettyClient;
 import net.jplugin.cloud.rpc.io.message.RpcMessage;
@@ -45,25 +45,25 @@ public class RpcServiceClient extends RefAnnotationSupport {
     Logger logger;
 
 
-    public List<RpcContext> _getRpcContextList(){
-        return Arrays.stream(nettyClients).map(nc->{return new RpcContext(this,nc.getRemoteAddr());}).collect(Collectors.toList());
+    public List<RpcNodeContext> _getRpcContextList(){
+        return Arrays.stream(nettyClients).map(nc->{return new RpcNodeContext(this,nc.getRemoteAddr());}).collect(Collectors.toList());
     }
 
-    public RpcContext _getRpcContext(String ip){
+    public RpcNodeContext _getRpcContext(String ip){
         for (int i=0;i<nettyClients.length;i++){
             NettyClient nc = nettyClients[i];
             if (ip.equals(nc.getRemoteHostIp())){
-                return new RpcContext(this, nc.getRemoteAddr());
+                return new RpcNodeContext(this, nc.getRemoteAddr());
             }
         }
         return null;
     }
 
-    public RpcContext _getRpcContext(String ip, int port){
+    public RpcNodeContext _getRpcContext(String ip, int port){
         for (int i=0;i<nettyClients.length;i++){
             NettyClient nc = nettyClients[i];
             if (ip.equals(nc.getRemoteHostIp()) && port==nc.getRemoteHostPort()){
-                return new RpcContext(this, nc.getRemoteAddr());
+                return new RpcNodeContext(this, nc.getRemoteAddr());
             }
         }
         return null;
