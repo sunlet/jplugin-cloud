@@ -1,11 +1,10 @@
 package net.jplugin.cloud.demo.p1;
 
 import net.jplugin.cloud.rpc.client.annotation.RefRemoteServiceProxy;
-import net.jplugin.cloud.rpc.client.api.RpcNodeContext;
+import net.jplugin.cloud.rpc.client.api.NodeContext;
 import net.jplugin.cloud.rpc.client.api.RpcContextManager;
-import net.jplugin.cloud.rpc.client.api.RpcServiceContext;
+import net.jplugin.cloud.rpc.client.api.ServiceContext;
 import net.jplugin.cloud.rpc.client.imp.RpcClientManager;
-import net.jplugin.cloud.rpc.client.imp.RpcServiceClient;
 import net.jplugin.core.config.api.ConfigFactory;
 import net.jplugin.core.config.api.GlobalConfigFactory;
 import net.jplugin.core.kernel.api.AbstractPlugin;
@@ -48,13 +47,14 @@ public class Plugin extends AbstractPlugin {
         System.out.println(" now to call ............");
         System.out.println(" haha  ............");
 
-        RpcServiceContext ctx = ctxManager.getServiceContext("app1:servicecode1");
+        ServiceContext ctx = ctxManager.getServiceContext("app1:servicecode1");
         Object result = ctx.invoke("/svc1", "greet", new String[]{"dududu"});
         System.out.println("通过context调用结果："+result);
 
         //通过Context调用
-        List<RpcNodeContext> ctxList = ctxManager.getNodeContextList("app1:servicecode1");
-        result = ctxList.get(0).invoke("/svc1", "greet", new String[]{"mememe"});
+        List<NodeContext> ctxList = ctxManager.getNodeContextList("app1:servicecode1");
+//        InvocationContext invokctx = InvocationContext.create("/svc1", "greet", new Object[]{"mememe"}, AbstractMessageBodySerializer.SerializerType.KRYO);
+        result = ctxList.get(0).invoke("/svc1", "greet", new Object[]{"mememe"});
         System.out.println("通过context调用结果："+result);
 
         //通过proxy调用

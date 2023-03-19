@@ -1,12 +1,11 @@
 package net.jplugin.cloud.rpc.client.imp;
 
-import net.jplugin.cloud.rpc.client.api.RpcNodeContext;
+import net.jplugin.cloud.rpc.io.api.InvocationContext;
+import net.jplugin.cloud.rpc.client.api.NodeContext;
 import net.jplugin.cloud.rpc.client.kits.Util;
 import net.jplugin.cloud.rpc.io.client.NettyClient;
 import net.jplugin.cloud.rpc.io.message.RpcMessage;
-import net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer;
 import net.jplugin.common.kits.StringKit;
-import net.jplugin.common.kits.client.ClientInvocationManager;
 import net.jplugin.common.kits.client.InvocationParam;
 import net.jplugin.common.kits.tuple.Tuple2;
 import net.jplugin.core.config.api.RefConfig;
@@ -14,8 +13,6 @@ import net.jplugin.core.kernel.api.RefAnnotationSupport;
 import net.jplugin.core.log.api.Logger;
 import net.jplugin.core.log.api.RefLogger;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -45,38 +42,38 @@ public class RpcServiceClient extends RefAnnotationSupport {
     Logger logger;
 
 
-    public List<RpcNodeContext> _getRpcContextList(){
-        return Arrays.stream(nettyClients).map(nc->{return new RpcNodeContext(this,nc.getRemoteAddr());}).collect(Collectors.toList());
+    public List<NodeContext> _getRpcContextList(){
+        return Arrays.stream(nettyClients).map(nc->{return new NodeContext(this,nc.getRemoteAddr());}).collect(Collectors.toList());
     }
 
-    public RpcNodeContext _getRpcContext(String ip){
+    public List<String> getAddressList(){
+        return Arrays.stream(nettyClients).map(nc->{return nc.getRemoteAddr();}).collect(Collectors.toList());
+    }
+
+    public NodeContext _getRpcContext(String ip){
         for (int i=0;i<nettyClients.length;i++){
             NettyClient nc = nettyClients[i];
             if (ip.equals(nc.getRemoteHostIp())){
-                return new RpcNodeContext(this, nc.getRemoteAddr());
+                return new NodeContext(this, nc.getRemoteAddr());
             }
         }
         return null;
     }
 
-    public RpcNodeContext _getRpcContext(String ip, int port){
+    public NodeContext _getRpcContext(String ip, int port){
         for (int i=0;i<nettyClients.length;i++){
             NettyClient nc = nettyClients[i];
             if (ip.equals(nc.getRemoteHostIp()) && port==nc.getRemoteHostPort()){
-                return new RpcNodeContext(this, nc.getRemoteAddr());
+                return new NodeContext(this, nc.getRemoteAddr());
             }
         }
         return null;
     }
 
 
-    public Object invokeRpc(String serviceName, Method method, Object[] args, AbstractMessageBodySerializer.SerializerType serializerType) throws Exception {
-        return invokeRpc(serviceName, method.getName(), method.getGenericParameterTypes(), args, serializerType);
-    }
-
-    public Object invokeRpc(String serviceName, String methodName, Type[] argsType, Object[] args, AbstractMessageBodySerializer.SerializerType serializerType){
+    public Object invokeRpc(InvocationContext ctx){
         //获取并清除 Param参数
-        InvocationParam invocationParam = ClientInvocationManager.INSTANCE.getAndClearParam();
+        InvocationParam invocationParam = ctx.getParam();
 
         //检查状态，如果必要open
         checkStateAndOpen(invocationParam==null? null:invocationParam.getServiceAddress());
@@ -88,8 +85,30 @@ public class RpcServiceClient extends RefAnnotationSupport {
         NettyClient client = getClient(invocationParam);
 
         //调用
-        return client.getClientChannelHandler().invoke(serviceName, methodName, argsType,args,invocationParam,serializerType);
+        return client.getClientChannelHandler().invoke(ctx);
+
     }
+
+//    public Object invokeRpc(InvocationParam param,String serviceName, Method method, Object[] args, AbstractMessageBodySerializer.SerializerType serializerType) throws Exception {
+//        return invokeRpc(param,serviceName, method.getName(), method.getGenericParameterTypes(), args, serializerType);
+//    }
+//
+//    public Object invokeRpc(InvocationParam param,String serviceName, String methodName, Type[] argsType, Object[] args, AbstractMessageBodySerializer.SerializerType serializerType){
+//        //获取并清除 Param参数
+//        InvocationParam invocationParam = ClientInvocationManager.INSTANCE.getAndClearParam();
+//
+//        //检查状态，如果必要open
+//        checkStateAndOpen(invocationParam==null? null:invocationParam.getServiceAddress());
+//
+//        //设置上次时间
+//        lastExecuteTime.set(System.currentTimeMillis());
+//
+//        //找到一个合适的client
+//        NettyClient client = getClient(invocationParam);
+//
+//        //调用
+//        return client.getClientChannelHandler().invoke(serviceName, methodName, argsType,args,invocationParam,serializerType);
+//    }
 
 
 

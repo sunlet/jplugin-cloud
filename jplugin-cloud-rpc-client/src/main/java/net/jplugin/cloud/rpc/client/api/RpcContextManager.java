@@ -13,15 +13,15 @@ public class RpcContextManager {
     @RefService
     RpcClientManager clientManager;
 
-    public RpcServiceContext getServiceContext(String appcode){
+    public ServiceContext getServiceContext(String appcode){
         RpcServiceClient serviceClient = clientManager.getServiceClient(appcode);
         if (serviceClient==null){
             throw new RuntimeException("appcode "+appcode +" is not subscribed");
         }
-        return new RpcServiceContext(serviceClient);
+        return new ServiceContext(serviceClient);
     }
 
-    public  List<RpcNodeContext> getNodeContextList(String appcode){
+    public  List<NodeContext> getNodeContextList(String appcode){
         RpcServiceClient serviceClient = clientManager.getServiceClient(appcode);
         if (serviceClient==null){
             throw new RuntimeException("appcode "+appcode +" is not subscribed");
@@ -29,7 +29,7 @@ public class RpcContextManager {
         return serviceClient._getRpcContextList();
     }
 
-    public RpcNodeContext getNodeContext(String appcode, String ip, int port){
+    public NodeContext getNodeContext(String appcode, String ip, int port){
         RpcServiceClient serviceClient = clientManager.getServiceClient(appcode);
         if (serviceClient==null){
             throw new RuntimeException("appcode "+appcode +" is not subscribed");
@@ -37,7 +37,7 @@ public class RpcContextManager {
         return serviceClient._getRpcContext(ip, port);
     }
 
-    public RpcNodeContext getNodeContext(String appcode, String ip){
+    public NodeContext getNodeContext(String appcode, String ip){
         RpcServiceClient serviceClient = clientManager.getServiceClient(appcode);
         if (serviceClient==null){
             throw new RuntimeException("appcode "+appcode +" is not subscribed");

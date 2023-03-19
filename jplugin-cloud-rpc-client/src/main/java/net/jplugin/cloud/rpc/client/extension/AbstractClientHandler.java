@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import net.jplugin.cloud.rpc.client.imp.RpcClientManager;
 import net.jplugin.cloud.rpc.client.imp.RpcServiceClient;
 import net.jplugin.cloud.rpc.client.kits.RpcUrlKit;
+import net.jplugin.cloud.rpc.io.api.InvocationContext;
 import net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer;
 import net.jplugin.common.kits.tuple.Tuple2;
 import net.jplugin.core.service.api.RefService;
@@ -39,7 +40,8 @@ public abstract  class AbstractClientHandler implements IClientHandler {
 		String appCode = urlParseResult.first;
 
 		RpcServiceClient serviceClient = clientManager.getServiceClient(appCode);
-		return serviceClient.invokeRpc(urlParseResult.second, method, args,serializerType);
+		InvocationContext ctx = InvocationContext.create(urlParseResult.second,method,args,serializerType);
+		return serviceClient.invokeRpc(ctx);
 
 
 //		String serverIp = null;
