@@ -1,7 +1,8 @@
 package net.jplugin.cloud.rpc.client;
 
 import net.jplugin.cloud.common.CloudPluginPriority;
-import net.jplugin.cloud.rpc.client.annotation.BindRemoteServiceProxy;
+import net.jplugin.cloud.rpc.client.annotation.BindRemoteService;
+import net.jplugin.cloud.rpc.client.annotation.Protocol;
 import net.jplugin.cloud.rpc.client.extension.EsfRemoteServiceAnnoHandler;
 import net.jplugin.cloud.rpc.client.api.ExtensionESFHelper;
 import net.jplugin.cloud.rpc.client.extension.RpcClientHandler;
@@ -23,15 +24,15 @@ public class Plugin extends AbstractPlugin {
 
     static {
         try {
-            AutoBindExtensionManager.INSTANCE.addBindExtensionTransformer(BindRemoteServiceProxy.class, (p,clazz,anno)->{
-                BindRemoteServiceProxy theAnno = (BindRemoteServiceProxy) anno;
-                if (theAnno.protocol()== BindRemoteServiceProxy.ProxyProtocol.rpc){
+            AutoBindExtensionManager.INSTANCE.addBindExtensionTransformer(BindRemoteService.class, (p, clazz, anno)->{
+                BindRemoteService theAnno = (BindRemoteService) anno;
+                if (theAnno.protocol()== Protocol.rpc){
                     ExtensionESFHelper.addRPCProxyExtension(p, clazz, theAnno.url());
 
                     PluginEnvirement.INSTANCE.getStartLogger().log("$$$ Auto add extension for remote service proxy : protocol="
                             + theAnno.protocol() + ",url=" + theAnno.url() + ",class=" + clazz.getName());
                 }else
-                    if (theAnno.protocol() == BindRemoteServiceProxy.ProxyProtocol.rpc_json) {
+                    if (theAnno.protocol() == Protocol.rpc_json) {
                         ExtensionESFHelper.addRpcJsonProxyExtension(p, clazz, theAnno.url());
 
                         PluginEnvirement.INSTANCE.getStartLogger().log("$$$ Auto add extension for remote service proxy : protocol="

@@ -8,15 +8,11 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.TYPE })
-public @interface BindRemoteServiceProxy {
+public @interface BindRemoteService {
 
     public String url();
 
-    public ProxyProtocol protocol();
-
-    public enum ProxyProtocol {
-//        rest,
-        rpc, rpc_json;
-    }
-
+    public Protocol protocol() default Protocol.rpc;
 }
+
+

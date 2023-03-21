@@ -1,6 +1,6 @@
 package net.jplugin.cloud.demo.p1;
 
-import net.jplugin.cloud.rpc.client.annotation.RefRemoteServiceProxy;
+import net.jplugin.cloud.rpc.client.annotation.RefRemoteService;
 import net.jplugin.cloud.rpc.client.api.NodeContext;
 import net.jplugin.cloud.rpc.client.api.RpcContextManager;
 import net.jplugin.cloud.rpc.client.api.ServiceContext;
@@ -17,7 +17,7 @@ import java.util.List;
 @PluginAnnotation
 public class Plugin extends AbstractPlugin {
 
-    @RefRemoteServiceProxy
+    @RefRemoteService
     IService1 s1Field;
 //
     @RefService
