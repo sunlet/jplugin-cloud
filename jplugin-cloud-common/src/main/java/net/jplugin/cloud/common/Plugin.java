@@ -9,7 +9,7 @@ public class Plugin extends AbstractPlugin {
     public static void prepare(){
         //xxxxx
 
-        CloudEnvironment.INSTANCE.loadFromConfig();
+//        CloudEnvironment.INSTANCE.loadFromConfig();
     }
 
     @Override
