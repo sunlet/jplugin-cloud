@@ -1,5 +1,6 @@
 package net.jplugin.cloud.common;
 
+import net.jplugin.cloud.common.api.AppEnvirement;
 import net.jplugin.core.config.api.CloudEnvironment;
 import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.PluginAnnotation;
@@ -10,6 +11,7 @@ public class Plugin extends AbstractPlugin {
         //xxxxx
 
 //        CloudEnvironment.INSTANCE.loadFromConfig();
+        AppEnvirement.init();
     }
 
     @Override
