@@ -248,7 +248,9 @@ public class RpcServiceClient extends RefAnnotationSupport {
      * 启动的时候直接传入host
      */
     public synchronized void start() {
-        System.out.println("$$$$$$$$$$$$$ ServiceClient started1:"+this.toString());
+        if (logger.isInfoEnabled()) {
+            logger.info("ServiceClient begin starte:" + this.toString());
+        }
 
         this.closed = false;
 
@@ -262,7 +264,9 @@ public class RpcServiceClient extends RefAnnotationSupport {
             }
         }
 
-        System.out.println("$$$$$$$$$$$$$ ServiceClient started2:"+this.toString());
+        if (logger.isInfoEnabled()) {
+            logger.info("ServiceClient started:" + this.toString());
+        }
     }
 
     @RefConfig(path = "cloud-rpc.client-workers-for-channel",defaultValue = "1")

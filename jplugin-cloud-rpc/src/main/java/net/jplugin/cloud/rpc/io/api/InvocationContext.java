@@ -108,6 +108,12 @@ public class InvocationContext {
     long startTime;
     public void doStart() {
         this.startTime = System.currentTimeMillis();
+
+        if (logger.isInfoEnabled()){
+            StringBuffer sb = new StringBuffer();
+            sb.append("$$ InvokeBegin , ctx=").append(getContextString4Begin());
+            logger.info(sb.toString());
+        }
     }
 
     public void doSuccess(Object result) {
@@ -123,9 +129,16 @@ public class InvocationContext {
         else return result.getClass().getName();
     }
 
+    private String getContextString4Begin() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("").append(this.serviceName).append("/").append(this.methodName).append("|").append(this.serializerType.name());
+        sb.append("|").append(getParamString(param));
+        return sb.toString();
+    }
+
     private String getContextString() {
         StringBuffer sb = new StringBuffer();
-        sb.append(this.remoteAddr).append("|").append(this.serviceName).append("|").append(this.methodName).append("|").append(this.serializerType.name());
+        sb.append(this.remoteAddr).append("|").append(this.serviceName).append("/").append(this.methodName).append("|").append(this.serializerType.name());
         sb.append("|").append(getParamString(param));
         return sb.toString();
     }
@@ -134,7 +147,7 @@ public class InvocationContext {
         StringBuffer sb = new StringBuffer("{");
         if (param==null) return "";
         if (param.getRpcAsync()!=null) sb.append("rpcAsync-").append(param.getRpcAsync()).append(",");
-        if (param.getServiceAddress()!=null) sb.append("serviceAddress-").append(param.getServiceAddress()).append(",");
+        if (param.getServiceAddress()!=null) sb.append("designatNode-").append(param.getServiceAddress()).append(",");
         sb.append("timeout-").append(param.getServiceTimeOut()).append(",");
         if (param.getRpcCallback()!=null) sb.append(" callback-").append(param.getRpcCallback().getClass().getName()).append(",");
         sb.append("}");

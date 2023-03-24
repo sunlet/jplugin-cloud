@@ -5,6 +5,8 @@ import net.jplugin.cloud.rpc.client.api.NodeContext;
 import net.jplugin.cloud.rpc.client.api.RpcContextManager;
 import net.jplugin.cloud.rpc.client.api.ServiceContext;
 import net.jplugin.cloud.rpc.client.imp.RpcClientManager;
+import net.jplugin.common.kits.client.ClientInvocationManager;
+import net.jplugin.common.kits.client.InvocationParam;
 import net.jplugin.core.config.api.ConfigFactory;
 import net.jplugin.core.config.api.GlobalConfigFactory;
 import net.jplugin.core.kernel.api.AbstractPlugin;
@@ -53,9 +55,12 @@ public class Plugin extends AbstractPlugin {
         System.out.println("通过context调用结果："+result);
 
         //通过Context调用
-        List<NodeContext> ctxList = ctxManager.getNodeContextList("app1:servicecode1");
-        result = ctxList.get(0).invoke("/svc1", "greet", new Object[]{"mememe"});
-        System.out.println("通过context调用结果："+result);
+        ClientInvocationManager.INSTANCE.setParam(InvocationParam.create().serviceTimeout(1000));
+        try {
+            List<NodeContext> ctxList = ctxManager.getNodeContextList("app1:servicecode1");
+            result = ctxList.get(0).invoke("/svc1", "greet", new Object[]{"mememe"});
+            System.out.println("通过context调用结果：" + result);
+        }catch(Exception e){e.printStackTrace();}
 
         //通过proxy调用
         IService1 proxy1 = ClientProxyFactory.instance.getClientProxy(IService1.class);
@@ -68,6 +73,14 @@ public class Plugin extends AbstractPlugin {
 //            e.printStackTrace();
 //        }
 
+        ret = s1Field.greet("bilibili");
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$" +ret);
+        ret = s1Field.greet("bilibili");
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$" +ret);
+
+        try {
+            Thread.sleep(10000);
+        }catch(Exception e){}
 
         ret = s1Field.greet("bilibili");
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$" +ret);
