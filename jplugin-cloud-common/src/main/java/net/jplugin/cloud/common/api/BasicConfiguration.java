@@ -62,10 +62,10 @@ public class BasicConfiguration {
 //		String cfgName = KernelKit.getConfigFilePath("basic-config.properties");
 		BasicConfiguration appConfiguration = null;
 		if (useJvmConfiguration()){
-			PluginEnvirement.INSTANCE.getStartLogger().log("$$$Using basic configuration from JVM");
+			PluginEnvirement.INSTANCE.getStartLogger().log("Using basic configuration from JVM");
 			appConfiguration = createFromJvmParam();
 		}else{
-			PluginEnvirement.INSTANCE.getStartLogger().log("$$$Using basic configuration from file");
+			PluginEnvirement.INSTANCE.getStartLogger().log("Using basic configuration from file");
 			appConfiguration = createFromConfigFile();
 		}
 
@@ -88,7 +88,6 @@ public class BasicConfiguration {
 
 			if (StringKit.isNotNull(tomcatPort)) {
 				//如果能够获取到，说明是容器Tocmat
-				PluginEnvirement.INSTANCE.getStartLogger().log("$$$ Set esfPort as [TOMCAT_PORT + 100]");
 				appConfiguration.esfPort = Integer.parseInt(tomcatPort.trim())+100 +"";
 			} else{
 				//2020 -12月修改：如果是嵌入式Tomcat，则延迟设置esf-port，否则抛出异常
@@ -98,11 +97,12 @@ public class BasicConfiguration {
 					throw new RuntimeException("Basic config error:esf-port have null value");
 				}
 			}
+			PluginEnvirement.INSTANCE.getStartLogger().log("Set esfPort as "+appConfiguration.esfPort);
 		}
 		
 //		PluginEnvirement.INSTANCE.getStartLogger().log("$$$ AppCenterUrl=" + appConfiguration.appCenterUrl + "  AppCode=" + appConfiguration.appCode
 //				+ "  ESFPort=" + appConfiguration.esfPort + "  ESFPortHttp="+appConfiguration.esfPortHttp);
-		PluginEnvirement.INSTANCE.getStartLogger().log("$$$ AppCenterUrl=" + appConfiguration.appCenterUrl + "  AppCode=" + appConfiguration.appCode
+		PluginEnvirement.INSTANCE.getStartLogger().log("AppCenterUrl=" + appConfiguration.appCenterUrl + "  AppCode=" + appConfiguration.appCode
 				+ "  ESFPort=" + appConfiguration.esfPort );
 		return appConfiguration;
 	}

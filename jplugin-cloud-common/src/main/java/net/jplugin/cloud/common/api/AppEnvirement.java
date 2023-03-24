@@ -80,8 +80,10 @@ public class AppEnvirement {
 		else init = true;
 
 		if (CloudEnvironment.INSTANCE.hasInit()){
-			PluginEnvirement.INSTANCE.getStartLogger().log("Already Init by CloudEnvirement! ");
+			PluginEnvirement.INSTANCE.getStartLogger().log("$$$ CloudEnvirement has initialized , Mostly because you have a jplugin-cloud.properties  file");
 			return;
+		}else{
+			PluginEnvirement.INSTANCE.getStartLogger().log("$$$ CloudEnvirement is to be initialized by  basic-config file or jvm env.");
 		}
 
 		INSTANCE = new AppEnvirement();

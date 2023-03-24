@@ -99,6 +99,7 @@ public class RpcClientManager {
                     client.maintainConnect(keepSecondsForIdle*1000);
                 });
             }catch(Exception e){
+                logger.error(e);
                 e.printStackTrace();
             }
         }
