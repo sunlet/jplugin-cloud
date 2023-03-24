@@ -72,6 +72,21 @@ public class RpcServiceClient extends RefAnnotationSupport {
 
 
     public Object invokeRpc(InvocationContext ctx){
+        try{
+            ctx.doStart();
+            Object result = invokeRpcInner(ctx);
+            ctx.doSuccess(result);
+            return result;
+        }catch(Throwable th){
+            ctx.doError(th);
+            if (th instanceof RuntimeException){
+                throw (RuntimeException)th;
+            }else{
+                throw new RuntimeException(th);
+            }
+        }
+    }
+    private Object invokeRpcInner(InvocationContext ctx){
         //获取并清除 Param参数
         InvocationParam invocationParam = ctx.getParam();
 
@@ -83,6 +98,8 @@ public class RpcServiceClient extends RefAnnotationSupport {
 
         //找到一个合适的client
         NettyClient client = getClient(invocationParam);
+
+        ctx.setCallerClient(client);
 
         //调用
         return client.getClientChannelHandler().invoke(ctx);
@@ -117,6 +134,10 @@ public class RpcServiceClient extends RefAnnotationSupport {
      * @param serviceAddress
      */
     private void checkStateAndOpen(String serviceAddress) {
+        if (nettyClients.length==0){
+            throw new RuntimeException("No healthy node for "+this.targetAppCode);
+        }
+
         if (closed){
             synchronized (this){
                 if (closed){

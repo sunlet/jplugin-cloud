@@ -45,6 +45,7 @@ public class RpcClientManager {
         Set<String> appcodeList = getSubscribeAppCodeList();
 
         if (!appcodeList.isEmpty()) {
+
             //初始化订阅服务
             clientSubscribeService.initSubscribCodeList(Collections.unmodifiableSet(appcodeList));
 
@@ -52,12 +53,15 @@ public class RpcClientManager {
             appcodeList.forEach(o->{
                 RpcServiceClient serviceClient = new RpcServiceClient(o);
                 Set<String> hostAddrs = clientSubscribeService.getServiceNodesList(o);
+                logServiceClient(o,hostAddrs);
                 serviceClient.updateHosts(hostAddrs);
                 serviceClientMap.put(o,serviceClient);
             });
 
             //初始化订阅监听器
             clientSubscribeService.addServiceNodesChangeListener( (appcode,nodeSet)->{
+                logServiceClient(appcode,nodeSet);
+
                 RpcServiceClient client = serviceClientMap.get(appcode);
                 if (client==null) {
                     RuntimeException ex = new RuntimeException("can't find client:" + client);
@@ -80,10 +84,21 @@ public class RpcClientManager {
             //连接维护
             connectMaintainer.scheduleWithFixedDelay(maintainer, 5000, 5000, TimeUnit.MILLISECONDS);
 
-
             PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC ClientManager started!" + appcodeList.size()+" apps subscrib.");
         }else{
             PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC Client not start ,because no Subscribs !");
+        }
+    }
+
+    private void logServiceClient(String o, Set<String> hostAddrs) {
+        if (logger.isInfoEnabled()){
+            StringBuffer sb = new StringBuffer();
+            sb.append("$$ RPC Client [").append(o).append("], serverNodes=[");
+            for (String ha:hostAddrs){
+                sb.append(ha).append(",");
+            }
+            sb.append("] ");
+            logger.info(sb.toString());
         }
     }
 

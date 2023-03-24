@@ -71,7 +71,7 @@ public class NacosSubscribeService implements IClientSubscribeService {
     public Set<String> getServiceNodesList(String appCode) {
         List<Instance> instances = this.services.get(appCode);
         if (null != instances) {
-            return instances.stream().map(instance -> instance.getIp() + ":" + instance.getPort())
+            return instances.stream().filter(instance -> { return instance.isHealthy();}).map(instance -> instance.getIp() + ":" + instance.getPort())
                     .collect(Collectors.toSet());
         }
         throw new IllegalArgumentException("appcode :" + appCode + "is illegal!");
@@ -99,11 +99,10 @@ public class NacosSubscribeService implements IClientSubscribeService {
                     listener.changed(event.getServiceName(), conversion(event.getInstances()));
                 }
             }
-            
         }
         
         private Set<String> conversion(List<Instance> list) {
-            return list.stream().map(instance -> instance.getIp() + ":" + instance.getPort())
+            return list.stream().filter(instance -> { return instance.isHealthy();}).map(instance -> instance.getIp() + ":" + instance.getPort())
                     .collect(Collectors.toSet());
         }
     }

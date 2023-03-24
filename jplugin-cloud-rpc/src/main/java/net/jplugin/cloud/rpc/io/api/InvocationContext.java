@@ -1,9 +1,12 @@
 package net.jplugin.cloud.rpc.io.api;
 
+import net.jplugin.cloud.rpc.io.client.NettyClient;
 import net.jplugin.cloud.rpc.io.spi.AbstractMessageBodySerializer.SerializerType;
 import net.jplugin.common.kits.AssertKit;
 import net.jplugin.common.kits.client.ClientInvocationManager;
 import net.jplugin.common.kits.client.InvocationParam;
+import net.jplugin.core.log.api.LogFactory;
+import net.jplugin.core.log.api.Logger;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -19,6 +22,7 @@ public class InvocationContext {
      * 指定调用那个地址
      */
     String designateAddress;
+    static Logger logger = LogFactory.getLogger(InvocationContext.class);
 
     public SerializerType getSerializerType() {
         return serializerType;
@@ -98,4 +102,56 @@ public class InvocationContext {
     }
 
 
+    /**
+     * 下面的内容为了记录日志才引入的
+     */
+    long startTime;
+    public void doStart() {
+        this.startTime = System.currentTimeMillis();
+    }
+
+    public void doSuccess(Object result) {
+        if (logger.isInfoEnabled()){
+            StringBuffer sb = new StringBuffer();
+            sb.append("$$ InvokeSuccess , dural=").append(System.currentTimeMillis()-startTime).append(" , ctx=").append(getContextString()).append(" , resultDataType=").append(getResultType(result));
+            logger.info(sb.toString());
+        }
+    }
+
+    private String getResultType(Object result) {
+        if (result==null) return "null";
+        else return result.getClass().getName();
+    }
+
+    private String getContextString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(this.remoteAddr).append("|").append(this.serviceName).append("|").append(this.methodName).append("|").append(this.serializerType.name());
+        sb.append("|").append(getParamString(param));
+        return sb.toString();
+    }
+
+    private String getParamString(InvocationParam param) {
+        StringBuffer sb = new StringBuffer("{");
+        if (param==null) return "";
+        if (param.getRpcAsync()!=null) sb.append("rpcAsync-").append(param.getRpcAsync()).append(",");
+        if (param.getServiceAddress()!=null) sb.append("serviceAddress-").append(param.getServiceAddress()).append(",");
+        sb.append("timeout-").append(param.getServiceTimeOut()).append(",");
+        if (param.getRpcCallback()!=null) sb.append(" callback-").append(param.getRpcCallback().getClass().getName()).append(",");
+        sb.append("}");
+
+        return sb.toString();
+    }
+
+    public void doError(Throwable th) {
+        if (logger.isInfoEnabled()){
+            StringBuffer sb = new StringBuffer();
+            sb.append("$$ InvokeFailed  , dural=").append(System.currentTimeMillis()-startTime).append(" , ctx=").append(getContextString()).append(" , exception=").append(getResultType(th.getMessage()));
+            logger.info(sb.toString());
+        }
+    }
+
+    String remoteAddr;
+    public void setCallerClient(NettyClient client) {
+        remoteAddr = client.getRemoteAddr();
+    }
 }

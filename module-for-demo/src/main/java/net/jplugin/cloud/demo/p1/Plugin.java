@@ -41,10 +41,11 @@ public class Plugin extends AbstractPlugin {
         String config = GlobalConfigFactory.getValueInDefaultGroup("DEFAULT_GROUP.aaa");
         System.out.println(config);
 
+        try {
+            Thread.sleep(2000);
+        }catch(Exception e){}
+
         //测试服务调用
-        System.out.println(" now to call ............");
-        System.out.println(" now to call ............");
-        System.out.println(" now to call ............");
         System.out.println(" haha  ............");
 
         ServiceContext ctx = ctxManager.getServiceContext("app1:servicecode1");
@@ -53,7 +54,6 @@ public class Plugin extends AbstractPlugin {
 
         //通过Context调用
         List<NodeContext> ctxList = ctxManager.getNodeContextList("app1:servicecode1");
-//        InvocationContext invokctx = InvocationContext.create("/svc1", "greet", new Object[]{"mememe"}, AbstractMessageBodySerializer.SerializerType.KRYO);
         result = ctxList.get(0).invoke("/svc1", "greet", new Object[]{"mememe"});
         System.out.println("通过context调用结果："+result);
 
