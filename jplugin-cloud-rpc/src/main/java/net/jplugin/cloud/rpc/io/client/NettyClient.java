@@ -9,9 +9,12 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import net.jplugin.cloud.rpc.io.handler.RpcClientMessageHandler;
 import net.jplugin.cloud.rpc.io.handler.RpcMessageDecoder;
 import net.jplugin.cloud.rpc.io.handler.RpcMessageEncoder;
+import net.jplugin.cloud.rpc.io.message.RpcMessage;
 import net.jplugin.cloud.rpc.io.util.ChannelAttributeUtil;
+import net.jplugin.cloud.rpc.io.util.MessageUtil;
 import net.jplugin.common.kits.AssertKit;
 import net.jplugin.common.kits.ThreadFactoryBuilder;
+import net.jplugin.core.config.api.CloudEnvironment;
 import net.jplugin.core.log.api.LogFactory;
 import net.jplugin.core.log.api.Logger;
 
@@ -201,7 +204,8 @@ public class NettyClient{
 //					closed = false;
 //					trys = 0;
 
-					initChannel(after.channel());
+//					initChannel(after.channel());
+
 					if (logger.isInfoEnabled()) {
 						logger.info("connection success. " + getRemoteAddr());
 					}
@@ -210,6 +214,13 @@ public class NettyClient{
 //					after.channel().pipeline().fireChannelActive();
 //					clientInfo.setTimestamp(System.currentTimeMillis());
 //					after.channel().writeAndFlush(clientInfo);
+
+					//设置NettyClient Attr，此时还没有创建RpcClientMessageHandler
+					ChannelAttributeUtil.setNettyClient(after.channel(),NettyClient.this);
+
+					//发送消息
+					after.channel().writeAndFlush(getClientInfoMessage());
+
 				} else {
 					if (logger.isInfoEnabled()) {
 						logger.info("connection failed. " + getRemoteAddr());
@@ -239,7 +250,12 @@ public class NettyClient{
 //		}
 	}
 
-	private void initChannel(Channel c){
+	private RpcMessage getClientInfoMessage() {
+		RpcMessage msg = MessageUtil.getClientInfoMessage();
+		return msg;
+	}
+
+	public void initChannel(Channel c){
 		AssertKit.assertTrue(c!=null && c.isActive());
 		this.nettyChannel = c;
 

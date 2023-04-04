@@ -2,18 +2,22 @@ package net.jplugin.cloud.rpc.io.handler;
 
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.jplugin.cloud.rpc.io.client.ClientChannelHandler;
+import net.jplugin.cloud.rpc.io.client.NettyClient;
 import net.jplugin.cloud.rpc.io.future.CallFuture;
 //import net.jplugin.cloud.rpc.io.util.ClientContextUtil;
 import net.jplugin.cloud.rpc.io.util.ChannelAttributeUtil;
+import net.jplugin.cloud.rpc.io.util.MessageUtil;
 import net.jplugin.cloud.rpc.io.util.ThreadPoolManager;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import net.jplugin.cloud.rpc.io.message.RpcMessage;
 import net.jplugin.cloud.rpc.io.message.RpcResponse;
+import net.jplugin.common.kits.JsonKit;
 import net.jplugin.common.kits.StringKit;
+import net.jplugin.core.log.api.LogFactory;
+import net.jplugin.core.log.api.Logger;
 import net.jplugin.core.rclient.api.RemoteExecuteException;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Type;
@@ -24,7 +28,7 @@ public class RpcClientMessageHandler extends ChannelInboundHandlerAdapter {
     private ThreadPoolExecutor clientWorks;
     private ThreadPoolExecutor  sendHeartWorkers;
 
-    private static final Logger logger = LoggerFactory.getLogger(RpcClientMessageHandler.class.getName());
+    private static final Logger logger = LogFactory.getLogger(RpcClientMessageHandler.class);
 
 
     public RpcClientMessageHandler() {
@@ -57,7 +61,23 @@ public class RpcClientMessageHandler extends ChannelInboundHandlerAdapter {
     }
 
     private void processServerInfo(RpcMessage message, ChannelHandlerContext ctx) {
-        throw new RuntimeException("not impl");
+        ChannelAttributeUtil.setServerInfo(ctx, message);
+        if (logger.isInfoEnabled()){
+            logger.info("Recept Server info:"+ getServerInfoString(message));
+        }
+
+        //initChannel
+        NettyClient nc = ChannelAttributeUtil.getNettyClient(ctx.channel());
+        if (nc==null) {
+            throw new RuntimeException("Can't find nettyClient in attrs.");
+        }else{
+            nc.initChannel(ctx.channel());
+        }
+
+    }
+
+    private String getServerInfoString(RpcMessage message) {
+        return JsonKit.object2JsonEx(message.getHeader());
     }
 
     private void processServerResponse(ChannelHandlerContext ctx, RpcMessage message) {

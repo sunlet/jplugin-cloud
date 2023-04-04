@@ -3,13 +3,17 @@ package net.jplugin.cloud.rpc.io.handler;
 import io.netty.channel.*;
 import net.jplugin.cloud.rpc.common.util.ExceptionUtils;
 //import net.jplugin.cloud.rpc.io.util.ClientContextUtil;
+import net.jplugin.cloud.rpc.io.util.ChannelAttributeUtil;
+import net.jplugin.cloud.rpc.io.util.MessageUtil;
 import net.jplugin.cloud.rpc.io.util.ThreadPoolManager;
 
 import net.jplugin.cloud.rpc.io.message.RpcMessage;
 import net.jplugin.cloud.rpc.io.message.RpcRequest;
 import net.jplugin.cloud.rpc.io.message.RpcResponse;
+import net.jplugin.common.kits.JsonKit;
 import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.tuple.Tuple2;
+import net.jplugin.core.config.api.CloudEnvironment;
 import net.jplugin.core.log.api.LogFactory;
 import net.jplugin.core.log.api.Logger;
 import net.jplugin.core.rclient.api.RemoteExecuteException;
@@ -52,13 +56,24 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
                 processClientReq(message,ctx);
                 break;
             default:
-                throw new RuntimeException("Unsupport Message Type");
+                throw new RuntimeException("Unsupport Message Type."+message.getMsgType());
         }
     }
 
     private void processClientInfo(ChannelHandlerContext ctx, Object msg) {
-        throw new RuntimeException("not impl");
+        ChannelAttributeUtil.setClientInfo(ctx, (RpcMessage) msg);
+        if (logger.isInfoEnabled()){
+            logger.info("Recept client info:"+getClientInfoString((RpcMessage)msg));
+        }
+        //SEND MESSAGE
+        RpcMessage serverInfoMessage = MessageUtil.getServerInfoMessage();
+        ctx.writeAndFlush(serverInfoMessage);
     }
+
+    private String getClientInfoString(RpcMessage msg) {
+        return JsonKit.object2JsonEx(msg.getHeader());
+    }
+
 
     private void processClientReq(RpcMessage message, ChannelHandlerContext ctx) {
         final long acceptTime = System.currentTimeMillis();
@@ -66,6 +81,11 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
         // 服务请求，保存客户端的基本信息与连接
         if (logger.isDebugEnabled()) {
             logger.debug("收到服务请求 act=" + acceptTime + ",cid=" + message.getHeader().get(RpcMessage.HEADER_REQ_ID));
+        }
+
+        //判断clientrinfo是否已经收到
+        if (ChannelAttributeUtil.getClientInfo(ctx)==null){
+            throw new RuntimeException("client info is null");
         }
 
         serverWorkers.execute(() -> handleServerMethod(ctx, message,acceptTime));
