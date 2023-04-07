@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.StringReader;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
@@ -35,10 +36,6 @@ public final class NacosConfigProvidor implements IConfigProvidor {
 
     private final ConfigService configService;
 
-    private final String appcode;
-
-    private final String serviceCode;
-
     private final ConcurrentMap<String, Properties> appPropertiesCache;
 
     private final ConcurrentMap<String, String> appCache;
@@ -53,8 +50,6 @@ public final class NacosConfigProvidor implements IConfigProvidor {
     }
 
     private NacosConfigProvidor() {
-        this.appcode = CloudEnvironment.INSTANCE.getAppCode();
-        this.serviceCode = CloudEnvironment.INSTANCE.getModuleCode();
         this.propertiesCache = new ConcurrentHashMap<>();
         this.cache = new ConcurrentHashMap<>();
         this.appPropertiesCache = new ConcurrentHashMap<>();
@@ -185,18 +180,21 @@ public final class NacosConfigProvidor implements IConfigProvidor {
 
     @Override
     public Map<String, String> getStringConfigInGroup(String key) {
+        Map<String, String> result = new HashMap<>();
         String group = StringUtils.substringBefore(key, ".");
-        //服务级配置优先 start
+        //模块级配置优先 start
         Properties properties = this.propertiesCache.get(group);
         if (null != properties) {
-            return Maps.fromProperties(properties);
+            result.putAll(Maps.fromProperties(properties));
+            return result;
         }
         //服务级配置优先 end
 
         //应用级
         Properties appProperties = this.appPropertiesCache.get(group);
         if (null != appProperties) {
-            return Maps.fromProperties(appProperties);
+            result.putAll(Maps.fromProperties(appProperties));
+            return result;
         }
         return null;
     }
