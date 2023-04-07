@@ -156,8 +156,11 @@ public class BasicConfiguration {
 //	}
 
 	private static boolean useJvmConfiguration() {
-		String temp = System.getProperty("app-center-url");
-		return temp!=null && temp.trim()!=null;
+		PluginEnvirement.getInstance().getStartLogger().log("$$$ V3.0.0 not support Read BasicConfig from JVM vars");
+		return false;
+
+//		String temp = System.getProperty("app-center-url");
+//		return temp!=null && temp.trim()!=null;
 	}
 
 	private static BasicConfiguration createFromConfigFile() {
