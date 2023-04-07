@@ -47,11 +47,11 @@
             <artifactId>jplugin-cloud-common</artifactId>
             <version>0.0.2-SNAPSHOT</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>net.jplugin.cloud</groupId>-->
-<!--            <artifactId>jplugin-cloud-config</artifactId>-->
-<!--            <version>0.0.2-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>net.jplugin.cloud</groupId>
+            <artifactId>jplugin-cloud-config</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>net.jplugin.cloud</groupId>
             <artifactId>jplugin-cloud-rpc</artifactId>
@@ -114,7 +114,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>net.jplugin.cloud:jplugin-cloud-common</include>
-<!--                                    <include>net.jplugin.cloud:jplugin-cloud-config</include>-->
+                                    <include>net.jplugin.cloud:jplugin-cloud-config</include>
                                     <include>net.jplugin.cloud:jplugin-cloud-rpc</include>
                                     <include>net.jplugin.cloud:jplugin-cloud-rpc-server</include>
                                     <include>net.jplugin.cloud:jplugin-cloud-rpc-client</include>
@@ -128,12 +128,12 @@
                                         <include>net/**</include>
                                     </includes>
                                 </filter>
-<!--                                <filter>-->
-<!--                                    <artifact>net.jplugin.cloud:jplugin-cloud-config</artifact>-->
-<!--                                    <includes>-->
-<!--                                        <include>net/**</include>-->
-<!--                                    </includes>-->
-<!--                                </filter>-->
+                                <filter>
+                                    <artifact>net.jplugin.cloud:jplugin-cloud-config</artifact>
+                                    <includes>
+                                        <include>net/**</include>
+                                    </includes>
+                                </filter>
                                 <filter>
                                     <artifact>net.jplugin.cloud:jplugin-cloud-rpc</artifact>
                                     <includes>
