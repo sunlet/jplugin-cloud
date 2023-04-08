@@ -48,7 +48,7 @@ public class Plugin extends AbstractPlugin {
             instance.setPort(Integer.parseInt(CloudEnvironment.INSTANCE.getRpcPort()));
             instance.setHealthy(true);
             instance.setWeight(1.0);
-            instance.setEphemeral(false);
+//            instance.setEphemeral(false);
 //            Map<String, String> instanceMeta = new HashMap<>();
 //            instanceMeta.put("site", "et2");
 //            instance.setMetadata(instanceMeta);
