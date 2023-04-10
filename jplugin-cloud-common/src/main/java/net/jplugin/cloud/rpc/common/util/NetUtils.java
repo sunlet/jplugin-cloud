@@ -15,61 +15,60 @@ import java.util.Enumeration;
 import java.util.regex.Pattern;
 
 public class NetUtils {
-
+	
 	private static final Logger logger = LoggerFactory.getLogger(NetUtils.class);
-
+	
 	public static final String LOCALHOST = "127.0.0.1";
-
+	
 	public static final String ANYHOST = "0.0.0.0";
-
+	
 	private static final Pattern ADDRESS_PATTERN = Pattern.compile("^\\d{1,3}(\\.\\d{1,3}){3}\\:\\d{1,5}$");
-
+	
 	public static boolean isValidAddress(String address) {
 		return ADDRESS_PATTERN.matcher(address).matches();
 	}
-
+	
 	private static final Pattern LOCAL_IP_PATTERN = Pattern.compile("127(\\.\\d{1,3}){3}$");
-
+	
 	public static boolean isLocalHost(String host) {
 		return host != null && (LOCAL_IP_PATTERN.matcher(host).matches() || host.equalsIgnoreCase("localhost"));
 	}
-
+	
 	public static boolean isAnyHost(String host) {
 		return "0.0.0.0".equals(host);
 	}
-
+	
 	public static boolean isInvalidLocalHost(String host) {
-		return host == null || host.length() == 0 || host.equalsIgnoreCase("localhost") || host.equals("0.0.0.0")
-				|| (LOCAL_IP_PATTERN.matcher(host).matches());
+		return host == null || host.length() == 0 || host.equalsIgnoreCase("localhost") || host.equals("0.0.0.0") || (LOCAL_IP_PATTERN.matcher(host).matches());
 	}
-
+	
 	public static boolean isValidLocalHost(String host) {
 		return !isInvalidLocalHost(host);
 	}
-
+	
 	public static InetSocketAddress getLocalSocketAddress(String host, int port) {
 		return isInvalidLocalHost(host) ? new InetSocketAddress(port) : new InetSocketAddress(host, port);
 	}
-
+	
 	private static final Pattern IP_PATTERN = Pattern.compile("\\d{1,3}(\\.\\d{1,3}){3,5}$");
-
+	
 	private static boolean isValidAddress(InetAddress address) {
 		if (address == null || address.isLoopbackAddress())
 			return false;
 		String name = address.getHostAddress();
 		return (name != null && !ANYHOST.equals(name) && !LOCALHOST.equals(name) && IP_PATTERN.matcher(name).matches());
 	}
-
+	
 	public static String getLocalHost() {
 		InetAddress address = getLocalAddress();
 		return address == null ? LOCALHOST : address.getHostAddress();
 	}
-
+	
 	private static volatile InetAddress LOCAL_ADDRESS = null;
-
+	
 	/**
 	 * 遍历本地网卡，返回第一个合理的IP。
-	 * 
+	 *
 	 * @return 本地网卡IP
 	 */
 	public static InetAddress getLocalAddress() {
@@ -79,7 +78,7 @@ public class NetUtils {
 		LOCAL_ADDRESS = localAddress;
 		return localAddress;
 	}
-
+	
 	private static InetAddress getLocalAddress0() {
 		InetAddress localAddress = null;
 		try {
@@ -120,23 +119,30 @@ public class NetUtils {
 		logger.warn("Could not get local host ip address, will use 127.0.0.1 instead.");
 		return localAddress;
 	}
-
+	
+	
+	//ip地址正则
+	private static final String IP_REGEX = "^((25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))$";
+	
 	/**
 	 * 获取本地外网IP地址
-	 * 
+	 *
 	 * @return
 	 */
 	public static String getLocalIp() {
-		StringBuilder ip = new StringBuilder();
+		StringBuilder loaclip = new StringBuilder();
+		StringBuilder serverip = new StringBuilder();
 		try {
 			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
 				NetworkInterface intf = en.nextElement();
 				for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
 					InetAddress inetAddress = enumIpAddr.nextElement();
-					if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress()
-							&& inetAddress.isSiteLocalAddress()) {
-						if (intf.getDisplayName().indexOf("Virtual") < 0) {
-							ip.append(inetAddress.getHostAddress() + ",");
+					if (!inetAddress.isLoopbackAddress() && !inetAddress.isLinkLocalAddress() && inetAddress.isSiteLocalAddress() && Pattern.matches(IP_REGEX, inetAddress.getHostAddress())) {
+						if (!intf.getDisplayName().contains("Virtual")) {
+							loaclip.append(inetAddress.getHostAddress() + ",");
+						}
+						if (intf.getDisplayName().equals("eth0")) {
+							serverip.append(inetAddress.getHostAddress() + ",");
 						}
 					}
 				}
@@ -144,13 +150,19 @@ public class NetUtils {
 		} catch (SocketException ex) {
 			System.out.println("kmonitor get ip exception: " + ex.getMessage());
 		}
-		String gotIp = ip.toString();
+		
+		if (serverip.length() > 0) {
+			return serverip.toString();
+		}
+		
+		
+		String gotIp = loaclip.toString();
 		if (gotIp.length() > 0) {
 			return gotIp.substring(0, gotIp.lastIndexOf(","));
 		}
 		return null;
 	}
-
+	
 	public static String getHostIp() {
 		String hostname = "UNKNOW";
 		String ip = null;
