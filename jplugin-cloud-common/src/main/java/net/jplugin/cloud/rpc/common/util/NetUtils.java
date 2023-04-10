@@ -158,7 +158,7 @@ public class NetUtils {
 		
 		String gotIp = loaclip.toString();
 		if (gotIp.length() > 0) {
-			return gotIp.substring(0, gotIp.lastIndexOf(","));
+			return gotIp.substring(0, gotIp.indexOf(","));
 		}
 		return null;
 	}
