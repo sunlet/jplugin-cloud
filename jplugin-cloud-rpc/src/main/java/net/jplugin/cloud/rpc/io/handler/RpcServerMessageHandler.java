@@ -11,6 +11,7 @@ import net.jplugin.cloud.rpc.io.message.RpcMessage;
 import net.jplugin.cloud.rpc.io.message.RpcRequest;
 import net.jplugin.cloud.rpc.io.message.RpcResponse;
 import net.jplugin.common.kits.JsonKit;
+import net.jplugin.common.kits.ReflactKit;
 import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.tuple.Tuple2;
 import net.jplugin.core.config.api.CloudEnvironment;
@@ -174,7 +175,9 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
             throw new RuntimeException("uri error, "+uri);
         }
 
-        Method method = Util.getMethod(obj.getClass(), methodName);
+        //获取去除javasist的class
+        Class implClass = ReflactKit.getNonJavaSisSuperClass(obj.getClass());
+        Method method = Util.getMethod(implClass, methodName);
 
         Object[] args = req.getArguments();
         
