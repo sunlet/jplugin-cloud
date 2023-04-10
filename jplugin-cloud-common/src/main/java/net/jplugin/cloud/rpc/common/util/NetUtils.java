@@ -12,6 +12,7 @@ import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
+import java.util.StringJoiner;
 import java.util.regex.Pattern;
 
 public class NetUtils {
@@ -131,7 +132,7 @@ public class NetUtils {
 	 */
 	public static String getLocalIp() {
 		StringBuilder loaclip = new StringBuilder();
-		StringBuilder serverip = new StringBuilder();
+		String serverip = "";
 		try {
 			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
 				NetworkInterface intf = en.nextElement();
@@ -142,7 +143,7 @@ public class NetUtils {
 							loaclip.append(inetAddress.getHostAddress() + ",");
 						}
 						if (intf.getDisplayName().equals("eth0")) {
-							serverip.append(inetAddress.getHostAddress() + ",");
+							serverip = inetAddress.getHostAddress();
 						}
 					}
 				}
@@ -152,7 +153,7 @@ public class NetUtils {
 		}
 		
 		if (serverip.length() > 0) {
-			return serverip.toString();
+			return serverip;
 		}
 		
 		
