@@ -23,6 +23,10 @@ import java.util.Properties;
 public class Plugin extends AbstractPlugin {
     
     private static final Logger log = LoggerFactory.getLogger(Plugin.class);
+    
+    private static final String USERNAME = "nacos";
+    private static final String PASSWORD = "nacos";
+    private static final String NAMESPACE = "public";
 
     @RefService
     RpcServerManager server;
@@ -41,10 +45,10 @@ public class Plugin extends AbstractPlugin {
     private void registerService() {
         try {
             Properties properties = new Properties();
-            properties.put(PropertyKeyConst.USERNAME, CloudEnvironment.INSTANCE.getNacosUser());
-            properties.put(PropertyKeyConst.PASSWORD, CloudEnvironment.INSTANCE.getNacosPwd());
+            properties.put(PropertyKeyConst.USERNAME, USERNAME);
+            properties.put(PropertyKeyConst.PASSWORD, PASSWORD);
             properties.put(PropertyKeyConst.SERVER_ADDR, CloudEnvironment.INSTANCE.getNacosUrl());
-            properties.put(PropertyKeyConst.NAMESPACE, CloudEnvironment.INSTANCE.getAppCode());
+            properties.put(PropertyKeyConst.NAMESPACE, NAMESPACE);
             final NamingService namingService = NacosFactory.createNamingService(properties);
             Instance instance = new Instance();
             instance.setIp(getIp());

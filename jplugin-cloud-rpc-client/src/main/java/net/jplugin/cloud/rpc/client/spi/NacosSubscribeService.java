@@ -25,6 +25,10 @@ public class NacosSubscribeService implements IClientSubscribeService {
     
     private final Logger log = LoggerFactory.getLogger(getClass());
     
+    private static final String USERNAME = "nacos";
+    private static final String PASSWORD = "nacos";
+    private static final String NAMESPACE = "public";
+    
     private final ConcurrentMap<String, List<Instance>> services = new ConcurrentHashMap<>();
     
     private static final List<Instance> EMPTY_LIST = new ArrayList<>(0);
@@ -36,12 +40,15 @@ public class NacosSubscribeService implements IClientSubscribeService {
         if (null != appCodes && !appCodes.isEmpty()) {
             try {
                 Properties properties = new Properties();
-                properties.put(PropertyKeyConst.USERNAME, CloudEnvironment.INSTANCE.getNacosUser());
-                properties.put(PropertyKeyConst.PASSWORD, CloudEnvironment.INSTANCE.getNacosPwd());
+                properties.put(PropertyKeyConst.USERNAME, USERNAME);
+                properties.put(PropertyKeyConst.PASSWORD, PASSWORD);
                 properties.put(PropertyKeyConst.SERVER_ADDR, CloudEnvironment.INSTANCE.getNacosUrl());
-                properties.put(PropertyKeyConst.NAMESPACE, CloudEnvironment.INSTANCE.getAppCode());
+                properties.put(PropertyKeyConst.NAMESPACE, NAMESPACE);
                 final NamingService namingService = NacosFactory.createNamingService(properties);
                 for (String appcode : appCodes) {
+                    if (log.isInfoEnabled()) {
+                        log.info("init subscribe serviceName:{}", appcode);
+                    }
                     namingService.subscribe(appcode, new NacosEventListener());
                 }
                 for (int i = 0; i < 30; i++) {
@@ -71,7 +78,7 @@ public class NacosSubscribeService implements IClientSubscribeService {
     public Set<String> getServiceNodesList(String appCode) {
         List<Instance> instances = this.services.get(appCode);
         if (null != instances) {
-            return instances.stream().filter(instance -> { return instance.isHealthy();}).map(instance -> instance.getIp() + ":" + instance.getPort())
+            return instances.stream().filter(Instance::isHealthy).map(instance -> instance.getIp() + ":" + instance.getPort())
                     .collect(Collectors.toSet());
         }
         throw new IllegalArgumentException("appcode :" + appCode + "is illegal!");
@@ -84,10 +91,20 @@ public class NacosSubscribeService implements IClientSubscribeService {
     
     class NacosEventListener implements EventListener {
         
+        private final Logger log = LoggerFactory.getLogger(NacosEventListener.class);
         
         @Override
         public void onEvent(Event e) {
             NamingEvent event = (NamingEvent) e;
+            
+            if (log.isInfoEnabled()) {
+                if (null == event.getInstances() || event.getInstances().isEmpty()) {
+                    log.info("onEvent serviceName:{}, instance is Empty.", event.getServiceName());
+                } else {
+                    log.info("onEvent serviceName:{}, instance {}.", event.getServiceName(), event.getInstances());
+                }
+            }
+            
             if (null == event.getInstances() || event.getInstances().isEmpty()) {
                 services.put(event.getServiceName(), EMPTY_LIST);
                 if (null != listener) {
@@ -102,7 +119,7 @@ public class NacosSubscribeService implements IClientSubscribeService {
         }
         
         private Set<String> conversion(List<Instance> list) {
-            return list.stream().filter(instance -> { return instance.isHealthy();}).map(instance -> instance.getIp() + ":" + instance.getPort())
+            return list.stream().filter(Instance::isHealthy).map(instance -> instance.getIp() + ":" + instance.getPort())
                     .collect(Collectors.toSet());
         }
     }
