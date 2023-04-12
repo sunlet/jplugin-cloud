@@ -44,6 +44,8 @@ public class RpcClientManager {
         //获取订阅的appcode列表
         Set<String> appcodeList = getSubscribeAppCodeList();
 
+        appcodeList.addAll(getExtendSubscribs());
+
         if (!appcodeList.isEmpty()) {
 
             //初始化订阅服务
@@ -88,6 +90,19 @@ public class RpcClientManager {
         }else{
             PluginEnvirement.INSTANCE.getStartLogger().log("$$$ RPC Client not start ,because no Subscribs !");
         }
+    }
+
+    @RefConfig(path="cloud-rpc.extend-subscribe",defaultValue="1800")
+    private String extendSubscribe;
+    private List getExtendSubscribs() {
+        List ret = new ArrayList();
+        if (!StringKit.isNull(extendSubscribe)){
+            String[] list = StringKit.splitStr(extendSubscribe.trim(), ",");
+            for (String s:list){
+                ret.add(s);
+            }
+        }
+        return ret;
     }
 
     private void logServiceClient(String o, Set<String> hostAddrs) {
