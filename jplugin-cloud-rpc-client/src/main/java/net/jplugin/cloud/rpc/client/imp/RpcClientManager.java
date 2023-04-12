@@ -92,7 +92,7 @@ public class RpcClientManager {
         }
     }
 
-    @RefConfig(path="cloud-rpc.extend-subscribe",defaultValue="1800")
+    @RefConfig(path="cloud-rpc.extend-subscribe")
     private String extendSubscribe;
     private List getExtendSubscribs() {
         List ret = new ArrayList();
