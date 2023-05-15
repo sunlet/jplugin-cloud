@@ -33,6 +33,8 @@ public final class RpcMessage<T> {
     public final static short TYPE_CLIENT_HEART_BEAT = (short) 0x000E;
     public final static short TYPE_SERVER_HEART_BEAT = (short) 0x000F;
 
+    public static final short TYPE_MSG_DOCODE_ERROR = (short) 0x0010;
+
     public final static String HEADER_CLIENT_APPCODE = "client-app-code";
     public final static String HEADER_CLIENT_SERVICECODE = "client-service-code";
     public final static String HEADER_SERIAL_TYPE = "serial-type";
@@ -40,6 +42,8 @@ public final class RpcMessage<T> {
     public static final String HEADER_TENANT_ID = "tenant-id";
     public static final String HEADER_GLOBAL_REQ_ID ="g-req-id" ;
 
+    public static final String HEADER_ERROR_INFO ="error-info" ;
+    public static final String HEADER_DECODE_ERROR_MSG_FROM ="docode-error-msg-from" ;
 
 
 

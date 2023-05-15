@@ -93,21 +93,21 @@ public class JsonBodySerializer4Request extends AbstractMessageBodySerializer {
     }
 
     private void writeTypes(ByteBufOutputStream stream, Type[] genericTypes) throws IOException {
-        Type[] serialAbleTypes = getSerialAbleTypes(genericTypes);
+        Type[] serialAbleTypes = TypeUtil.getSerialAbleTypes(genericTypes);
         ObjectOutputStream oos = new ObjectOutputStream(stream);
         oos.writeObject(serialAbleTypes);
     }
 
-    private Type[] getSerialAbleTypes(Type[] genericTypes) {
-        //如果沒有汎型，不處理
-        if (Arrays.stream(genericTypes).filter(o->{return !(o instanceof Serializable);}).count()==0) {
-            return genericTypes;
-        }
-
-        //生成
-        return Arrays.stream(genericTypes).map(o->{
-            return TypeUtil.deepClone(o);
-        }).toArray(Type[]::new);
-    }
+//    private Type[] getSerialAbleTypes(Type[] genericTypes) {
+//        //如果沒有汎型，不處理
+//        if (Arrays.stream(genericTypes).filter(o->{return !(o instanceof Serializable);}).count()==0) {
+//            return genericTypes;
+//        }
+//
+//        //生成
+//        return Arrays.stream(genericTypes).map(o->{
+//            return TypeUtil.deepClone(o);
+//        }).toArray(Type[]::new);
+//    }
 
 }

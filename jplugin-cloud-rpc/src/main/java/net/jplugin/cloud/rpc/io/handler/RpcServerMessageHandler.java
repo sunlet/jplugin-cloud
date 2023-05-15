@@ -14,7 +14,6 @@ import net.jplugin.common.kits.JsonKit;
 import net.jplugin.common.kits.ReflactKit;
 import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.tuple.Tuple2;
-import net.jplugin.core.config.api.CloudEnvironment;
 import net.jplugin.core.log.api.LogFactory;
 import net.jplugin.core.log.api.Logger;
 import net.jplugin.core.rclient.api.RemoteExecuteException;
@@ -56,9 +55,25 @@ public class RpcServerMessageHandler extends ChannelInboundHandlerAdapter {
             case RpcMessage.TYPE_CLIENT_REQ:
                 processClientReq(message,ctx);
                 break;
+            case RpcMessage.TYPE_MSG_DOCODE_ERROR:
+                processDeserializeError(message,ctx);
+                break;
             default:
                 throw new RuntimeException("Unsupport Message Type."+message.getMsgType());
         }
+    }
+
+    private void processDeserializeError(RpcMessage reqMessage, ChannelHandlerContext ctx) {
+        logger.error("$$$$ Server decode error:"+reqMessage.toString());
+
+        long acceptTime = System.currentTimeMillis();
+
+        RpcMessage respMessage = RpcMessage.create(RpcMessage.TYPE_MSG_DOCODE_ERROR)
+                .header(RpcMessage.HEADER_DECODE_ERROR_MSG_FROM, "server-response")
+                .header(RpcMessage.HEADER_ERROR_INFO, (String) reqMessage.getHeader().get(RpcMessage.HEADER_ERROR_INFO));
+
+        //写回返回消息
+        writeResponseMessage(ctx, reqMessage, acceptTime, respMessage);
     }
 
     private void processClientInfo(ChannelHandlerContext ctx, Object msg) {

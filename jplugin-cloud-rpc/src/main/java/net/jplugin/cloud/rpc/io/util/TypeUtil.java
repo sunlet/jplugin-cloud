@@ -10,6 +10,19 @@ import java.util.Objects;
 
 public class TypeUtil{
 
+
+    public static Type[] getSerialAbleTypes(Type[] genericTypes) {
+        //如果沒有汎型，不處理
+        if (Arrays.stream(genericTypes).filter(o->{return !(o instanceof Serializable);}).count()==0) {
+            return genericTypes;
+        }
+
+        //生成
+        return Arrays.stream(genericTypes).map(o->{
+            return TypeUtil.deepClone(o);
+        }).toArray(Type[]::new);
+    }
+
     /**
      * 克隆转换成为能序列化的Type
      * @param temp

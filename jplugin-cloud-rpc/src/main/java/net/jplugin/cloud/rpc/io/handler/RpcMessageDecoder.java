@@ -20,7 +20,15 @@ public class RpcMessageDecoder extends LengthFieldBasedFrameDecoder {
             return null;
         }
 
-        return RpcMessage.deSerialize(frame);
+        RpcMessage msg;
+        try{
+            msg = RpcMessage.deSerialize(frame);
+        }catch(Throwable th){
+            msg = RpcMessage.create(RpcMessage.TYPE_MSG_DOCODE_ERROR)
+                    .header(RpcMessage.HEADER_ERROR_INFO, th.getMessage())
+                    .header(RpcMessage.HEADER_DECODE_ERROR_MSG_FROM, "server-decode");
+        }
+        return msg;
     }
 
     @Override

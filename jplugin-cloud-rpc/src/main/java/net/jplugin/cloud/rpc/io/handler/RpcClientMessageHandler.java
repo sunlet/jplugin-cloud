@@ -6,7 +6,6 @@ import net.jplugin.cloud.rpc.io.client.NettyClient;
 import net.jplugin.cloud.rpc.io.future.CallFuture;
 //import net.jplugin.cloud.rpc.io.util.ClientContextUtil;
 import net.jplugin.cloud.rpc.io.util.ChannelAttributeUtil;
-import net.jplugin.cloud.rpc.io.util.MessageUtil;
 import net.jplugin.cloud.rpc.io.util.ThreadPoolManager;
 
 import io.netty.channel.Channel;
@@ -18,7 +17,6 @@ import net.jplugin.common.kits.StringKit;
 import net.jplugin.core.log.api.LogFactory;
 import net.jplugin.core.log.api.Logger;
 import net.jplugin.core.rclient.api.RemoteExecuteException;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Type;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -51,9 +49,16 @@ public class RpcClientMessageHandler extends ChannelInboundHandlerAdapter {
             case RpcMessage.TYPE_SERVER_HEART_BEAT:
                 processServerHeartBeat(message,ctx);
                 break;
+            case RpcMessage.TYPE_MSG_DOCODE_ERROR:
+                processDeserializeErrorMsg(message,ctx);
+                break;
             default:
                 throw new RuntimeException("Unsupport Message Type");
         }
+    }
+
+    private void processDeserializeErrorMsg(RpcMessage message, ChannelHandlerContext ctx) {
+        logger.error("$$$$ docode message error. "+ message);
     }
 
     private void processServerHeartBeat(RpcMessage message, ChannelHandlerContext ctx) {
