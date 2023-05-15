@@ -47,6 +47,7 @@ public final class NacosGlobalConfigProvidor implements IConfigProvidor {
             properties.put(PropertyKeyConst.USERNAME, CloudEnvironment.INSTANCE.getNacosUser());
             properties.put(PropertyKeyConst.PASSWORD, CloudEnvironment.INSTANCE.getNacosPwd());
             properties.put(PropertyKeyConst.SERVER_ADDR, CloudEnvironment.INSTANCE.getNacosUrl());
+            properties.put(PropertyKeyConst.NAMESPACE, CloudEnvironment.INSTANCE.getAppCode());
             this.configService = NacosFactory.createConfigService(properties);
             initConfig();
         } catch (Exception e) {
