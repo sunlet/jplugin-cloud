@@ -156,8 +156,20 @@ public class BasicConfiguration {
 //	}
 
 	private static boolean useJvmConfiguration() {
-		PluginEnvirement.getInstance().getStartLogger().log("$$$ V3.0.0 not support Read BasicConfig from JVM vars");
-		return false;
+//		PluginEnvirement.getInstance().getStartLogger().log("$$$ V3.0.0 not support Read BasicConfig from JVM vars");
+//		return false;
+
+		String temp = System.getProperty("use-basic-config-from-jvm");
+		if (temp!=null && "true".equals(temp.toLowerCase())){
+			temp = System.getProperty("app-center-url");
+			if (StringKit.isNull(temp)){
+				throw new RuntimeException("use-basic-config-from-jvm is true , but app-center-url is not configed!");
+			}else {
+				return true;
+			}
+		}else{
+			return false;
+		}
 
 //		String temp = System.getProperty("app-center-url");
 //		return temp!=null && temp.trim()!=null;
