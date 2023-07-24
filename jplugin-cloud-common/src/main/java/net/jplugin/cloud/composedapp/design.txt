@@ -1,0 +1,23 @@
+
+1. 聚合的服务，不具有本地配置，只有远程配置。
+2. 从jar找到plugin，从plugin找到appcode、modulecode。
+3. 每一个plugin都能返回自己的appcode，modulecode。
+
+
+1.每一个plugin，如果ComposedAppPlugin，则能自己返回自己的appcode，modulecode。
+2.然后获取配置的时候，就可以根据Plugin所在的appcode modulecode找到对应的远程配置。
+3.注册webasic的时候，自动添加前驱路径appcode modulecode。
+4.注册服务的时候，把对应的appcode modulecode一起注册上去。
+5.对于不是composedappplugin的情况，才使用默认的系统配置。
+
+
+这种方式比较好，应用的代码不用修改：
+1.默认系统系统使用的远程配置，配置一下：每一个jar包，是哪一个appcode modulecode。 系统可以校验一下，这些jar包不能包含plugin之外的类。
+2.每一个plugin类，根据自己所在的jar包，查找自己的appcode和modulecode。
+3.获取配置的时候，就可以自动识别自己的配置的仓库了。
+
+
+
+
+
+
