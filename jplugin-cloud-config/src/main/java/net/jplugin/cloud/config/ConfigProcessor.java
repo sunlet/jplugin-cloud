@@ -16,6 +16,7 @@ import com.alibaba.nacos.plugin.auth.spi.client.ClientAuthService;
 import com.alibaba.nacos.shaded.com.google.common.collect.Lists;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.tuple.Tuple2;
 import net.jplugin.core.config.api.CloudEnvironment;
 import org.slf4j.Logger;
@@ -33,14 +34,30 @@ public final class ConfigProcessor {
     
     private final Logger log = LoggerFactory.getLogger(getClass());
     
-    private final NacosRestTemplate template = new NacosRestTemplate(log, new JdkHttpClientRequest(
-            HttpClientConfig.builder().setConTimeOutMillis(3000).setReadTimeOutMillis(3000).build()));
+    private final NacosRestTemplate template;
     
     private static final String CONFIG_URL = "/v1/cs/configs";
     
     private volatile String token;
     
     private ConfigProcessor() {
+        //默认连接超时时间为60s
+        int conTimeout = 60000;
+        //默认读超时为6s
+        int readTimeout = 6000;
+        //支持通过环境变量来修改
+        String con = System.getProperty("nacos-conTimeout");
+        String read = System.getProperty("nacos-readTimeout");
+        if (StringKit.isNotNullAndBlank(con)) {
+            conTimeout = Integer.parseInt(con);
+        }
+        if (StringKit.isNotNullAndBlank(read)) {
+            readTimeout = Integer.parseInt(read);
+        }
+        
+        this.template = new NacosRestTemplate(log, new JdkHttpClientRequest(
+                HttpClientConfig.builder().setConTimeOutMillis(conTimeout).setReadTimeOutMillis(readTimeout).build()));
+        //登录nacos
         login();
     }
     
