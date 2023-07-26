@@ -1,0 +1,26 @@
+实现方案如下：
+
+1.每一个composedapp的jar包，META-INF/jplugin-component.properties, 包含app-code、module-code两个配置项。
+2.ESF相关的实现机制：
+    1）服务注册时候，同一个实例注册多个服务。 （服务订阅的时候，一个目标服务可能订阅到同一个实例。）
+    2）ExportService扩展时候，注册的路径前面增加  /[APPCODE]~[MODULECODE]
+    3）ESF客户端调用时，增加传入header： target-app。 格式是[APPCODE]:[MODULECODE]
+    4）ESF服务端处理时，根据target-app的header值，转换成 /[APPCODE]~[MODULECODE] 的格式添加到路径前面，查找服务。
+3.配置相关的实现机制：
+    1）Component只拥有远程配置。
+    2）通过CompConfigFactory获取构建级别的配置，如果没有开启构件模式，调用会转向以前的ConfigFactory。 如果开启了构件模式，就一定要查找到构件配置，如果不成功，就抛出异常！
+    3）获取构建配置分为两步：A）获取构件对应的 appcode（含modulecode） B) 通过appcode获取构件在nacos中的配置
+    4）调用过程中获取上面A(构件对应的appcode）的方法：通过当前堆栈上下文获取（常用的方法） or  通过在路径参数前面增加@appcode获取（特殊情况才需要）
+    5）决策：PropertyFilter中使用CompConfigFactory
+    6）决策：数据源自动发现的地方，先处理好，支持多个组件的数据源分开配置，支持多个组件数据源重名的情况。
+    7）决策：kmem的地方，先处理好，以便处理多个应用的cache重名的情况。
+
+    8）备注：ConfigChange这里暂时可以先不管，没细看方案。
+    9）备注：多租户、分库分表等地方比较复杂，先不管，使用默认配置。
+
+
+
+
+
+
+
