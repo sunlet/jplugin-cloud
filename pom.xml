@@ -5,7 +5,7 @@
     <parent>
         <groupId>net.jplugin.pom</groupId>
         <artifactId>base-pom-core</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.1-SNAPSHOT</version>
     </parent>
     <groupId>net.jplugin.cloud</groupId>
     <artifactId>base</artifactId>
